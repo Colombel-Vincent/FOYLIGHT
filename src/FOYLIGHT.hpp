@@ -1,5 +1,5 @@
-#ifndef __FOYLUMIERE_COMMON_HPP__
-#define __FOYLUMIERE_COMMON_HPP__
+#ifndef __FOYLIGHT_COMMON_HPP__
+#define __FOYLIGHT_COMMON_HPP__
 
 // ─────────────────────────────────────────────────────────────
 //					INCLUDE
@@ -22,35 +22,35 @@
 // ─────────────────────────────────────────────────────────────
 
 #ifdef WIN32
-	#ifdef FOYLUMIERE_SHARED	// Shared build
-		#define FOYLUMIERE_API_ __declspec(dllexport)
-	#elif FOYLUMIERE_STATIC 	// No decoration when building staticlly
-		#define FOYLUMIERE_API_
-	#else 				// Link to lib 
-		#define FOYLUMIERE_API_ __declspec(dllimport)
+	#ifdef FOYLIGHT_SHARED	// Shared build
+		#define FOYLIGHT_API_ __declspec(dllexport)
+	#elif FOYLIGHT_STATIC 	// No decoration when building staticlly
+		#define FOYLIGHT_API_
+	#else 				// Link to lib
+		#define FOYLIGHT_API_ __declspec(dllimport)
 	#endif
 #else
-	#define FOYLUMIERE_API_
+	#define FOYLIGHT_API_
 #endif
 
-#ifdef FOYLUMIERE_USE_NAMESPACE
-#ifndef FOYLUMIERE_NAMESPACE
-#define FOYLUMIERE_NAMESPACE Qqhg
+#ifdef FOYLIGHT_USE_NAMESPACE
+#ifndef FOYLIGHT_NAMESPACE
+#define FOYLIGHT_NAMESPACE Qqhg
 #endif
-#define FOYLUMIERE_NAMESPACE_START namespace FOYLUMIERE_NAMESPACE {
-#define FOYLUMIERE_NAMESPACE_END }
-#define FOYLUMIERE_USING_NAMESPACE using namespace FOYLUMIERE_NAMESPACE;
+#define FOYLIGHT_NAMESPACE_START namespace FOYLIGHT_NAMESPACE {
+#define FOYLIGHT_NAMESPACE_END }
+#define FOYLIGHT_USING_NAMESPACE using namespace FOYLIGHT_NAMESPACE;
 #else
-#undef FOYLUMIERE_NAMESPACE
-#define FOYLUMIERE_NAMESPACE
-#define FOYLUMIERE_NAMESPACE_START
-#define FOYLUMIERE_NAMESPACE_END
-#define FOYLUMIERE_USING_NAMESPACE
+#undef FOYLIGHT_NAMESPACE
+#define FOYLIGHT_NAMESPACE
+#define FOYLIGHT_NAMESPACE_START
+#define FOYLIGHT_NAMESPACE_END
+#define FOYLIGHT_USING_NAMESPACE
 #endif
 
-FOYLUMIERE_NAMESPACE_START
+FOYLIGHT_NAMESPACE_START
 
-class FOYLUMIERE_API_ Version
+class FOYLIGHT_API_ Version
 {
 public:
 	/** Library Major Version */
@@ -65,6 +65,6 @@ public:
 	static QString GetVersion();
 };
 
-FOYLUMIERE_NAMESPACE_END
+FOYLIGHT_NAMESPACE_END
 
 #endif

@@ -8,13 +8,13 @@ import QQuickMaterialHelper.Components 1.12
 import QQuickMaterialHelper.Style 1.12
 import QQuickMaterialHelper.Fonts 1.12
 
-ApplicationWindow 
+ApplicationWindow
 {
     id: window
     width: 1080
     height: 720
     visible: true
-	title: "Foy & Lumière"
+	title: "Foy & Light"
 ToolBar{
     id : _topbanner
     width : parent.width
@@ -30,16 +30,16 @@ Label{
 }
 GridLayout{
     anchors.top : _topbanner.bottom
-   
+
     Pane{
         id : _masterFaderPane
         contentHeight : window.height - _topbanner.height - 100
         contentWidth : 150
-        Layout.alignment: Qt.AlignRight 
-      
+        Layout.alignment: Qt.AlignRight
+
         elevation : 10
         radius : 4
-       
+
         GridLayout{
 
          Card{
@@ -53,19 +53,6 @@ GridLayout{
             textType: MaterialStyle.TextType.Body2
         }
 
-            Fader{
-                        Layout.fillWidth: true
-                        Layout.fillHeight: true
-                        id:_testSlider6
-                        from : 0
-                        osc: false
-                        to: MaterialStyle.rawButton.minHeight/2
-                        value: MaterialStyle.rawButton.cornerRadius
-                        stepSize: 1
-                        faderWidth : 2
-                        orientation: Qt.Vertical  
-                        enabled : true
-            }
         }
 
 
@@ -82,12 +69,12 @@ GridLayout{
         elevation : 10
         radius : 4
         ColumnLayout{
-            
+
 
             RaisedButton{
                 text : "Pinte d'anniverssaire"
                 width : 175
-                Layout.alignment: Qt.AlignCenter 
+                Layout.alignment: Qt.AlignCenter
             }
             RaisedButton{
                 text : "Turn up "
@@ -111,7 +98,6 @@ GridLayout{
 
         }
 
-
-    }
+}
 
 

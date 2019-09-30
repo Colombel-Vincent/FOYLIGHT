@@ -1,5 +1,5 @@
 <RCC>
-    <qresource prefix="/FOYLUMIERE/qml">
+    <qresource prefix="/FOYLIGHT/qml">
 
     <file>Main.qml</file>
 

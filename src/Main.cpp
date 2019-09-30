@@ -23,13 +23,13 @@
 #include <QQuickMaterialHelper.hpp>
 
 // QQuickMaterialHelperGallery
-#include <FOYLUMIERE.hpp>
+#include "FOYLIGHT.hpp"
 
 // ─────────────────────────────────────────────────────────────
 //					DECLARATION
 // ─────────────────────────────────────────────────────────────
 
-#define FOYLUMIERE_URI "Foy & lumiere"
+#define FOYLIGHT_URI "Foy & lumiere"
 
 Q_LOGGING_CATEGORY(QQUICKMATERIALHELPERGALLERY_MAIN_LOGGING_CATEGORY, "qquickHelperGallery")
 
@@ -42,16 +42,16 @@ int main(int argc, char *argv[])
 	// ────────── REGISTER APPLICATION ──────────────────────────────────────
 
 	QGuiApplication::setOrganizationName("Vincent");
-	QGuiApplication::setApplicationName("FOY & Lumiere");	
+	QGuiApplication::setApplicationName("FOY & Lumiere");
 	QGuiApplication::setOrganizationDomain("www.qquickhelpergallery.com");
-	QGuiApplication::setApplicationVersion(Qqhg::Version::GetVersion());
+	QGuiApplication::setApplicationVersion("1");
 
-	
+
 
 	// ────────── COMMAND PARSER ──────────────────────────────────────
 
 	QCommandLineParser parser;
-	parser.setApplicationDescription("FOYLUMIERE is an application for control light");
+	parser.setApplicationDescription("FOYLIGHT is an application for control light");
 	parser.addHelpOption();
 	parser.addVersionOption();
 
@@ -65,7 +65,7 @@ int main(int argc, char *argv[])
 	// ────────── SET QML FONT AND RESSOURCES ──────────
 
 	QQuickStyle::setStyle(QStringLiteral("Material"));
-	engine.addImportPath("qrc:///FOYLUMIERE/qml");
+	engine.addImportPath("qrc:///FOYLIGHT/qml");
 	engine.addImportPath("qrc:///");
 
 	// ────────── REGISTER QML TYPE ────────────
@@ -76,8 +76,8 @@ int main(int argc, char *argv[])
 
 	// ────────── LOAD QML MAIN ───────────
 
-	
-	engine.load(QUrl("qrc:/FOYLUMIERE/qml/Main.qml"));
+
+	engine.load(QUrl("qrc:/FOYLIGHT/qml/Main.qml"));
 	if (engine.rootObjects().isEmpty())
 		return -1;
 

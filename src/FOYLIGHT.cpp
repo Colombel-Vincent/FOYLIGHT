@@ -11,13 +11,13 @@
 // Dependancies Header
 
 // Application Header
-#include <FOYLUMIERE.hpp>
+#include "FOYLIGHT.hpp"
 
 // ─────────────────────────────────────────────────────────────
 //					DECLARATION
 // ─────────────────────────────────────────────────────────────
 
-FOYLUMIERE_USING_NAMESPACE
+FOYLIGHT_USING_NAMESPACE
 
 // ─────────────────────────────────────────────────────────────
 //					FUNCTIONS
@@ -30,17 +30,17 @@ uint32_t Version::GetMajor()
 
 uint32_t Version::GetMinor()
 {
-	return FOYLUMIERE_VERSION_MINOR;
+	return FOYLIGHT_VERSION_MINOR;
 }
 
 uint32_t Version::GetPatch()
 {
-	return FOYLUMIERE_VERSION_PATCH;
+	return FOYLIGHT_VERSION_PATCH;
 }
 
 uint32_t Version::GetTag()
 {
-	return FOYLUMIERE_VERSION_TAG_HEX;
+	return FOYLIGHT_VERSION_TAG_HEX;
 }
 
 QString Version::GetVersion()

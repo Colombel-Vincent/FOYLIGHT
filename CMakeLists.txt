@@ -1,194 +1,224 @@
 #
-# Foy-Lumiere  CMake script by Colombel Vincent
+#   FOYLIGHT CMake script by Olivier Le Doeuff
 #
 
 # ┌──────────────────────────────────────────────────────────────────┐
 # │                       CMAKE PROPERTIES                           │
 # └──────────────────────────────────────────────────────────────────┘
 
-CMAKE_MINIMUM_REQUIRED( VERSION 3.1.0 )
+CMAKE_MINIMUM_REQUIRED(VERSION 3.11)
 
 # ┌──────────────────────────────────────────────────────────────────┐
 # │                       PROJECT SETTINGS                           │
 # └──────────────────────────────────────────────────────────────────┘
 
-SET( FOYLIGHT_TARGET "Foy-light" CACHE STRING "Target Name" )
-SET( FOYLIGHT_PROJECT "Foy-light" CACHE STRING "Project Name")
-SET( FOYLIGHT_BUILD_SHARED OFF CACHE BOOL "Build as a shared library" )
-SET( FOYLIGHT_BUILD_STATIC OFF CACHE BOOL "Build as a static library" )
-IF(FOYLIGHT_BUILD_SHARED)
-SET( FOYLIGHT_BUILD_EXE OFF CACHE BOOL "Build as an executable" )
-ELSE(FOYLIGHT_BUILD_SHARED)
-SET( FOYLIGHT_BUILD_EXE ON CACHE BOOL "Build as an executable" )
-ENDIF(FOYLIGHT_BUILD_SHARED)
-SET( FOYLIGHT_USE_NAMESPACE ON CACHE BOOL "Should the library be compiled with a namespace. Default: ON" )
-SET( FOYLIGHT_NAMESPACE "Qqhg" CACHE STRING "Namespace of the library is FOYLIGHT_USE_NAMESPACE is ON. Default : Qqhg" )
+set(FOYLIGHT_TARGET "FOYLIGHT" CACHE STRING "Target Name")
+set(FOYLIGHT_PROJECT "FOYLIGHT" CACHE STRING "Project Name")
+set(FOYLIGHT_BUILD_SHARED OFF CACHE BOOL "Build as a shared library")
+set(FOYLIGHT_BUILD_STATIC OFF CACHE BOOL "Build as a static library")
+if(FOYLIGHT_BUILD_SHARED)
+set(FOYLIGHT_BUILD_EXE OFF CACHE BOOL "Build as an executable")
+else(FOYLIGHT_BUILD_SHARED)
+set(FOYLIGHT_BUILD_EXE ON CACHE BOOL "Build as an executable")
+endif(FOYLIGHT_BUILD_SHARED)
+set(FOYLIGHT_USE_NAMESPACE ON CACHE BOOL "Should the library be compiled with a namespace. Default: ON")
+set(FOYLIGHT_NAMESPACE "FL" CACHE BOOL "Namespace of the library is FOYLIGHT_USE_NAMESPACE is ON. Default : ErMt")
 
-SET( QTANDROIDCMAKE_REPOSITORY "https://github.com/OlivierLDff/QtAndroidCMake.git" CACHE STRING "Repository of QtAndroidCMake" )
-SET( QTANDROIDCMAKE_TAG "master" CACHE STRING "Git Tag of QtAndroidCMake" )
+set(LIBENDIAN_REPOSITORY "https://github.com/OlivierLDff/LibEndian.git" CACHE STRING "Repository of LibEndian")
+set(LIBENDIAN_TAG "master" CACHE STRING "Git Tag of LibEndian")
 
-SET( QTWINDOWSCMAKE_REPOSITORY "https://github.com/OlivierLDff/QtWindowsCMake" CACHE STRING "Repository of QtAndroidCMake" )
-SET( QTWINDOWSCMAKE_TAG "master" CACHE STRING "Git Tag of QtAndroidCMake" )
+set(QQMLMODEL_REPOSITORY "https://github.com/OlivierLDff/QQmlModel.git" CACHE STRING "Repository of QQmlModel")
+set(QQMLMODEL_TAG "master" CACHE STRING "Git Tag of QQmlModel")
 
+set(QSUPERMACROS_REPOSITORY "https://github.com/OlivierLDff/QSuperMacros.git" CACHE STRING "Repository of QSuperMacros")
+set(QSUPERMACROS_TAG "master" CACHE STRING "Git Tag of QSuperMacros")
 
+set(QBC_REPOSITORY "https://github.com/OlivierLDff/QbcInstaller.git" CACHE STRING "Repository of Qbc")
+set(QBC_TAG "master" CACHE STRING "Git Tag of Qbc")
 
-PROJECT( ${FOYLIGHT_PROJECT} )
-SET_PROPERTY(GLOBAL PROPERTY USE_FOLDERS ON)
+set(QTANDROIDCMAKE_REPOSITORY "https://github.com/OlivierLDff/QtAndroidCMake.git" CACHE STRING "Repository of QtAndroidCMake")
+set(QTANDROIDCMAKE_TAG "master" CACHE STRING "Git Tag of QtAndroidCMake")
+
+set(QTWINDOWSCMAKE_REPOSITORY "https://github.com/OlivierLDff/QtWindowsCMake" CACHE STRING "Repository of QtAndroidCMake")
+set(QTWINDOWSCMAKE_TAG "master" CACHE STRING "Git Tag of QtAndroidCMake")
+
+set(QQUICKMATERIALHELPER_REPOSITORY "https://github.com/OlivierLDff/QQuickMaterialHelper.git" CACHE STRING "Repository of QQuickMaterialHelper")
+set(QQUICKMATERIALHELPER_TAG "master" CACHE STRING "Git Tag of QQuickMaterialHelper")
+
+project(${FOYLIGHT_PROJECT})
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 # ────────── PRE BUILD PLATFORM DEPENDANCIES ─────────────
 
-INCLUDE(${CMAKE_CURRENT_SOURCE_DIR}/platform/PreBuildPlatform.cmake)
+include(${CMAKE_CURRENT_SOURCE_DIR}/platform/PreBuildPlatform.cmake)
 
 # ┌──────────────────────────────────────────────────────────────────┐
 # │                         QT5 CMAKE                                │
 # └──────────────────────────────────────────────────────────────────┘
 
 # Find includes in corresponding build directories
-SET( CMAKE_INCLUDE_CURRENT_DIR ON )
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
 # Instruct CMake to run moc automatically when needed
-SET( CMAKE_AUTOMOC ON )
+set(CMAKE_AUTOMOC ON)
  # https://cmake.org/cmake/help/v3.0/prop_tgt/AUTORCC.html#prop_tgt:AUTORCC
-SET( CMAKE_AUTORCC ON )
+set(CMAKE_AUTORCC ON)
 #required by Qt5
-set (CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 11)
 
-# SET(CMAKE_FIND_ROOT_PATH_MODE_PACKAGE BOTH)
+set(CMAKE_FIND_ROOT_PATH_MODE_PACKAGE BOTH)
 
-FIND_PACKAGE(Qt5Core CONFIG REQUIRED ONLY )
-FIND_PACKAGE(Qt5Quick CONFIG REQUIRED ONLY )
-FIND_PACKAGE(Qt5QuickControls2 CONFIG REQUIRED ONLY )
-FIND_PACKAGE(Qt5QuickCompiler CONFIG REQUIRED ONLY )
+find_package(Qt5Core CONFIG REQUIRED CMAKE_FIND_ROOT_PATH_BOTH)
+find_package(Qt5Quick CONFIG REQUIRED CMAKE_FIND_ROOT_PATH_BOTH)
+find_package(Qt5QuickControls2 CONFIG REQUIRED CMAKE_FIND_ROOT_PATH_BOTH)
+find_package(Qt5QuickCompiler CONFIG REQUIRED CMAKE_FIND_ROOT_PATH_BOTH)
 
-SET(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
 # ┌──────────────────────────────────────────────────────────────────┐
 # │                       VERSION                                    │
 # └──────────────────────────────────────────────────────────────────┘
 
 # Project version must be set here
-SET(FOYLIGHT_PROJECT_VERSION_MAJOR 1)
-SET(FOYLIGHT_VERSION_MINOR 1)
-SET(FOYLIGHT_VERSION_PATCH 0)
+set(FOYLIGHT_VERSION_MAJOR 2)
+set(FOYLIGHT_VERSION_MINOR 2)
+set(FOYLIGHT_VERSION_PATCH 0)
 
-IF( EXISTS "${CMAKE_SOURCE_DIR}/.git" )
-  EXECUTE_PROCESS(
-    COMMAND git describe --always
-    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
-    OUTPUT_VARIABLE FOYLIGHT_VERSION_TAG
-    OUTPUT_STRIP_TRAILING_WHITESPACE
-  )
-ENDIF()
+if( EXISTS "${CMAKE_SOURCE_DIR}/.git")
+    EXECUTE_PROCESS(
+        COMMAND git rev-parse --short HEAD
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+        OUTPUT_VARIABLE FOYLIGHT_VERSION_TAG
+        OUTPUT_STRIP_TRAILING_WHITESPACE
+   )
+else()
+    set(FOYLIGHT_VERSION_TAG 00000000)
+endif()
+set(FOYLIGHT_VERSION_TAG_HEX 0x${FOYLIGHT_VERSION_TAG})
+set(FOYLIGHT_VERSION ${FOYLIGHT_VERSION_MAJOR}.${FOYLIGHT_VERSION_MINOR}.${FOYLIGHT_VERSION_PATCH})
 
-IF(NOT FOYLIGHT_VERSION_TAG)
-    SET( FOYLIGHT_VERSION_TAG 00000000 )
-ENDIF(NOT FOYLIGHT_VERSION_TAG)
-SET( FOYLIGHT_VERSION_TAG_HEX 0x${FOYLIGHT_VERSION_TAG})
-SET( FOYLIGHT_VERSION ${FOYLIGHT_VERSION_MAJOR}.${FOYLIGHT_VERSION_MINOR}.${FOYLIGHT_VERSION_PATCH} )
 
 # ┌──────────────────────────────────────────────────────────────────┐
 # │                       STATUS                                     │
 # └──────────────────────────────────────────────────────────────────┘
 
 # ─── GLOBAL ────────
-MESSAGE( STATUS "------ ${FOYLIGHT_TARGET} Configuration ------" )
-MESSAGE( STATUS "FOYLIGHT_BUILD_SHARED           : ${FOYLIGHT_BUILD_SHARED}" )
-MESSAGE( STATUS "FOYLIGHT_BUILD_STATIC           : ${FOYLIGHT_BUILD_STATIC}" )
-MESSAGE( STATUS "FOYLIGHT_EXE              	   : ${FOYLIGHT_BUILD_EXE}" )
-MESSAGE( STATUS "FOYLIGHT_VERSION                : ${FOYLIGHT_VERSION}" )
-MESSAGE( STATUS "FOYLIGHT_VERSION_TAG_HEX        : ${FOYLIGHT_VERSION_TAG_HEX}" )
+message("------ ${FOYLIGHT_TARGET} Configuration ------")
+message(STATUS "FOYLIGHT_BUILD_SHARED           : ${FOYLIGHT_BUILD_SHARED}")
+message(STATUS "FOYLIGHT_BUILD_STATIC           : ${FOYLIGHT_BUILD_STATIC}")
+message(STATUS "FOYLIGHT_BUILD_EXE              : ${FOYLIGHT_BUILD_EXE}")
+message(STATUS "FOYLIGHT_VERSION                : ${FOYLIGHT_VERSION}")
+message(STATUS "FOYLIGHT_VERSION_TAG_HEX        : ${FOYLIGHT_VERSION_TAG_HEX}")
 # ─── NAMESPACE ────────
-MESSAGE( STATUS "FOYLIGHT_USE_NAMESPACE          : ${FOYLIGHT_USE_NAMESPACE}" )
-IF(FOYLIGHT_USE_NAMESPACE)
-MESSAGE( STATUS "FOYLIGHT_NAMESPACE              : ${FOYLIGHT_NAMESPACE}" )
-ENDIF(FOYLIGHT_USE_NAMESPACE)
+message(STATUS "FOYLIGHT_USE_NAMESPACE          : ${FOYLIGHT_USE_NAMESPACE}")
+if(FOYLIGHT_USE_NAMESPACE)
+message(STATUS "FOYLIGHT_NAMESPACE              : ${FOYLIGHT_NAMESPACE}")
+endif(FOYLIGHT_USE_NAMESPACE)
+message(STATUS "FOYLIGHT_CUSTOMER_RES           : ${FOYLIGHT_CUSTOMER_RES}")
+message(STATUS "PATH_TO_QML_CUSTOMER_PAGE       : ${PATH_TO_QML_CUSTOMER_PAGE}")
 
-MESSAGE( STATUS "------ ${FOYLIGHT_TARGET} End Configuration ------" )
+message("------ ${FOYLIGHT_TARGET} End Configuration ------")
 
 # ────────── CHECK CONFLICT ──────────────────────────────────────────
 
-IF(FOYLIGHT_BUILD_SHARED)
-    IF(FOYLIGHT_BUILD_STATIC)
-        MESSAGE( FATAL_ERROR "FOYLIGHT can't compile shared and static library at the same time" )
-    ENDIF(FOYLIGHT_BUILD_STATIC)
-    IF(FOYLIGHT_BUILD_EXE)
-        MESSAGE( FATAL_ERROR "FOYLIGHT can't compile shared library and executable at the same time" )
-    ENDIF(FOYLIGHT_BUILD_EXE)
-ENDIF(FOYLIGHT_BUILD_SHARED)
+if(FOYLIGHT_BUILD_SHARED)
+    if(FOYLIGHT_BUILD_STATIC)
+        message(FATAL_ERROR "FOYLIGHT can't compile shared and static library at the same time")
+    endif(FOYLIGHT_BUILD_STATIC)
+    if(FOYLIGHT_BUILD_EXE)
+        message(FATAL_ERROR "FOYLIGHT can't compile shared library and executable at the same time")
+    endif(FOYLIGHT_BUILD_EXE)
+endif(FOYLIGHT_BUILD_SHARED)
 
-IF(FOYLIGHT_BUILD_STATIC)
-    IF(FOYLIGHT_BUILD_SHARED)
-        MESSAGE( FATAL_ERROR "FOYLIGHT can't compile shared and static library at the same time" )
-    ENDIF(FOYLIGHT_BUILD_SHARED)
-    IF(FOYLIGHT_BUILD_EXE)
-        MESSAGE( FATAL_ERROR "FOYLIGHT can't compile static library and executable at the same time" )
-    ENDIF(FOYLIGHT_BUILD_EXE)
-ENDIF(FOYLIGHT_BUILD_STATIC)
+if(FOYLIGHT_BUILD_STATIC)
+    if(FOYLIGHT_BUILD_SHARED)
+        message(FATAL_ERROR "FOYLIGHT can't compile shared and static library at the same time")
+    endif(FOYLIGHT_BUILD_SHARED)
+    if(FOYLIGHT_BUILD_EXE)
+        message(FATAL_ERROR "FOYLIGHT can't compile static library and executable at the same time")
+    endif(FOYLIGHT_BUILD_EXE)
+endif(FOYLIGHT_BUILD_STATIC)
 
-IF(FOYLIGHT_BUILD_EXE)
-    IF(FOYLIGHT_BUILD_SHARED)
-        MESSAGE( FATAL_ERROR "FOYLIGHT can't compile shared library and executable at the same time" )
-    ENDIF(FOYLIGHT_BUILD_SHARED)
-    IF(FOYLIGHT_BUILD_STATIC)
-        MESSAGE( FATAL_ERROR "FOYLIGHT can't compile static library and executable at the same time" )
-    ENDIF(FOYLIGHT_BUILD_STATIC)
-ENDIF(FOYLIGHT_BUILD_EXE)
+if(FOYLIGHT_BUILD_EXE)
+    if(FOYLIGHT_BUILD_SHARED)
+        message(FATAL_ERROR "FOYLIGHT can't compile shared library and executable at the same time")
+    endif(FOYLIGHT_BUILD_SHARED)
+    if(FOYLIGHT_BUILD_STATIC)
+        message(FATAL_ERROR "FOYLIGHT can't compile static library and executable at the same time")
+    endif(FOYLIGHT_BUILD_STATIC)
+endif(FOYLIGHT_BUILD_EXE)
 
 # ┌──────────────────────────────────────────────────────────────────┐
 # │                       DEPENDENCIES                               │
 # └──────────────────────────────────────────────────────────────────┘
 
-# ────────── QT STATIC CMAKE ──────────────────────────────────────────
+include(FetchContent)
 
-IF(STATIC_QT)
-    IF(QT_STATIC_CMAKE_FOUND AND NOT QQMHG_DOWNLOAD_QTSTATICCMAKE)
-        MESSAGE( STATUS "Found QtStaticCMake version ${QT_STATIC_CMAKE_VERSION}")
-    ELSE(QT_STATIC_CMAKE_FOUND AND NOT QQMHG_DOWNLOAD_QTSTATICCMAKE)
-        SET(QQMHG_DOWNLOAD_QTSTATICCMAKE ON CACHE BOOL "The QtStaticCMake library have been downloaded")
-        INCLUDE(${CMAKE_CURRENT_SOURCE_DIR}/cmake/BuildQtStaticCMake.cmake)
-        IF(NOT QT_STATIC_CMAKE_FOUND)
-            MESSAGE( FATAL_ERROR "Fail to configure QtStaticCMake Library" )
-        ENDIF(NOT QT_STATIC_CMAKE_FOUND)
-    ENDIF(QT_STATIC_CMAKE_FOUND AND NOT QQMHG_DOWNLOAD_QTSTATICCMAKE)
-ENDIF(STATIC_QT)
+# libEndian
+FetchContent_Declare(
+    LibEndian
+    GIT_REPOSITORY ${LIBENDIAN_REPOSITORY}
+    GIT_TAG        ${LIBENDIAN_TAG}
+)
 
-# ────────── QSM HELPER LIB ──────────────────────────────────────────
+# QSuperMacros
+FetchContent_Declare(
+    QSuperMacros
+    GIT_REPOSITORY ${QSUPERMACROS_REPOSITORY}
+    GIT_TAG        ${QSUPERMACROS_TAG}
+)
 
-IF(QQUICKMATERIALHELPER_TARGET AND NOT QQMHG_DOWNLOAD_QQUICKMATERIALHELPER)
-    MESSAGE( STATUS "Found ${QQUICKMATERIALHELPER_TARGET} v${QQUICKMATERIALHELPER_VERSION}" )
-ELSE(QQUICKMATERIALHELPER_TARGET AND NOT QQMHG_DOWNLOAD_QQUICKMATERIALHELPER)
-    SET(QQMHG_DOWNLOAD_QQUICKMATERIALHELPER ON CACHE BOOL "The QQuickMaterialHelper library have been downloaded")
-    INCLUDE(${CMAKE_CURRENT_SOURCE_DIR}/cmake/BuildQQuickMaterialHelper.cmake)
-    IF(NOT QQUICKMATERIALHELPER_TARGET)
-        MESSAGE( FATAL_ERROR "Fail to configure QQuickMaterialHelper Library" )
-    ENDIF(NOT QQUICKMATERIALHELPER_TARGET)
-ENDIF(QQUICKMATERIALHELPER_TARGET AND NOT QQMHG_DOWNLOAD_QQUICKMATERIALHELPER)
+# ObjectListModel
+FetchContent_Declare(
+    ObjectListModel
+    GIT_REPOSITORY ${QQMLMODEL_REPOSITORY}
+    GIT_TAG        ${QQMLMODEL_TAG}
+)
+
+# MaterialHelper
+FetchContent_Declare(
+    QQuickMaterialHelper
+    GIT_REPOSITORY ${QQUICKMATERIALHELPER_REPOSITORY}
+    GIT_TAG        ${QQUICKMATERIALHELPER_TAG}
+)
+
+set(FETCHCONTENT_UPDATES_DISCONNECTED ON)
+set(FETCHCONTENT_QUIET ON)
+
+# Make all dependencies avaiables
+FetchContent_MakeAvailable(QQuickMaterialHelper LibEndian QSuperMacros ObjectListModel)
 
 # ┌──────────────────────────────────────────────────────────────────┐
 # │                       SOURCES                                    │
 # └──────────────────────────────────────────────────────────────────┘
 
+# Get all the qml files inside the qml dir
 file(GLOB_RECURSE FOYLIGHT_QML_SRCS qml/*.qml)
 
-FOREACH(SOURCE IN ITEMS ${FOYLIGHT_QML_SRCS})
-    GET_FILENAME_COMPONENT(SOURCE_PATH "${SOURCE}" PATH)
-    FILE(RELATIVE_PATH SOURCE_PATH_REL ${CMAKE_CURRENT_SOURCE_DIR} "${SOURCE_PATH}")
-    STRING(REPLACE "/" "\\" GROUP_PATH "${SOURCE_PATH_REL}")
-    SOURCE_GROUP("${GROUP_PATH}" FILES "${SOURCE}")
-ENDFOREACH()
+# Then set a folder inside IDE
+foreach(_source IN ITEMS ${FOYLIGHT_QML_SRCS})
+    get_filename_component(_source_path "${_source}" PATH)
+    file(RELATIVE_PATH _source_path_rel ${CMAKE_CURRENT_SOURCE_DIR} "${_source_path}")
+    string(REPLACE "/" "\\" _group_path "${_source_path_rel}")
+    source_group("${_group_path}" FILES "${_source}")
+endforeach()
 
-SET( FOYLIGHT_SRCS
-    # Main
+set(FOYLIGHT_SHARED_RES ${CMAKE_CURRENT_SOURCE_DIR}/qml/FOYLIGHT.qrc)
+
+set(FOYLIGHT_SRCS
+    # FOYLIGHT entry point
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Main.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/FOYLIGHT.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/FOYLIGHT.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/FOYLIGHT.hpp
+
     ${FOYLIGHT_QML_SRCS}
-    )
+)
 
 # ┌──────────────────────────────────────────────────────────────────┐
 # │                       TARGET                                     │
 # └──────────────────────────────────────────────────────────────────┘
 
 # ────────── QML TO CACHE ───────────
+
 
 # Add qml to the qtquick compiler
 qtquick_compiler_add_resources(FOYLIGHT_QML_RES ${CMAKE_CURRENT_SOURCE_DIR}/qml/FOYLIGHT.qrc)
@@ -209,59 +239,50 @@ ENDFOREACH(CacheQml)
 
 # ───── SHARED ──────────────
 
-IF(FOYLIGHT_BUILD_SHARED)
-    IF( MSVC )
-    INCLUDE (GenerateExportHeader)
-    ENDIF( MSVC )
-
-    ADD_LIBRARY( ${FOYLIGHT_TARGET} SHARED ${FOYLIGHT_SRCS} ${FOYLIGHT_QML_RES} )
-
-    IF( MSVC )
-    GENERATE_EXPORT_HEADER( ${FOYLIGHT_TARGET}
-        BASE_NAME ${FOYLIGHT_TARGET}
-        EXPORT_MACRO_NAME ${FOYLIGHT_TARGET}_EXPORT
-        EXPORT_FILE_NAME ${FOYLIGHT_TARGET}_Export.h
-        STATIC_DEFINE ${FOYLIGHT_TARGET}_BUILT_AS_STATIC
-    )
-    ENDIF( MSVC )
-
-    TARGET_COMPILE_DEFINITIONS( ${FOYLIGHT_TARGET} PRIVATE -DFOYLIGHT_SHARED )
-ENDIF(FOYLIGHT_BUILD_SHARED)
+if(FOYLIGHT_BUILD_SHARED)
+    ADD_LIBRARY( ${FOYLIGHT_TARGET} SHARED ${FOYLIGHT_SRCS} ${FOYLIGHT_QML_RES})
+    target_compile_definitions(${FOYLIGHT_TARGET} PRIVATE -DFOYLIGHT_SHARED)
+endif(FOYLIGHT_BUILD_SHARED)
 
 # ───── STATIC ──────────────
 
-IF(FOYLIGHT_BUILD_STATIC)
-    ADD_LIBRARY( ${FOYLIGHT_TARGET} STATIC ${FOYLIGHT_SRCS} ${FOYLIGHT_QML_RES} )
-    TARGET_COMPILE_DEFINITIONS( ${FOYLIGHT_TARGET} PUBLIC -DFOYLIGHT_STATIC )
-ENDIF(FOYLIGHT_BUILD_STATIC)
+if(FOYLIGHT_BUILD_STATIC)
+    ADD_LIBRARY( ${FOYLIGHT_TARGET} STATIC ${FOYLIGHT_SRCS} ${FOYLIGHT_QML_RES})
+    target_compile_definitions(${FOYLIGHT_TARGET} PUBLIC -DFOYLIGHT_STATIC)
+endif(FOYLIGHT_BUILD_STATIC)
 
 # ───── EXE ──────────────
 
-IF(FOYLIGHT_BUILD_EXE)
-  ADD_EXECUTABLE( ${FOYLIGHT_TARGET} ${FOYLIGHT_SRCS} ${FOYLIGHT_QML_RES} )
-    TARGET_COMPILE_DEFINITIONS( ${FOYLIGHT_TARGET} PUBLIC -DFOYLIGHT_STATIC )
-ENDIF(FOYLIGHT_BUILD_EXE)
+if(FOYLIGHT_BUILD_EXE)
+    add_executable(${FOYLIGHT_TARGET} ${FOYLIGHT_SRCS} ${FOYLIGHT_QML_RES})
+    target_compile_definitions(${FOYLIGHT_TARGET} PUBLIC -DFOYLIGHT_STATIC)
+endif(FOYLIGHT_BUILD_EXE)
 
 # ───── COMMON ──────────────
 
-TARGET_INCLUDE_DIRECTORIES( ${FOYLIGHT_TARGET} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src )
-TARGET_COMPILE_DEFINITIONS( ${FOYLIGHT_TARGET} PRIVATE -DFOYLIGHT_VERSION_MAJOR=${FOYLIGHT_VERSION_MAJOR} )
-TARGET_COMPILE_DEFINITIONS( ${FOYLIGHT_TARGET} PRIVATE -DFOYLIGHT_VERSION_MINOR=${FOYLIGHT_VERSION_MINOR} )
-TARGET_COMPILE_DEFINITIONS( ${FOYLIGHT_TARGET} PRIVATE -DFOYLIGHT_VERSION_PATCH=${FOYLIGHT_VERSION_PATCH} )
-TARGET_COMPILE_DEFINITIONS( ${FOYLIGHT_TARGET} PRIVATE -DFOYLIGHT_VERSION_TAG=${FOYLIGHT_VERSION_TAG} )
-TARGET_COMPILE_DEFINITIONS( ${FOYLIGHT_TARGET} PRIVATE -DFOYLIGHT_VERSION_TAG_HEX=${FOYLIGHT_VERSION_TAG_HEX} )
-IF(FOYLIGHT_USE_NAMESPACE)
-TARGET_COMPILE_DEFINITIONS( ${FOYLIGHT_TARGET} PUBLIC -DFOYLIGHT_USE_NAMESPACE )
-TARGET_COMPILE_DEFINITIONS( ${FOYLIGHT_TARGET} PUBLIC -DFOYLIGHT_NAMESPACE=${FOYLIGHT_NAMESPACE} )
-ENDIF(FOYLIGHT_USE_NAMESPACE)
-TARGET_LINK_LIBRARIES( ${FOYLIGHT_TARGET} ${QQUICKMATERIALHELPER_TARGET} )
-qt5_use_modules( ${FOYLIGHT_TARGET} Core Gui Svg Xml XmlPatterns Quick QuickControls2 )
+target_include_directories(${FOYLIGHT_TARGET} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src/include)
 
-IF(STATIC_QT)
-    qt_generate_qml_plugin_import(${FOYLIGHT_TARGET} QML_SRC ${CMAKE_CURRENT_SOURCE_DIR}/qml VERBOSE)
-    qt_generate_plugin_import(${FOYLIGHT_TARGET} VERBOSE)
-ENDIF(STATIC_QT)
+# Set version
+target_compile_definitions(${FOYLIGHT_TARGET} PRIVATE -DFOYLIGHT_VERSION_MAJOR=${FOYLIGHT_VERSION_MAJOR})
+target_compile_definitions(${FOYLIGHT_TARGET} PRIVATE -DFOYLIGHT_VERSION_MINOR=${FOYLIGHT_VERSION_MINOR})
+target_compile_definitions(${FOYLIGHT_TARGET} PRIVATE -DFOYLIGHT_VERSION_PATCH=${FOYLIGHT_VERSION_PATCH})
+target_compile_definitions(${FOYLIGHT_TARGET} PRIVATE -DFOYLIGHT_VERSION_TAG=${FOYLIGHT_VERSION_TAG})
+target_compile_definitions(${FOYLIGHT_TARGET} PRIVATE -DFOYLIGHT_VERSION_TAG_HEX=${FOYLIGHT_VERSION_TAG_HEX})
+
+# Page to load in Main.qml
+target_compile_definitions(${FOYLIGHT_TARGET} PRIVATE -DFOYLIGHT_QML_CUSTOMER_PAGE="${PATH_TO_QML_CUSTOMER_PAGE}")
+
+# Set namespace
+if(FOYLIGHT_USE_NAMESPACE)
+    target_compile_definitions(${FOYLIGHT_TARGET} PUBLIC -DFOYLIGHT_USE_NAMESPACE)
+    target_compile_definitions(${FOYLIGHT_TARGET} PUBLIC -DFOYLIGHT_NAMESPACE=${FOYLIGHT_NAMESPACE})
+endif() # FOYLIGHT_USE_NAMESPACE
+
+# Link to library we depend on
+target_link_libraries(${FOYLIGHT_TARGET} ${QQUICKMATERIALHELPER_TARGET} ${QSUPERMACROS_TARGET} ${QQMLMODEL_TARGET} ${LIBENDIAN_TARGET})
+# Link to qt library we depend on
+qt5_use_modules(${FOYLIGHT_TARGET} Core Network Gui Svg Xml XmlPatterns Quick QuickControls2)
 
 # ────────── POST BUILD PLATFORM DEPENDANCIES ─────────────
 
-INCLUDE(${CMAKE_CURRENT_SOURCE_DIR}/platform/PostBuildPlatform.cmake)
+include(${CMAKE_CURRENT_SOURCE_DIR}/platform/PostBuildPlatform.cmake)
