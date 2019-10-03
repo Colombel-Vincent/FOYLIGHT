@@ -8,44 +8,36 @@ import QQuickMaterialHelper.Components 1.12
 import QQuickMaterialHelper.Style 1.12
 import QQuickMaterialHelper.Fonts 1.12
 
+
 ApplicationWindow
 {
     id: window
-    width: 1080
-    height: 720
+    width: 1920
+    height: 1080
     visible: true
 	title: "Foy & Light"
 ToolBar{
     id : _topbanner
     width : parent.width
-    height : 50
-Label{
-    text : "Application pour s'occuper des light comme un pro"
-    Layout.fillWidth : true
-    Layout.fillHeight : true
-    Layout.alignment: Qt.AlignHCenter
-    textType: MaterialStyle.TextType.Body2
-    wrapMode: Label.Wrap
+    height : 60
+    Label{
+    text : "Foy & Light "
+    anchors.centerIn: parent
+
+
 }
 }
 GridLayout{
     anchors.top : _topbanner.bottom
 
     Pane{
+        Layout.topMargin : 20
         id : _masterFaderPane
-        contentHeight : window.height - _topbanner.height - 100
-        contentWidth : 150
+        contentHeight : window.height/5
+        contentWidth : window.width/3
         Layout.alignment: Qt.AlignRight
-
         elevation : 10
         radius : 4
-
-        GridLayout{
-
-         Card{
-            padding : 5
-          width : 100
-          height : 200
 
         Label{
             text : "Master"
@@ -53,14 +45,31 @@ GridLayout{
             textType: MaterialStyle.TextType.Body2
         }
 
-        }
+        GridLayout{
+
+                  Fader{
+                        id:_testSlider3
+                        from : 0
+                        to: MaterialStyle.rawButton.minHeight/2
+                        value: MaterialStyle.rawButton.cornerRadius
+                        stepSize: 1
+                        orientation: Qt.Vertical
+
+
+                     } // fader
+                     PadButton{
+                        id : _padButtonGeneral
+                        text : "test"
+
+
+                     } // pad button
 
 
 
-        }
+        } // grid layout
 
 
-    }
+    } // pane
     Pane{
 
         id : _buttonFaderPane

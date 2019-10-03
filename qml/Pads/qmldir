@@ -1,0 +1,2 @@
+module FOYLIGHT.Pads
+singleton Manager 1.0 Manager.qml

@@ -77,7 +77,7 @@ int main(int argc, char *argv[])
 	// ────────── LOAD QML MAIN ───────────
 
 
-	engine.load(QUrl("qrc:/FOYLIGHT/qml/Main.qml"));
+	engine.load(QUrl("qrc:///FOYLIGHT/Utils/Main.qml"));
 	if (engine.rootObjects().isEmpty())
 		return -1;
 

@@ -1,8 +1,19 @@
 <RCC>
-    <qresource prefix="/FOYLIGHT/qml">
+    <qresource prefix="/FOYLIGHT">
 
-    <file>Main.qml</file>
 
+    <file>Utils/Main.qml</file>
+    <file>Utils/PadButton.qml</file>
+    <file>Utils/qmldir</file>
+
+
+    <!-- Pads -->
+    <file>Pads/qmldir</file>
+    <file>Pads/Manager.qml</file>
+    <file>Pads/PadGrey.png</file>
+    <file>Pads/PadGreen.png</file>
+    <file>Pads/PadOrange.png</file>
+    <file>Pads/PadPink.png</file>
 
     </qresource>
 </RCC>
