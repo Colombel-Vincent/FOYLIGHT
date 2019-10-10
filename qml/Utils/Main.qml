@@ -8,6 +8,8 @@ import QQuickMaterialHelper.Components 1.12
 import QQuickMaterialHelper.Style 1.12
 import QQuickMaterialHelper.Fonts 1.12
 
+import FOYLIGHT.Icons 1.0 as Icons
+
 
 ApplicationWindow
 {
@@ -22,16 +24,19 @@ ToolBar{
     height : 60
     Label{
     text : "Foy & Light "
+    textType: MaterialStyle.TextType.Title
     anchors.centerIn: parent
 
 
 }
 }
-GridLayout{
+RowLayout{
+    id : _generalRow
     anchors.top : _topbanner.bottom
 
     Pane{
-        Layout.topMargin : 20
+        Layout.topMargin : 30
+        Layout.leftMargin : 15
         id : _masterFaderPane
         contentHeight : window.height/5
         contentWidth : window.width/3
@@ -40,15 +45,128 @@ GridLayout{
         radius : 4
 
         Label{
-            text : "Master"
+            text : "Général" + (_padButtonGeneral.width + _testSlider3.width + _colorpicker.width +20) /(window.width/3)
             Layout.alignment: Qt.AlignHCenter
-            textType: MaterialStyle.TextType.Body2
+            textType: MaterialStyle.TextType.Title
+
         }
+        contentItem : Flickable{
+            id: _flickableG
+             clip: true
+            contentWidth: width
+            contentHeight: _generalLayout.implicitHeight + 2 * MaterialStyle.card.verticalPadding
+            interactive : contentHeight > height
+            ScrollIndicator.vertical: ScrollIndicator {}
+
+            property int availableWidth :  Math.floor((_padButtonGeneral.width + _testSlider3.width + _colorpicker.width +20) /(window.width/3) )
 
         GridLayout{
+            id: _generalLayout
+            columns : (3 - _flickableG.availableWidth)
+            rows :1+ _flickableG.availableWidth
+                   PadButton{
+                        Layout.topMargin : 15
+                        id : _padButtonGeneral
+                        padIcon : Icons.Manager.power
+
+                     } // pad button
 
                   Fader{
+                        Layout.topMargin : 15
                         id:_testSlider3
+                        from : 0
+                        to: MaterialStyle.rawButton.minHeight/2
+                        value: MaterialStyle.rawButton.cornerRadius
+                        stepSize: 1
+                        orientation: Qt.Vertical
+
+                     } // fader
+                     ColorPage{
+                        id : _colorpicker
+                        Layout.fillHeight:true
+                        Layout.preferredWidth : 450
+                        Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                     }
+
+
+
+
+        } // grid layout
+
+}//flickable
+    } // pane
+    Pane{
+
+        id : _effectPane
+        contentHeight : 200
+        Layout.leftMargin : 15
+        Layout.topMargin : 20
+        Layout.alignment: Qt.AlignRight
+        contentWidth : window.width - _masterFaderPane.width - 75
+        elevation : 10
+        radius : 4
+        Label{
+            text : "Effets"
+            Layout.alignment: Qt.AlignHCenter
+            textType: MaterialStyle.TextType.Title
+        }
+        RowLayout{
+
+
+           PadButton{
+                        Layout.topMargin : 30
+
+                        label : "Pinte d'anniverssaire"
+                     } // pad button
+
+           PadButton{
+                        Layout.topMargin : 30
+
+                        label : "chill"
+                     } // pad button
+             PadButton{
+                        Layout.topMargin : 30
+
+                        label : "turn up"
+                     } // pad button
+          PadButton{
+                        Layout.topMargin : 30
+
+                        label : "film"
+                     } // pad button
+        }
+        }
+    }
+         // pane
+        RowLayout{
+
+         Pane{
+
+
+        id : _dunePane
+        contentHeight : 550
+        Layout.leftMargin : 85
+
+        Layout.topMargin : _masterFaderPane.height +110
+        contentWidth : window.width/4
+        elevation : 10
+        radius : 4
+        Label{
+            text : "Dune"
+            Layout.alignment: Qt.AlignHCenter
+            textType: MaterialStyle.TextType.Title
+        }
+        RowLayout{
+
+
+           PadButton{
+                        Layout.topMargin : 35
+                        padIcon : Icons.Manager.power
+                     } // pad button
+
+                  Fader{
+                        Layout.topMargin : 15
+                        id:_duneSlider
                         from : 0
                         to: MaterialStyle.rawButton.minHeight/2
                         value: MaterialStyle.rawButton.cornerRadius
@@ -57,55 +175,97 @@ GridLayout{
 
 
                      } // fader
-                     PadButton{
-                        id : _padButtonGeneral
-                        text : "test"
+        }
+        } // pane
+
+        Pane{
 
 
+        id : _parLedPane
+        contentHeight : 550
+        Layout.leftMargin : 85
+
+        Layout.topMargin : _masterFaderPane.height +110
+        contentWidth : window.width/4
+        elevation : 10
+        radius : 4
+        Label{
+            text : "Par led"
+            Layout.alignment: Qt.AlignHCenter
+            textType: MaterialStyle.TextType.Title
+        }
+        RowLayout{
+
+
+           PadButton{
+                        Layout.topMargin : 35
+                        padIcon : Icons.Manager.power
                      } // pad button
 
 
+                  Fader{
+                        Layout.topMargin : 15
+                        id:_parLedSlider
+                        from : 0
+                        to: MaterialStyle.rawButton.minHeight/2
+                        value: MaterialStyle.rawButton.cornerRadius
+                        stepSize: 1
+                        orientation: Qt.Vertical
 
-        } // grid layout
+
+                     } // fader
+
+        }
+        } // pane
+
+        Pane{
 
 
-    } // pane
-    Pane{
+        id : _tradPane
+        contentHeight : 550
+        Layout.leftMargin : 85
 
-        id : _buttonFaderPane
-        contentHeight : 200
-        contentWidth : 200
+        Layout.topMargin : _masterFaderPane.height +110
+        contentWidth : window.width/4
         elevation : 10
         radius : 4
-        ColumnLayout{
-
-
-            RaisedButton{
-                text : "Pinte d'anniverssaire"
-                width : 175
-                Layout.alignment: Qt.AlignCenter
-            }
-            RaisedButton{
-                text : "Turn up "
-                width : 175
-                Layout.alignment: Qt.AlignCenter
-            }
-            RaisedButton{
-                text : "Biere PONG "
-                width : 175
-                Layout.alignment: Qt.AlignCenter
-            }
-            RaisedButton{
-                text : "Film "
-                width : 175
-                Layout.alignment: Qt.AlignCenter
-            }
+        Label{
+            text : "Trad"
+            Layout.alignment: Qt.AlignHCenter
+            textType: MaterialStyle.TextType.Title
         }
+        RowLayout{
+
+
+           PadButton{
+                        Layout.topMargin : 35
+                        padIcon : Icons.Manager.power
+
+                     } // pad button
+
+                  Fader{
+                        Layout.topMargin : 15
+                        id:_tradSlider
+                        from : 0
+                        to: MaterialStyle.rawButton.minHeight/2
+                        value: MaterialStyle.rawButton.cornerRadius
+                        stepSize: 1
+                        orientation: Qt.Vertical
+
+
+                     } // fader
+
+
         }
-
-
+        GridLayout{
 
         }
+        } // pane
+
+
+
+}
+
 
 }
 

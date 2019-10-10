@@ -1,9 +1,11 @@
 <RCC>
     <qresource prefix="/FOYLIGHT">
 
-
+     <!-- Utils -->
     <file>Utils/Main.qml</file>
     <file>Utils/PadButton.qml</file>
+    <file>Utils/ColorPicker.qml</file>
+    <file>Utils/ColorPage.qml</file>
     <file>Utils/qmldir</file>
 
 
@@ -14,6 +16,23 @@
     <file>Pads/PadGreen.png</file>
     <file>Pads/PadOrange.png</file>
     <file>Pads/PadPink.png</file>
+
+    <!-- Icons -->
+    <file>Icons/qmldir</file>
+    <file>Icons/Manager.qml</file>
+    <file>Icons/add.png</file>
+    <file>Icons/power.png</file>
+    <file>Icons/tool.png</file>
+    <file>Icons/remove.png</file>
+    <file>Icons/settings.svg</file>
+    <file>Icons/information.svg</file>
+    <file>Icons/ColorPickerRect.png</file>
+    <file>Icons/crosscursor.png</file>
+
+
+
+
+
 
     </qresource>
 </RCC>
