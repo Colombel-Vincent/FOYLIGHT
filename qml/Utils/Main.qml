@@ -45,7 +45,7 @@ RowLayout{
         radius : 4
 
         Label{
-            text : "Général" + (_padButtonGeneral.width + _testSlider3.width + _colorpicker.width +20) /(window.width/3)
+            text : "Général"
             Layout.alignment: Qt.AlignHCenter
             textType: MaterialStyle.TextType.Title
 
@@ -73,15 +73,18 @@ RowLayout{
 
                   Utils.Fader{
                         Layout.topMargin : 15
+                        Layout.leftMargin : 15
                         id:_testSlider3
                         from : 0
                         to: MaterialStyle.rawButton.minHeight/2
                         value: MaterialStyle.rawButton.cornerRadius
                         stepSize: 1
                         orientation: Qt.Vertical
+                        faderWidth : 15
 
                      } // fader
                      ColorPage{
+                        Layout.leftMargin : 15
                         id : _colorpicker
                         Layout.fillHeight:true
                         Layout.preferredWidth : 450
@@ -102,7 +105,7 @@ RowLayout{
         Layout.leftMargin : 15
         Layout.topMargin : 20
         Layout.alignment: Qt.AlignRight
-        contentWidth : window.width - _masterFaderPane.width - 75
+        contentWidth : window.width - _masterFaderPane.width - 250
         elevation : 10
         radius : 4
         Label{
@@ -157,6 +160,7 @@ RowLayout{
             textType: MaterialStyle.TextType.Title
         }
         RowLayout{
+            id : _rowDune
 
 
            PadButton{
@@ -166,16 +170,51 @@ RowLayout{
 
                   Utils.Fader{
                         Layout.topMargin : 15
+                        Layout.leftMargin : 15
                         id:_duneSlider
                         from : 0
                         to: MaterialStyle.rawButton.minHeight/2
                         value: MaterialStyle.rawButton.cornerRadius
                         stepSize: 1
                         orientation: Qt.Vertical
+                        faderWidth : 14
 
 
                      } // fader
+                       ColorPage{
+                        Layout.leftMargin : 15
+                        id : _colorpicker2
+                        Layout.fillHeight:true
+                        Layout.preferredWidth : 300
+                        Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                     }
         }
+          GridLayout{
+
+                    PadButton{
+                        Layout.topMargin : 250
+
+                        label : "Chase Fort"
+                     } // pad button
+                       PadButton{
+                        Layout.topMargin : 250
+
+                        label : "Chase Doux"
+                     } // pad button
+                       PadButton{
+                        Layout.topMargin : 250
+
+                        label : "Sinus"
+                     } // pad button
+                       PadButton{
+                        Layout.topMargin : 250
+
+                        label : "Symétrie"
+                     } // pad button
+
+
+
+            }
         } // pane
 
         Pane{
@@ -195,6 +234,7 @@ RowLayout{
             textType: MaterialStyle.TextType.Title
         }
         RowLayout{
+                id : _rowParled
 
 
            PadButton{
@@ -205,17 +245,54 @@ RowLayout{
 
                   Utils.Fader{
                         Layout.topMargin : 15
+                        Layout.leftMargin : 15
                         id:_parLedSlider
                         from : 0
                         to: MaterialStyle.rawButton.minHeight/2
                         value: MaterialStyle.rawButton.cornerRadius
                         stepSize: 1
                         orientation: Qt.Vertical
+                        faderWidth : 14
 
 
                      } // fader
+                       ColorPage{
+                        Layout.leftMargin : 15
+                        id : _colorpicker3
+                        Layout.fillHeight:true
+                        Layout.preferredWidth : 300
+                        Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                     }
+                 }
 
-        }
+            GridLayout{
+
+                    PadButton{
+                        Layout.topMargin : 250
+
+                        label : "Chase Fort"
+                     } // pad button
+                       PadButton{
+                        Layout.topMargin : 250
+
+                        label : "Chase Doux"
+                     } // pad button
+                       PadButton{
+                        Layout.topMargin : 250
+
+                        label : "Sinus"
+                     } // pad button
+                       PadButton{
+                        Layout.topMargin : 250
+
+                        label : "Symétrie"
+                     } // pad button
+
+
+
+            }
+
+
         } // pane
 
         Pane{
@@ -235,7 +312,7 @@ RowLayout{
             textType: MaterialStyle.TextType.Title
         }
         RowLayout{
-
+            id : _rowTrad
 
            PadButton{
                         Layout.topMargin : 35
@@ -245,19 +322,57 @@ RowLayout{
 
                   Utils.Fader{
                         Layout.topMargin : 15
+                        Layout.leftMargin : 15
                         id:_tradSlider
                         from : 0
                         to: MaterialStyle.rawButton.minHeight/2
                         value: MaterialStyle.rawButton.cornerRadius
                         stepSize: 1
                         orientation: Qt.Vertical
+                        faderWidth : 14
 
 
                      } // fader
 
 
+
+
         }
         GridLayout{
+
+            columns : 4
+            rows : 2
+              PadButton{
+                        Layout.topMargin : 250
+
+                        label : "Chase Fort"
+                     } // pad button
+                       PadButton{
+                        Layout.topMargin : 250
+
+                        label : "Chase Doux"
+                     } // pad button
+                       PadButton{
+                        Layout.topMargin : 250
+
+                        label : "Sinus"
+                     } // pad button
+                       PadButton{
+                        Layout.topMargin : 250
+
+                        label : "Symétrie"
+                     } // pad button
+                       PadButton{
+                        Layout.topMargin : 15
+
+                        label : "Rectangle"
+                     } // pad button
+                       PadButton{
+                        Layout.topMargin : 15
+
+                        label : "Scène"
+                     } // pad button
+
 
         }
         } // pane
