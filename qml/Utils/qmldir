@@ -3,3 +3,4 @@ Main                      1.0 Main.qml
 PadButton                1.0 PadButton.qml
 ColorPicker                1.0 ColorPicker.qml
 ColorPage                1.0 ColorPage.qml
+Fader					1.0 Fader.qml

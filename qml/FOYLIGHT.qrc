@@ -4,6 +4,7 @@
      <!-- Utils -->
     <file>Utils/Main.qml</file>
     <file>Utils/PadButton.qml</file>
+    <file>Utils/Fader.qml</file>
     <file>Utils/ColorPicker.qml</file>
     <file>Utils/ColorPage.qml</file>
     <file>Utils/qmldir</file>

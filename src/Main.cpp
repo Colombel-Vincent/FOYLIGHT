@@ -18,12 +18,13 @@
 #include <QtQml>
 #include <QFontDatabase>
 #include <QDebug>
-
+#include <qudpsocket.h>
 // Oliv Qt
 #include <QQuickMaterialHelper.hpp>
 
 // QQuickMaterialHelperGallery
 #include "FOYLIGHT.hpp"
+#include "Sacn.hpp"
 
 // ─────────────────────────────────────────────────────────────
 //					DECLARATION
@@ -38,7 +39,13 @@ int main(int argc, char *argv[])
 	QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 	QGuiApplication app(argc, argv);
 	QQmlApplicationEngine engine;
+	FL::Sacn Client;
+	Client.HelloUDP();
+	
+	
 
+	
+	
 	// ────────── REGISTER APPLICATION ──────────────────────────────────────
 
 	QGuiApplication::setOrganizationName("Vincent");
@@ -82,5 +89,6 @@ int main(int argc, char *argv[])
 		return -1;
 
 	// ────────── START EVENT LOOP ──────────────────────────────────────
+	
 	return app.exec();
 }

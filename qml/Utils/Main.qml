@@ -9,7 +9,7 @@ import QQuickMaterialHelper.Style 1.12
 import QQuickMaterialHelper.Fonts 1.12
 
 import FOYLIGHT.Icons 1.0 as Icons
-
+import FOYLIGHT.Utils 1.0 as Utils
 
 ApplicationWindow
 {
@@ -71,7 +71,7 @@ RowLayout{
 
                      } // pad button
 
-                  Fader{
+                  Utils.Fader{
                         Layout.topMargin : 15
                         id:_testSlider3
                         from : 0
@@ -164,7 +164,7 @@ RowLayout{
                         padIcon : Icons.Manager.power
                      } // pad button
 
-                  Fader{
+                  Utils.Fader{
                         Layout.topMargin : 15
                         id:_duneSlider
                         from : 0
@@ -203,7 +203,7 @@ RowLayout{
                      } // pad button
 
 
-                  Fader{
+                  Utils.Fader{
                         Layout.topMargin : 15
                         id:_parLedSlider
                         from : 0
@@ -243,7 +243,7 @@ RowLayout{
 
                      } // pad button
 
-                  Fader{
+                  Utils.Fader{
                         Layout.topMargin : 15
                         id:_tradSlider
                         from : 0

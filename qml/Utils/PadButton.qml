@@ -26,16 +26,22 @@ T.Button
     implicitHeight: padHeight + topPadding + bottomPadding
     baselineOffset: contentItem.y + contentItem.baselineOffset
 
+    property bool empty: false
+    property bool recording: false
+    property bool pause: false
+    property bool playback: false
+
     padding: 4
     spacing: 4
     property double elevation: (control.down ? 8 : 2)
 
     property var label: ""
 
-    property int padWidth: 96
-    property int padHeight: 96
+    property int padSize: 96
+    property int padWidth: padSize
+    property int padHeight: padSize
 
-    property alias padIcon: _padIcon.source
+    property string padIcon
 
     property color foregroundColor: MaterialStyle.primaryTextColorLight
 
@@ -96,14 +102,19 @@ T.Button
         {
             id: _label
             text: control.label
+            width : parent.width - 10
             textType: MaterialStyle.TextType.Body2
             color: control.foregroundColor
             anchors.centerIn: parent
+            wrapMode: Label.Wrap
+            verticalAlignment : Label.AlignVCenter
+            horizontalAlignment : Label.AlignHCenter
         }
 
         Image
         {
             id: _padIcon
+            source: control.padIcon
             anchors.centerIn: parent
             width: background.width*0.7
             height: background.height*0.7

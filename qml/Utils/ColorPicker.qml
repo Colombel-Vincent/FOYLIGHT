@@ -27,24 +27,24 @@ Item
             anchors.fill: colorPicker
             onPressed:
             {
-                cursor.x = mouse.x - 4
-                cursor.y = mouse.y - 4
+                cursor.x = mouse.x - 20
+                cursor.y = mouse.y - 20
 
             }
             onPositionChanged:
             {
                 var clampX = (mouse.x > 0 && mouse.x < colorPicker.width) ?  mouse.x : (mouse.x > 0) ? colorPicker.width : 0;
                 var clampY = (mouse.y > 0 && mouse.y < colorPicker.height) ? mouse.y : (mouse.y > 0) ? colorPicker.height : 0;
-                cursor.x = clampX - 4;
-                cursor.y = clampY - 4;
+                cursor.x = clampX - 20;
+                cursor.y = clampY - 20;
 
             }
             Image
             {
 
                 id: cursor
-                x: - width/2
-                y: - height/2
+                x: width/2
+                y: height/2
                 source: Icons.Manager.crossCursor
             }
         }
