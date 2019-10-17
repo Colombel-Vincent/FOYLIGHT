@@ -25,6 +25,9 @@
 // QQuickMaterialHelperGallery
 #include "FOYLIGHT.hpp"
 #include "Sacn.hpp"
+#include "ParLed.hpp"
+#include "Dune.hpp"
+#include "Trad.hpp"
 
 // ─────────────────────────────────────────────────────────────
 //					DECLARATION
@@ -41,7 +44,7 @@ int main(int argc, char *argv[])
 	QQmlApplicationEngine engine;
 	FL::Sacn Client;
 	//Client.HelloUDP();
-	
+
 	// ────────── REGISTER APPLICATION ──────────────────────────────────────
 
 	QGuiApplication::setOrganizationName("Vincent");
@@ -83,8 +86,8 @@ int main(int argc, char *argv[])
 	engine.load(QUrl("qrc:///FOYLIGHT/Utils/Main.qml"));
 	if (engine.rootObjects().isEmpty())
 		return -1;
-		
+
 	// ────────── START EVENT LOOP ──────────────────────────────────────
-	
+
 	return app.exec();
 }

@@ -83,10 +83,10 @@ const uint8_t E131_DEFAULT_PRIORITY = 0x64;
 public:
 	Sacn(QObject * parent = 0);
 	void SendSacn();
-	
+
 public slots:
 	int setPacketHeader(const uint16_t universe, const uint16_t num_channels);
-	
+
 private:
 	QUdpSocket *socket;
 	QByteArray Data;
@@ -96,18 +96,17 @@ private:
 	static const uint32_t VECTOR_ROOT = 4;
 	static const uint32_t VECTOR_FRAME = 2;
 	static const uint8_t VECTOR_DMP = 2;
-	
-	
+
+
 #ifndef NO_DOUBLE_BUFFER
-	
+
 #endif
-	
+
 	uint8_t sequence; /* Sequence tracker */
 
 
 public:
 	uint8_t *data; /* Pointer to DMX channel data */
-	uint8_t       ddStartCode;          /* DD start code data*/
 	uint16_t universe; /* DMX Universe of last valid packet */
 
 

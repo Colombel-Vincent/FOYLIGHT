@@ -212,6 +212,12 @@ set(FOYLIGHT_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Sacn.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Sacn.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Trad.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/ParLed.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Dune.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Dune.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Trad.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/ParLed.cpp
+
     ${FOYLIGHT_QML_SRCS}
 )
 
