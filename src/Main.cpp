@@ -43,6 +43,7 @@ int main(int argc, char *argv[])
 	Client.HelloUDP();
 	
 	
+	/*
 
 	
 	
@@ -87,7 +88,7 @@ int main(int argc, char *argv[])
 	engine.load(QUrl("qrc:///FOYLIGHT/Utils/Main.qml"));
 	if (engine.rootObjects().isEmpty())
 		return -1;
-
+		*/
 	// ────────── START EVENT LOOP ──────────────────────────────────────
 	
 	return app.exec();
