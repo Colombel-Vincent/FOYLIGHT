@@ -185,7 +185,7 @@ private:
 	e131_packet_t pbuff2; /* Double buffer */
 	e131_packet_tx_t pbuff4; /* Double buffer */
 #endif
-	e131_packet_t *pwbuff; /* Pointer to working packet buffer */
+	
 	e131_packet_tx_t *pwbuffTX; /* Pointer to working packet TX buffer */
 	uint8_t sequence; /* Sequence tracker */
 
