@@ -71,9 +71,16 @@ RowLayout{
 
                      } // pad button
 
+                     Rectangle {
+                      width : _testSlider3.width +15
+                      height : _testSlider3.height +8
+                      Layout.leftMargin : 15
+                      border.color : "grey"
+                      color : "transparent"
+                      border.width : 1
+                      radius : 6
                   Utils.Fader{
-                        Layout.topMargin : 15
-                        Layout.leftMargin : 15
+                        Layout.leftMargin : 4
                         id:_testSlider3
                         from : 0
                         to: MaterialStyle.rawButton.minHeight/2
@@ -83,6 +90,7 @@ RowLayout{
                         faderWidth : 15
 
                      } // fader
+                   }
                      ColorPage{
                         Layout.leftMargin : 15
                         id : _colorpicker
@@ -119,7 +127,7 @@ RowLayout{
            PadButton{
                         Layout.topMargin : 30
 
-                        label : "Pinte d'anniverssaire"
+                        label : "Pinte anniverssaire"
                      } // pad button
 
            PadButton{

@@ -40,12 +40,7 @@ int main(int argc, char *argv[])
 	QGuiApplication app(argc, argv);
 	QQmlApplicationEngine engine;
 	FL::Sacn Client;
-	Client.HelloUDP();
-	
-	
-	/*
-
-	
+	//Client.HelloUDP();
 	
 	// ────────── REGISTER APPLICATION ──────────────────────────────────────
 
@@ -88,7 +83,7 @@ int main(int argc, char *argv[])
 	engine.load(QUrl("qrc:///FOYLIGHT/Utils/Main.qml"));
 	if (engine.rootObjects().isEmpty())
 		return -1;
-		*/
+		
 	// ────────── START EVENT LOOP ──────────────────────────────────────
 	
 	return app.exec();

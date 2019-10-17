@@ -23,7 +23,7 @@ T.Slider {
 }
     property bool circle : false
 
-    property int handleWidth : circle ? faderWidth * 2 :(faderWidth*0.6 +2)*4
+    property int handleWidth : circle ? faderWidth * 2 :(faderWidth*0.6 +2)*3.5
     property int faderWidth : 2
     property color faderColor : MaterialStyle.amber
     readonly property int rawRippleColor: enabled ? MaterialStyle.RippleBackground.Accent : MaterialStyle.RippleBackground.Primary
