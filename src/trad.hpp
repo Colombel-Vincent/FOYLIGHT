@@ -36,6 +36,7 @@ protected:
 public:
 	Trad() {};
 	~Trad() {};
+	void sendData(uint8_t * data) {};
 
 
 };

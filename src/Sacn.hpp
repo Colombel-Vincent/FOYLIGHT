@@ -17,6 +17,7 @@
 #include <qobject.h>
 #include <qudpsocket.h>
 #include <string.h>
+#include "Fixture.hpp"
 
 
 // ─────────────────────────────────────────────────────────────
@@ -82,7 +83,7 @@ const uint8_t E131_DEFAULT_PRIORITY = 0x64;
 	Q_OBJECT;
 public:
 	Sacn(QObject * parent = 0);
-	void SendSacn();
+	void SendSacn(Fixture * f);
 
 public slots:
 	int setPacketHeader(const uint16_t universe, const uint16_t num_channels);

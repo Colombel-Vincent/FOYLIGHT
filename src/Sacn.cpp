@@ -87,8 +87,8 @@ int Sacn::setPacketHeader(const uint16_t universe, const uint16_t num_channels) 
 	raw[112] = _E131_FRAME_OPTIONS;
 
 	// frame universe
-	raw[113] = 0x00; ((universe) & 0xFF);
-	raw[114] = 0x08; (universe) >> 8;
+	raw[113] = 0x00; 
+	raw[114] = 0x08; 
 
 
 	// set Device Management Protocol (DMP) Layer values
@@ -132,13 +132,14 @@ Sacn::Sacn(QObject *parent) :
 	
 }
 
-void Sacn::SendSacn()
+void Sacn::SendSacn(Fixture * f)
 {
 	setPacketHeader(1, 512);
 
+
 	for (int i = 126; i < 638; i++) {
-		if (i < 135) {
-			raw[i] = 0xFF;
+		if (i >= (f->getChannel()+126) || (i < (f->getNumberChannel()+ 126) )) {
+			
 		}
 		else{
 			raw[i] = 0x00;

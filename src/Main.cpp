@@ -28,6 +28,7 @@
 #include "ParLed.hpp"
 #include "Dune.hpp"
 #include "Trad.hpp"
+#include "Fixture.hpp"
 
 // ─────────────────────────────────────────────────────────────
 //					DECLARATION
@@ -43,6 +44,12 @@ int main(int argc, char *argv[])
 	QGuiApplication app(argc, argv);
 	QQmlApplicationEngine engine;
 	FL::Sacn Client;
+	FL::ParLed * led1 = new FL::ParLed;
+	led1->setChannel (1);
+	led1->setUniverse(1);
+	led1->setRGB(255, 125, 0);
+	led1->setNumberChannel(8);
+	Client.SendSacn(led1);
 	//Client.HelloUDP();
 
 	// ────────── REGISTER APPLICATION ──────────────────────────────────────

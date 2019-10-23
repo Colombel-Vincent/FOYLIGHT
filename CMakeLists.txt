@@ -219,7 +219,7 @@ set(FOYLIGHT_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/src/ParLed.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Fixture.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Effects.hpp
-
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Fixture.cpp
 
     ${FOYLIGHT_QML_SRCS}
 )
