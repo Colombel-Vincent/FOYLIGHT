@@ -34,9 +34,9 @@ protected:
 
 
 public:
-	Trad() {};
+	Trad();
 	~Trad() {};
-	void sendData(uint8_t * data) {};
+	void sendData(uint8_t * data);
 
 
 };

@@ -39,9 +39,9 @@ protected:
 
 public :
 	void setRGB(uint8_t red, uint8_t green, uint8_t blue) {};
-	Dune() {};
+	Dune();
 	~Dune() {};
-	virtual void sendData(uint8_t * data) {};
+	virtual void sendData(uint8_t * data);
 
 
 
