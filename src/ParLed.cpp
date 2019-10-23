@@ -1,11 +1,16 @@
 #include "ParLed.hpp"
+#include <qdebug.h>
+#include <qstring.h>
 
 
 FOYLIGHT_USING_NAMESPACE;
-void ParLed::setRGB(uint8_t red, uint8_t green, uint8_t blue) {
-	setBlue(blue);
-	setGreen(green);
-	setRed(red);
+void ParLed::setRGB(qint16 red, qint16 green, qint16 blue) {
+	 // ne pas mélanger string et int 
+	
+	setBlue((uint8_t)blue);
+	setGreen((uint8_t)green);
+	setRed((uint8_t)red);
+	qDebug() <<"red :"<<  red<<" ; blue :" << getBlue()<<"; green :"<< getGreen();
 }
 
  void ParLed::sendData(uint8_t * data) {

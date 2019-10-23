@@ -45,11 +45,12 @@ RowLayout{
         radius : 4
 
         Label{
-            text : "Général"
+            text : "red : "  //+ "blue : " + led.getBlue() //"Général"
             Layout.alignment: Qt.AlignHCenter
             textType: MaterialStyle.TextType.Title
 
         }
+
         contentItem : Flickable{
             id: _flickableG
              clip: true
@@ -91,6 +92,7 @@ RowLayout{
 
                      } // fader
                    }
+
                      ColorPage{
                         Layout.leftMargin : 15
                         id : _colorpicker

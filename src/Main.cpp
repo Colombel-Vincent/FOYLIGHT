@@ -47,9 +47,11 @@ int main(int argc, char *argv[])
 	FL::ParLed * led1 = new FL::ParLed;
 	led1->setChannel (1);
 	led1->setUniverse(1);
-	led1->setRGB(255, 125, 0);
+	led1->setName("test");
+	led1->setRGB(255, 125, 255);
 	led1->setNumberChannel(8);
 	Client.SendSacn(led1);
+	
 	//Client.HelloUDP();
 
 	// ────────── REGISTER APPLICATION ──────────────────────────────────────
@@ -58,7 +60,7 @@ int main(int argc, char *argv[])
 	QGuiApplication::setApplicationName("FOY & Lumiere");
 	QGuiApplication::setOrganizationDomain("www.qquickhelpergallery.com");
 	QGuiApplication::setApplicationVersion("1");
-
+	
 
 
 	// ────────── COMMAND PARSER ──────────────────────────────────────
@@ -89,7 +91,7 @@ int main(int argc, char *argv[])
 
 	// ────────── LOAD QML MAIN ───────────
 
-
+	engine.rootContext()->setContextProperty("led", led1);
 	engine.load(QUrl("qrc:///FOYLIGHT/Utils/Main.qml"));
 	if (engine.rootObjects().isEmpty())
 		return -1;

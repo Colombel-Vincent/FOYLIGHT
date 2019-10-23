@@ -13,6 +13,9 @@ Item
 {
     id: control
     property bool pressed: mouseArea.pressed
+    property var red : 0
+    property var  blue : 0
+    property var green : 0
     //implicitWidth: colorPicker.width
     implicitHeight: colorPicker.height
     Image
@@ -29,6 +32,8 @@ Item
             {
                 cursor.x = mouse.x - 20
                 cursor.y = mouse.y - 20
+                red  : mouse.x < colorPicker.width/6 ? ((mouse.x+20) *(-255/(colorPicker.width/6) +255) ): (mouse.x+20) < 5*colorPicker.width/6? mouse.x : 0
+                led.setRGB(red, 0,0)
 
             }
             onPositionChanged:
@@ -37,6 +42,8 @@ Item
                 var clampY = (mouse.y > 0 && mouse.y < colorPicker.height) ? mouse.y : (mouse.y > 0) ? colorPicker.height : 0;
                 cursor.x = clampX - 20;
                 cursor.y = clampY - 20;
+                red  : mouse.x < (colorPicker.width/6) ? (mouse.x *(-255/(colorPicker.width/6) + 255) ): mouse.x >  (5*colorPicker.width/6) ? mouse.x : 0
+                led.setRGB(mouse.x *-255/(colorPicker.width/6), 0,0)
 
             }
             Image
