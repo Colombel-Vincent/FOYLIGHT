@@ -43,17 +43,18 @@ int main(int argc, char *argv[])
 	QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 	QGuiApplication app(argc, argv);
 	QQmlApplicationEngine engine;
-	FL::Sacn Client;
+	FL::Sacn * Client = new FL::Sacn;
 	FL::ParLed * led1 = new FL::ParLed;
 	led1->setChannel (1);
 	led1->setUniverse(1);
 	led1->setName("test");
+	led1->setDimmer(255);
 	led1->setRGB(255, 125, 255);
-	led1->setNumberChannel(8);
-	Client.SendSacn(led1);
+	led1->setNumberChannel(7);
+	Client->SendSacn(led1);
 	
 	//Client.HelloUDP();
-
+	
 	// ────────── REGISTER APPLICATION ──────────────────────────────────────
 
 	QGuiApplication::setOrganizationName("Vincent");
@@ -90,12 +91,13 @@ int main(int argc, char *argv[])
 	QQuickMaterialHelper::Helper::registerTypes();
 
 	// ────────── LOAD QML MAIN ───────────
-
+	engine.rootContext()->setContextProperty("client", Client);
 	engine.rootContext()->setContextProperty("led", led1);
+	
 	engine.load(QUrl("qrc:///FOYLIGHT/Utils/Main.qml"));
 	if (engine.rootObjects().isEmpty())
 		return -1;
-
+		
 	// ────────── START EVENT LOOP ──────────────────────────────────────
 
 	return app.exec();

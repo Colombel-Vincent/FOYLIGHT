@@ -18,7 +18,9 @@ void ParLed::setRGB(qint16 red, qint16 green, qint16 blue) {
 	data[1] = getGreen();
 	data[2] = getBlue();
 	data[3] = 0x00;
-	data[4] = getDimmer();
+	data[4] = 0x00;
+	data[5] = 0x00;
+	data[6] = getDimmer();
 	
 }
 ParLed::ParLed() : Fixture(){}

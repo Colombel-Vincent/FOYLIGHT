@@ -17,7 +17,16 @@ ApplicationWindow
     width: 1920
     height: 1080
     visible: true
-	title: "Foy & Light"
+	   title: "Foy & Light"
+
+  Item {
+    Timer {
+        interval: 100; running: true; repeat: true
+        onTriggered: client.SendSacn(led)
+
+
+    }
+  }
 ToolBar{
     id : _topbanner
     width : parent.width

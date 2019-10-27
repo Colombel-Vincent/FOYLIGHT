@@ -134,47 +134,52 @@ Sacn::Sacn(QObject *parent) :
 
 void Sacn::SendSacn(Fixture * f)
 {
-	setPacketHeader(1, 512);
-
-
-	for (int i = 126; i < 638; i++) {
-		if (i >= (f->getChannel()+126) || (i < (f->getNumberChannel()+ 126) )) {
-			
-		}
-		else{
-			raw[i] = 0x00;
-		}
-	}
-	for (int i = 0; i < 638; i++) {
-		Data.append(raw[i]);
-	}
-	int g = 1;
 	
+		setPacketHeader(1, 512);
 
-			// Sends the datagram datagram
-			// to the host address and at port.
-			// qint64 QUdpSocket::writeDatagram(const QByteArray & datagram,
-			//                      const QHostAddress & host, quint16 port)
+		for (int i = 126; i < 638; i++) {
+			if (i == (f->getChannel() + 125)) {
+				uint8_t * fixture = (uint8_t*)malloc(sizeof(uint8_t)*f->getNumberChannel());
+				f->sendData(fixture);
+				for (int g = 0; g < f->getNumberChannel(); g++) {
+					raw[i + g] = fixture[g];
+				}
+				i = i + f->getNumberChannel();
+			}
+			else {
+				raw[i] = 0x00;
+			}
+		}
+		/*for (int i = 0; i < 638; i++) {
+			Data.append(raw[i]);
+		}*/
+		int g = 1;
+
+
+		// Sends the datagram datagram
+		// to the host address and at port.
+		// qint64 QUdpSocket::writeDatagram(const QByteArray & datagram,
+		//                      const QHostAddress & host, quint16 port)
 		raw[114] = 1;
 		for (int i = 0; i < 638; i++) {
 			Data.append(raw[i]);
 		}
-			socket->writeDatagram(Data, QHostAddress("239.255.0.1"), E131_DEFAULT_PORT_srv);
-			raw[114]++;
-			g++;
-			Data.clear();
-			for (int i = 0; i < 638; i++) {
-				Data.append(raw[i]);
-			}
-			socket->writeDatagram(Data, QHostAddress("239.255.0.2"), E131_DEFAULT_PORT_srv);
-			raw[114]++;
-			g++;
-			Data.clear();
-			
-				
-			raw[114]=1;
-			
+		socket->writeDatagram(Data, QHostAddress("239.255.0.1"), E131_DEFAULT_PORT_srv);
+		raw[114]++;
+		g++;
+		Data.clear();
+		for (int i = 0; i < 638; i++) {
+			Data.append(raw[i]);
+		}
+		socket->writeDatagram(Data, QHostAddress("239.255.0.2"), E131_DEFAULT_PORT_srv);
+		raw[114]++;
+		g++;
+		Data.clear();
 
+
+		raw[114] = 1;
+
+	
 
 		
 	}

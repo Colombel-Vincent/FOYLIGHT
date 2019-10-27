@@ -81,9 +81,10 @@ const uint8_t E131_DEFAULT_PRIORITY = 0x64;
 	class Sacn : public QObject
 {
 	Q_OBJECT;
+	QSM_REGISTER_OBJ_TO_QML_NO_NAME(Sacn);
 public:
 	Sacn(QObject * parent = 0);
-	void SendSacn(Fixture * f);
+	Q_INVOKABLE void SendSacn(Fixture * f);
 
 public slots:
 	int setPacketHeader(const uint16_t universe, const uint16_t num_channels);
