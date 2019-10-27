@@ -32,3 +32,11 @@ Fixture::Fixture(){
 	setId(i);
 	i++;
 }
+
+Fixture::Fixture(QString name, uint8_t universe, uint8_t channel, uint8_t numberChannel) : Fixture()
+{
+	setName(name);
+	setUniverse(universe);
+	setChannel(channel);
+	setNumberChannel(numberChannel);
+}

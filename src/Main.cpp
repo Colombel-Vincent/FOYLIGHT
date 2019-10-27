@@ -43,6 +43,7 @@ int main(int argc, char *argv[])
 	QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 	QGuiApplication app(argc, argv);
 	QQmlApplicationEngine engine;
+	FL::FixtureList * all = new FL::FixtureList;
 	FL::Sacn * Client = new FL::Sacn;
 	FL::ParLed * led1 = new FL::ParLed;
 	led1->setChannel (1);

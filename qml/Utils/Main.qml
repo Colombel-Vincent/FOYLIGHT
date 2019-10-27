@@ -21,7 +21,7 @@ ApplicationWindow
 
   Item {
     Timer {
-        interval: 100; running: true; repeat: true
+        interval: 10; running: true; repeat: true
         onTriggered: client.SendSacn(led)
 
 

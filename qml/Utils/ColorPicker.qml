@@ -19,6 +19,7 @@ Item
 
     function setColor(x,y)
     {
+
         if (x < colorPicker.width/3)
         {
             red = x *-255/(colorPicker.width/3) + 255
@@ -32,7 +33,7 @@ Item
             blue = x *-255/(colorPicker.width/3) + 255
             green = 0
         }
-        else if(x > (colorPicker.width/3) && x< 2*colorPicker.width/3)
+        else if(x >= (colorPicker.width/3) && x<= 2*colorPicker.width/3)
         {
             x = x - colorPicker.width/3
             blue = x*255/(colorPicker.width/3)
@@ -40,9 +41,14 @@ Item
             red = 0
 
         }
-        red = red + y/colorPicker.height*255
-        blue = blue +y/colorPicker.height*255
-        green = green + y/colorPicker.height*255
+        if (y > colorPicker.height/3 )
+        {
+
+            red = red + y/colorPicker.height*255
+            blue = blue +y/colorPicker.height*255
+            green = green + y/colorPicker.height*255
+
+        }
         if (red > 255)
         {
             red =255

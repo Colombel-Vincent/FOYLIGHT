@@ -23,4 +23,10 @@ void ParLed::setRGB(qint16 red, qint16 green, qint16 blue) {
 	data[6] = getDimmer();
 	
 }
-ParLed::ParLed() : Fixture(){}
+ParLed::ParLed() : Fixture()
+{
+	static int id = 1;
+	setPid(id);
+	id++;
+
+}
