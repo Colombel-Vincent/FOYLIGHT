@@ -22,7 +22,7 @@ ApplicationWindow
   Item {
     Timer {
         interval: 10; running: true; repeat: true
-        onTriggered: client.SendSacn(led)
+        onTriggered: client.SendSacn(all)
 
 
     }

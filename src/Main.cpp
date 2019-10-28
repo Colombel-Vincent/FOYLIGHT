@@ -43,7 +43,7 @@ int main(int argc, char *argv[])
 	QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 	QGuiApplication app(argc, argv);
 	QQmlApplicationEngine engine;
-	FL::FixtureList * all = new FL::FixtureList;
+	FL::FixtureList *  all = new FL::FixtureList;
 	FL::Sacn * Client = new FL::Sacn;
 	FL::ParLed * led1 = new FL::ParLed;
 	led1->setChannel (1);
@@ -51,8 +51,9 @@ int main(int argc, char *argv[])
 	led1->setName("test");
 	led1->setDimmer(255);
 	led1->setRGB(255, 125, 255);
-	led1->setNumberChannel(7);
-	Client->SendSacn(led1);
+	led1->setNumberChannel(10);
+	all->insert(*led1);
+	Client->SendSacn(all);
 	
 	//Client.HelloUDP();
 	
@@ -93,6 +94,7 @@ int main(int argc, char *argv[])
 
 	// ────────── LOAD QML MAIN ───────────
 	engine.rootContext()->setContextProperty("client", Client);
+	engine.rootContext()->setContextProperty("all", all);
 	engine.rootContext()->setContextProperty("led", led1);
 	
 	engine.load(QUrl("qrc:///FOYLIGHT/Utils/Main.qml"));
@@ -100,6 +102,6 @@ int main(int argc, char *argv[])
 		return -1;
 		
 	// ────────── START EVENT LOOP ──────────────────────────────────────
-
+	
 	return app.exec();
 }

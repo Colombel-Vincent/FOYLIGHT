@@ -28,6 +28,7 @@ FOYLIGHT_USING_NAMESPACE;
 //					FUNCTIONS
 // ─────────────────────────────────────────────────────────────
 Fixture::Fixture(){
+	QObject(parent);
 	static int i = 0;
 	setId(i);
 	i++;
@@ -39,4 +40,30 @@ Fixture::Fixture(QString name, uint8_t universe, uint8_t channel, uint8_t number
 	setUniverse(universe);
 	setChannel(channel);
 	setNumberChannel(numberChannel);
+}
+
+Fixture * FixtureList::getFixture(const int id) const
+{
+	for (auto  it : *this ) {
+		if (it->getId() == id)
+			return it;
+	}
+	return nullptr;
+}
+
+Fixture * FixtureList::insert(Fixture & f)
+{
+	this->append(&f);
+	return &f;
+}
+
+bool FixtureList::removeFixture(const int id)
+{
+	for (auto it : *this) {
+		if (it->getId() == id) {
+			delete it;
+			return true;
+		}
+	}
+	return false;
 }

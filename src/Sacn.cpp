@@ -132,22 +132,24 @@ Sacn::Sacn(QObject *parent) :
 	
 }
 
-void Sacn::SendSacn(Fixture * f)
+void Sacn::SendSacn(FixtureList *f)
 {
-	
+	//while (1) {
 		setPacketHeader(1, 512);
 
-		for (int i = 126; i < 638; i++) {
-			if (i == (f->getChannel() + 125)) {
-				uint8_t * fixture = (uint8_t*)malloc(sizeof(uint8_t)*f->getNumberChannel());
-				f->sendData(fixture);
-				for (int g = 0; g < f->getNumberChannel(); g++) {
-					raw[i + g] = fixture[g];
+		for (auto it : *f) {
+			for (int i = 126; i < 638; i++) {
+				if (i == (it->getChannel() + 125)) {
+					uint8_t * fixture = (uint8_t*)malloc(sizeof(uint8_t)*it->getNumberChannel());
+					it->sendData(fixture);
+					for (int g = 0; g < it->getNumberChannel(); g++) {
+						raw[i + g] = fixture[g];
+					}
+					i = i + it->getNumberChannel();
 				}
-				i = i + f->getNumberChannel();
-			}
-			else {
-				raw[i] = 0x00;
+				else {
+					raw[i] = 0x00;
+				}
 			}
 		}
 		/*for (int i = 0; i < 638; i++) {

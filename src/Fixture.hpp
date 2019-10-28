@@ -55,11 +55,11 @@ class  FixtureList : public Qqm::QQmlObjectListModel<Fixture>
 	Q_OBJECT
 	QSM_REGISTER_OBJ_TO_QML_NO_NAME(FixtureList);
 
-protected:
+private:
 
 	QMap<quint16, Fixture * > _lookupTable;
 
-private:
+protected:
 
 	class Fixture * _parentCard = nullptr;
 	using Qqm::QQmlObjectListModel<Fixture>::insert;
@@ -68,8 +68,9 @@ private:
 public:
 	FixtureList(QObject * parent = nullptr) : QQmlObjectListModel<Fixture>(parent) {}
 	Fixture * getFixture(const int id) const;
-	Fixture* insert(Fixture *f);
+	Fixture* insert(Fixture &f);
 	bool removeFixture(const int id);
+
 
 };
 FOYLIGHT_NAMESPACE_END
