@@ -16,6 +16,7 @@
 #include <Windows.h>
 #include <stdint.h>
 #include <Winsock.h>
+#include "Effects.hpp"
 
 
 // ─────────────────────────────────────────────────────────────
@@ -134,8 +135,11 @@ Sacn::Sacn(QObject *parent) :
 
 void Sacn::SendSacn(FixtureList *f)
 {
-	//while (1) {
+	
+
+
 		setPacketHeader(1, 512);
+		SinusColorDegrade(f, 0, Cyan);
 
 		for (auto it : *f) {
 			for (int i = 126; i < 638; i++) {
@@ -180,7 +184,7 @@ void Sacn::SendSacn(FixtureList *f)
 
 
 		raw[114] = 1;
-
+	
 	
 
 		

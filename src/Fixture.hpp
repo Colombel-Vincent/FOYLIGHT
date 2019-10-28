@@ -43,6 +43,7 @@ public :
 	Fixture(QString name,uint8_t universe, uint8_t channel, uint8_t NumberChannel);
 	~Fixture() {};
 	virtual void sendData(uint8_t * data) {};
+	virtual void setRGB(qint16 red, qint16 green, qint16 blue) {};
 
 
 

@@ -50,7 +50,7 @@ int main(int argc, char *argv[])
 	led1->setUniverse(1);
 	led1->setName("test");
 	led1->setDimmer(255);
-	led1->setRGB(255, 125, 255);
+	led1->setRGB(255, 255, 255);
 	led1->setNumberChannel(10);
 	all->insert(*led1);
 	Client->SendSacn(all);
