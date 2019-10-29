@@ -36,12 +36,13 @@ protected:
 	QSM_WRITABLE_AUTO_PROPERTY_WDEFAULT(uint8_t, green, Green, 100);
 	QSM_WRITABLE_AUTO_PROPERTY_WDEFAULT(uint8_t, blue, Blue, 100);
 	QSM_WRITABLE_AUTO_PROPERTY_WDEFAULT(uint8_t, shutter, Shutter, 0);
-
+	
 public :
 	void setRGB(uint8_t red, uint8_t green, uint8_t blue) {};
 	Dune();
 	~Dune() {};
 	virtual void sendData(uint8_t * data);
+	
 
 
 

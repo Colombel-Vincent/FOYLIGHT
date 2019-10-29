@@ -39,6 +39,7 @@ public:
 	void sendData(uint8_t * data);
 
 
+
 };
 FOYLIGHT_NAMESPACE_END
 

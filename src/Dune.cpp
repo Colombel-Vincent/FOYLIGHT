@@ -2,7 +2,12 @@
 
 FOYLIGHT_USING_NAMESPACE;
 
-Dune::Dune() : Fixture() {}
+Dune::Dune() : Fixture() {
+	static int i =1;
+	setId(i);
+	i++;
+
+}
 
 void Dune::sendData(uint8_t * data) {
 	data[0] = getRed();

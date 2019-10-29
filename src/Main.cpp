@@ -44,15 +44,29 @@ int main(int argc, char *argv[])
 	QGuiApplication app(argc, argv);
 	QQmlApplicationEngine engine;
 	FL::FixtureList *  all = new FL::FixtureList;
+	FL::ParLedList *  allP = new FL::ParLedList;
 	FL::Sacn * Client = new FL::Sacn;
 	FL::ParLed * led1 = new FL::ParLed;
+	FL::ParLed * led2 = new FL::ParLed;
+
+	/*declaration opf 2 entity*/
 	led1->setChannel (1);
 	led1->setUniverse(1);
 	led1->setName("test");
 	led1->setDimmer(255);
 	led1->setRGB(255, 255, 255);
 	led1->setNumberChannel(10);
+	led2->setChannel(11);
+	led2->setUniverse(1);
+	led2->setName("test2");
+	led2->setDimmer(255);
+	led2->setRGB(255, 255, 255);
+	led2->setNumberChannel(10);
+
 	all->insert(*led1);
+	allP->insert(led1);
+	all->insert(*led2);
+	allP->insert(led2);
 	Client->SendSacn(all);
 	
 	//Client.HelloUDP();
@@ -95,7 +109,7 @@ int main(int argc, char *argv[])
 	// ────────── LOAD QML MAIN ───────────
 	engine.rootContext()->setContextProperty("client", Client);
 	engine.rootContext()->setContextProperty("all", all);
-	engine.rootContext()->setContextProperty("led", led1);
+	engine.rootContext()->setContextProperty("led", allP);
 	
 	engine.load(QUrl("qrc:///FOYLIGHT/Utils/Main.qml"));
 	if (engine.rootObjects().isEmpty())

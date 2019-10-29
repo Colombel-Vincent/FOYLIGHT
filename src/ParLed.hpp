@@ -49,7 +49,7 @@ protected:
 	QSM_WRITABLE_AUTO_PROPERTY_WDEFAULT(uint8_t, warmWhite, warmWhite, 0);
 	QSM_WRITABLE_AUTO_PROPERTY_WDEFAULT(uint8_t, uv, UV, 0);
 	QSM_WRITABLE_AUTO_PROPERTY_WDEFAULT(uint8_t, shutter, Shutter, 0);
-	QSM_WRITABLE_AUTO_PROPERTY_WDEFAULT(uint8_t, pid, Pid, 0);
+	
 
 public :
 	ParLed()  ;
@@ -66,7 +66,7 @@ public :
 class  ParLedList : public Qqm::QQmlObjectListModel<ParLed>
 {
 	Q_OBJECT
-		QSM_REGISTER_OBJ_TO_QML_NO_NAME(ParLedList);
+	QSM_REGISTER_OBJ_TO_QML_NO_NAME(ParLedList);
 
 protected:
 

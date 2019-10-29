@@ -36,15 +36,16 @@ protected:
 	QSM_WRITABLE_AUTO_PROPERTY(uint8_t, channel, Channel);
 	QSM_WRITABLE_AUTO_PROPERTY(uint8_t, universe, Universe);
 	QSM_WRITABLE_AUTO_PROPERTY(QString, name, Name);
-	QSM_WRITABLE_AUTO_PROPERTY(int, id, Id);
 	QSM_WRITABLE_AUTO_PROPERTY_WDEFAULT(uint8_t, dimmer, Dimmer, 100);
+	QSM_WRITABLE_AUTO_PROPERTY_WDEFAULT(uint8_t, id, Id, 0);
+	QSM_WRITABLE_AUTO_PROPERTY_WDEFAULT(double, time, Time, 0);
 public :
 	Fixture(); 
 	Fixture(QString name,uint8_t universe, uint8_t channel, uint8_t NumberChannel);
 	~Fixture() {};
 	virtual void sendData(uint8_t * data) {};
 	virtual void setRGB(qint16 red, qint16 green, qint16 blue) {};
-
+	
 
 
 
@@ -55,6 +56,7 @@ class  FixtureList : public Qqm::QQmlObjectListModel<Fixture>
 {
 	Q_OBJECT
 	QSM_REGISTER_OBJ_TO_QML_NO_NAME(FixtureList);
+	QSM_WRITABLE_AUTO_PROPERTY_WDEFAULT(int, effectsChanged, EffectsChanged,1);
 
 private:
 

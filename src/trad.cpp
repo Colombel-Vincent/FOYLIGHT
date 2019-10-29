@@ -7,4 +7,9 @@ void Trad::sendData(uint8_t * data) {
 }
 
 
-Trad::Trad() : Fixture(){}
+Trad::Trad() : Fixture()
+{
+	static int i =1;
+	setId(i);
+	i++;
+}

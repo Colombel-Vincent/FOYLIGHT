@@ -139,23 +139,27 @@ void Sacn::SendSacn(FixtureList *f)
 
 
 		setPacketHeader(1, 512);
-		SinusColorDegrade(f, 0, Cyan);
+		parLedGroupeEffects(f, Sin, 0,parUn,lineaire);
+		parLedGroupeEffects(f, Raimbow, 0, tous, lineaire);
+		int v[512] = { 0 };
 
 		for (auto it : *f) {
-			for (int i = 126; i < 638; i++) {
-				if (i == (it->getChannel() + 125)) {
-					uint8_t * fixture = (uint8_t*)malloc(sizeof(uint8_t)*it->getNumberChannel());
-					it->sendData(fixture);
-					for (int g = 0; g < it->getNumberChannel(); g++) {
-						raw[i + g] = fixture[g];
-					}
-					i = i + it->getNumberChannel();
-				}
-				else {
-					raw[i] = 0x00;
-				}
+			uint8_t * fixture = (uint8_t*)malloc(sizeof(uint8_t)*it->getNumberChannel());
+			it->sendData(fixture);
+			for (int i = 125 + it->getChannel(); i < 125 + it->getChannel()+ it->getNumberChannel()+1 && i<638; i++) {
+				raw[i] = fixture[i - (125 + it->getChannel())];
+				v[i- 125] = 1;
 			}
+			free(fixture);
 		}
+		for (int i = 0; i < 512; i++) 
+		{
+			if(v[i]==0)
+			raw[i+125] = 0x00;
+		}
+		
+	
+		
 		/*for (int i = 0; i < 638; i++) {
 			Data.append(raw[i]);
 		}*/
