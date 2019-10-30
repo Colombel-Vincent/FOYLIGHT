@@ -15,16 +15,29 @@ void ParLed::setRGB(qint16 red, qint16 green, qint16 blue) {
 }
 
  void ParLed::sendData(uint8_t * data) {
-	data[0] = getRed();
-	data[1] = getGreen();
-	data[2] = getBlue();
-	data[3] = getWhite();
-	data[4] = getwarmWhite();
-	data[5] = getUV();
+	 if (getDimmer() < 2) {
+		 data[0] = getRed()+1;
+		 data[1] = getGreen()+1;
+		 data[2] = getBlue()+1;
+		 data[3] = getWhite()+1;
+		 data[4] = getwarmWhite()+1;
+		 data[5] = getUV()+1;
+	 }
+	 else {
+		 data[0] = getRed();
+		 data[1] = getGreen();
+		 data[2] = getBlue();
+		 data[3] = getWhite();
+		 data[4] = getwarmWhite();
+		 data[5] = getUV();
+	 }
 	data[6] = 0x00;
 	data[7] = getShutter();
 	data[8] = 0x00;
 	data[9] = getDimmer();
+	if (getDimmer() == 0) {
+		
+	}
 
 }
 
@@ -37,7 +50,7 @@ ParLed::ParLed() : Fixture()
 	id++;
 	
 }
-
+/*
 ParLed * ParLedList::getParLed(const int id) const
 {
 	for (auto it : *this) {
@@ -63,3 +76,4 @@ bool ParLedList::removeParLed(const int id)
 	}
 	return false;
 }
+*/

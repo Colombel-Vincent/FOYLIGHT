@@ -62,7 +62,7 @@ public :
 
 
 };
-
+/*
 class  ParLedList : public Qqm::QQmlObjectListModel<ParLed>
 {
 	Q_OBJECT
@@ -84,7 +84,7 @@ public:
 	ParLed* insert(ParLed *f);
 	bool removeParLed(const int id);
 
-};
+};*/
 FOYLIGHT_NAMESPACE_END
 
 #endif

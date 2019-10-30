@@ -10,8 +10,25 @@ Dune::Dune() : Fixture() {
 }
 
 void Dune::sendData(uint8_t * data) {
-	data[0] = getRed();
-	data[1] = getGreen();
-	data[2] = getBlue();
-	data[4] = getDimmer();
+	if (getDimmer() < 2) {
+		data[1] = 0x00;
+		data[2] = 0x00;
+		data[3] = 0x00;
+	}
+	else {
+		data[1] = getRed();
+		data[2] = getGreen();
+		data[3] = getBlue();
+	}
+	data[0] = getDimmer() / 2 + 125;
+}
+
+void Dune::setRGB(qint16 red, qint16 green, qint16 blue) {
+	// ne pas mélanger string et int
+	setBlue((uint8_t)blue);
+	setGreen((uint8_t)green);
+	setRed((uint8_t)red);
+	qDebug() << "red:" << getRed() << "green" << getGreen() << "blue" <<getBlue();
+	//qDebug() <<"red :"<<  red<<" ; blue :" << getBlue()<<"; green :"<< getGreen();
+
 }

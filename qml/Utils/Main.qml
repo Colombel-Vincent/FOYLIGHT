@@ -23,8 +23,6 @@ ApplicationWindow
     Timer {
         interval: 10; running: true; repeat: true
         onTriggered: client.SendSacn(all)
-
-
     }
   }
 ToolBar{
@@ -68,7 +66,7 @@ RowLayout{
             interactive : contentHeight > height
             ScrollIndicator.vertical: ScrollIndicator {}
 
-            property int availableWidth :  Math.floor((_padButtonGeneral.width + _testSlider3.width + _colorpicker.width +20) /(window.width/3) )
+            property int availableWidth :  Math.floor((_padButtonGeneral.width + _generalSlider.width + _colorpicker.width +20) /(window.width/3) )
 
         GridLayout{
             id: _generalLayout
@@ -81,27 +79,20 @@ RowLayout{
 
                      } // pad button
 
-                     Rectangle {
-                      width : _testSlider3.width +15
-                      height : _testSlider3.height +8
-                      Layout.leftMargin : 15
-                      border.color : "grey"
-                      color : "transparent"
-                      border.width : 1
-                      radius : 6
+
                   Utils.Fader{
                         Layout.leftMargin : 4
-                        id:_testSlider3
+                        id:_generalSlider
                         from : 0
                         to: MaterialStyle.rawButton.minHeight/2
                         value: MaterialStyle.rawButton.cornerRadius
                         stepSize: 1
                         orientation: Qt.Vertical
                         faderWidth : 15
-                        onMoved : all.slideDimmer(_parLedSlider.value)
+                        onMoved : all.slideDimmer(_generalSlider.value)
 
                      } // fader
-                   }
+
 
                      ColorPage{
                         Layout.leftMargin : 15
@@ -109,7 +100,6 @@ RowLayout{
                         Layout.fillHeight:true
                         Layout.preferredWidth : 450
                         Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-
                         onPickerColorChanged:all.setRGB(_colorpicker.red,_colorpicker.green,_colorpicker.blue)
 
                      }
@@ -196,11 +186,12 @@ RowLayout{
                         Layout.leftMargin : 15
                         id:_duneSlider
                         from : 0
-                        to: MaterialStyle.rawButton.minHeight/2
-                        value: MaterialStyle.rawButton.cornerRadius
+                        to: 100
+                        value: 50
                         stepSize: 1
                         orientation: Qt.Vertical
                         faderWidth : 14
+                        onMoved : dune.slideDimmer(_duneSlider.value)
 
 
 
@@ -212,6 +203,7 @@ RowLayout{
                         Layout.fillHeight:true
                         Layout.preferredWidth : 300
                         Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                        onPickerColorChanged:dune.setRGB(_colorpicker2.red,_colorpicker2.green,_colorpicker2.blue)
                      }
         }
           GridLayout{
@@ -243,7 +235,12 @@ RowLayout{
         } // pane
 
         Pane{
-
+      Item {
+        Timer {
+        interval: 10; running: true; repeat: true
+        //onTriggered: //client.SendSacn(all)
+           }
+         }
 
         id : _parLedPane
         contentHeight : 550
@@ -274,6 +271,7 @@ RowLayout{
                         id:_parLedSlider
                         from : 0
                         to: 100
+                        value:50
                         stepSize: 1
                         orientation: Qt.Vertical
                         faderWidth : 14
@@ -285,7 +283,7 @@ RowLayout{
                         Layout.fillHeight:true
                         Layout.preferredWidth : 300
                         Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-                        onPickerColorChanged:all.setRGB(_colorpicker.red,_colorpicker.green,_colorpicker.blue)
+                        onPickerColorChanged:led.setRGB(_colorpicker3.red,_colorpicker3.green,_colorpicker3.blue)
                      }
                  }
 

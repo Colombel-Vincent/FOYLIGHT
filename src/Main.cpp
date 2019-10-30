@@ -43,12 +43,13 @@ int main(int argc, char *argv[])
 	QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 	QGuiApplication app(argc, argv);
 	QQmlApplicationEngine engine;
-	FL::FixtureList *  all = new FL::FixtureList;
-	FL::FixtureList *  allP = new FL::FixtureList;
+	FL::FixtureList   all = new FL::FixtureList;
+	FL::FixtureList   allP = new FL::FixtureList;
+	FL::FixtureList   allD = new FL::FixtureList;
 	FL::Sacn * Client = new FL::Sacn;
 	FL::ParLed * led1 = new FL::ParLed;
 	FL::ParLed * led2 = new FL::ParLed;
-
+	FL::Dune * Dune1 = new FL::Dune;
 	/*declaration opf 2 entity*/
 	led1->setChannel (1);
 	led1->setUniverse(1);
@@ -62,12 +63,24 @@ int main(int argc, char *argv[])
 	led2->setDimmer(255);
 	led2->setRGB(255, 255, 255);
 	led2->setNumberChannel(10);
+	Dune1->setChannel(22);
+	Dune1->setUniverse(1);
+	Dune1->setName("test3");
+	Dune1->setDimmer(255);
+	Dune1->setRGB(255, 255, 255);
+	Dune1->setNumberChannel(4);
 
-	all->insert(*led1);  
-	allP->insert(*led1);
-	all->insert(*led2);
-	allP->insert(*led2);
-	Client->SendSacn(all);
+	
+	allP.insert(*led1);
+	allP.insert(*led2);
+	allD.insert(*Dune1);
+	for (auto  it : allP) {
+		all.insert(*it);
+	}
+	for (auto it : allD) {
+		all.insert(*it);
+	}
+	//Client->SendSacn(all);
 	
 	//Client.HelloUDP();
 	
@@ -108,8 +121,9 @@ int main(int argc, char *argv[])
 
 	// ────────── LOAD QML MAIN ───────────
 	engine.rootContext()->setContextProperty("client", Client);
-	engine.rootContext()->setContextProperty("all", all);
-	engine.rootContext()->setContextProperty("led", allP);
+	engine.rootContext()->setContextProperty("all", &all);
+	engine.rootContext()->setContextProperty("led", &allP);
+	engine.rootContext()->setContextProperty("dune", &allD);
 	
 	engine.load(QUrl("qrc:///FOYLIGHT/Utils/Main.qml"));
 	if (engine.rootObjects().isEmpty())

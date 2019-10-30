@@ -38,10 +38,10 @@ protected:
 	QSM_WRITABLE_AUTO_PROPERTY_WDEFAULT(uint8_t, shutter, Shutter, 0);
 	
 public :
-	void setRGB(uint8_t red, uint8_t green, uint8_t blue) {};
+	Q_INVOKABLE void setRGB(qint16 red, qint16 green, qint16 blue) override ;
 	Dune();
 	~Dune() {};
-	virtual void sendData(uint8_t * data);
+	virtual void sendData(uint8_t * data) override;
 	
 
 
