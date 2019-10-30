@@ -136,11 +136,9 @@ Sacn::Sacn(QObject *parent) :
 void Sacn::SendSacn(FixtureList *f)
 {
 	
-
-
 		setPacketHeader(1, 512);
-		parLedGroupeEffects(f, Sin, 0,parUn,lineaire);
-		parLedGroupeEffects(f, Raimbow, 0, tous, lineaire);
+		//parLedGroupeEffects(f, Sin, 0,parUn,lineaire);
+		//parLedGroupeEffects(f, Raimbow, 0, tous, lineaire);
 		int v[512] = { 0 };
 
 		for (auto it : *f) {

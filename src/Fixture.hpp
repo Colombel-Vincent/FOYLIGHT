@@ -46,6 +46,7 @@ public :
 	virtual void sendData(uint8_t * data) {};
 	virtual void setRGB(qint16 red, qint16 green, qint16 blue) {};
 	
+	
 
 
 
@@ -73,6 +74,8 @@ public:
 	Fixture * getFixture(const int id) const;
 	Fixture* insert(Fixture &f);
 	bool removeFixture(const int id);
+	Q_INVOKABLE void slideDimmer(int value) ;
+	Q_INVOKABLE void setRGB(qint16 red, qint16 green, qint16 blue);
 
 
 };

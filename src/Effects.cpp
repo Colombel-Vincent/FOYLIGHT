@@ -8,14 +8,10 @@ void FL::SinusDim(Fixture * it, int speed) {
 }
 void FL::sinusColor(Fixture * it, int speed)
 {
-	
-
 			qint16 red = sin(it->getTime()+ M_PI/2) * 255 < 0 ? 0 : sin(it->getTime() +M_PI / 2) * 255;
 			qint16 blue = sin(it->getTime() + 7*M_PI/6) * 255 < 0 ? 0 : sin(it->getTime() + 7*M_PI / 6) * 255;
 			qint16 green = sin(it->getTime() + 11 * M_PI / 6) * 255 < 0 ? 0 : sin(it->getTime() + 11 * M_PI / 6) * 255;
 			it->setRGB(red,green,blue);
-			
-
 			it->setTime(it->getTime() + 0.01);
 
 }
@@ -107,7 +103,7 @@ void FL::parLedGroupeEffects(FixtureList *f, Effects effects, int speed,GroupEff
 	case parUn :
 		parLedEffects(f,a,a,a,a,0, effects,speed);
 		a = a < f->count() ? a+1 : 1;
-		qDebug() << "a:" << a;
+		//qDebug() << "a:" << a;
 		break;
 	case par2 :
 		if (EM == lineaire) 

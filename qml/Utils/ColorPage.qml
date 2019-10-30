@@ -7,14 +7,21 @@ import Qt.labs.settings 1.0
 import QQuickMaterialHelper.Components 1.12
 import QQuickMaterialHelper.Style 1.12
 import QQuickMaterialHelper.Fonts 1.12
-
 import QtQml.Models 2.1
 
 
 Pane
 {
 	id: page
-	property bool pressed: colorPicker.pressed
+
+	property bool pressed: _colorPicker.pressed
+	property real red :_colorPicker.red
+    property real  blue :_colorPicker.blue
+    property real green :_colorPicker.green
+    signal pickerColorChanged()
+
+
+
 
 	ColumnLayout
 	{
@@ -23,14 +30,20 @@ Pane
 		Label
 		{
 			id: textcolor
-			text: "    Color Picker"
+			text: red
 			Layout.fillWidth: true
 		}
 		ColorPicker
 		{
-			id: colorPicker
+			id: _colorPicker
 			Layout.fillHeight : true
 			Layout.fillWidth: true
+			onChanged : pressed()
+
+			 function pressed()
+			 {
+    			pickerColorChanged()
+   			 }
 		}
 
 

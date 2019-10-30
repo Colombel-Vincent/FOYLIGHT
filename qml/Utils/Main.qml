@@ -54,7 +54,7 @@ RowLayout{
         radius : 4
 
         Label{
-            text : "red : "  //+ "blue : " + led.getBlue() //"Général"
+            text : "red : " //+_colorpicker.red //+ "blue : " + led.getBlue() //"Général"
             Layout.alignment: Qt.AlignHCenter
             textType: MaterialStyle.TextType.Title
 
@@ -98,6 +98,7 @@ RowLayout{
                         stepSize: 1
                         orientation: Qt.Vertical
                         faderWidth : 15
+                        onMoved : all.slideDimmer(_parLedSlider.value)
 
                      } // fader
                    }
@@ -108,6 +109,9 @@ RowLayout{
                         Layout.fillHeight:true
                         Layout.preferredWidth : 450
                         Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+
+                        onPickerColorChanged:all.setRGB(_colorpicker.red,_colorpicker.green,_colorpicker.blue)
+
                      }
 
 
@@ -199,6 +203,8 @@ RowLayout{
                         faderWidth : 14
 
 
+
+
                      } // fader
                        ColorPage{
                         Layout.leftMargin : 15
@@ -267,13 +273,11 @@ RowLayout{
                         Layout.leftMargin : 15
                         id:_parLedSlider
                         from : 0
-                        to: MaterialStyle.rawButton.minHeight/2
-                        value: MaterialStyle.rawButton.cornerRadius
+                        to: 100
                         stepSize: 1
                         orientation: Qt.Vertical
                         faderWidth : 14
-
-
+                        onMoved : led.slideDimmer(_parLedSlider.value)
                      } // fader
                        ColorPage{
                         Layout.leftMargin : 15
@@ -281,6 +285,7 @@ RowLayout{
                         Layout.fillHeight:true
                         Layout.preferredWidth : 300
                         Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                        onPickerColorChanged:all.setRGB(_colorpicker.red,_colorpicker.green,_colorpicker.blue)
                      }
                  }
 
@@ -290,6 +295,7 @@ RowLayout{
                         Layout.topMargin : 250
 
                         label : "Chase Fort"
+
                      } // pad button
                        PadButton{
                         Layout.topMargin : 250

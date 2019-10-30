@@ -44,7 +44,7 @@ int main(int argc, char *argv[])
 	QGuiApplication app(argc, argv);
 	QQmlApplicationEngine engine;
 	FL::FixtureList *  all = new FL::FixtureList;
-	FL::ParLedList *  allP = new FL::ParLedList;
+	FL::FixtureList *  allP = new FL::FixtureList;
 	FL::Sacn * Client = new FL::Sacn;
 	FL::ParLed * led1 = new FL::ParLed;
 	FL::ParLed * led2 = new FL::ParLed;
@@ -63,10 +63,10 @@ int main(int argc, char *argv[])
 	led2->setRGB(255, 255, 255);
 	led2->setNumberChannel(10);
 
-	all->insert(*led1);
-	allP->insert(led1);
+	all->insert(*led1);  
+	allP->insert(*led1);
 	all->insert(*led2);
-	allP->insert(led2);
+	allP->insert(*led2);
 	Client->SendSacn(all);
 	
 	//Client.HelloUDP();

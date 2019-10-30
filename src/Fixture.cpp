@@ -65,3 +65,16 @@ bool FixtureList::removeFixture(const int id)
 	}
 	return false;
 }
+
+void FixtureList::slideDimmer(int value)
+{
+	for (auto it : *this)
+		it->setDimmer(value*2.5);
+
+}
+
+Q_INVOKABLE void FixtureList::setRGB(qint16 red, qint16 green, qint16 blue)
+{
+	for (auto it : *this)
+		it->setRGB(red, green, blue);
+}

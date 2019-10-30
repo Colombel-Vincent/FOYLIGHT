@@ -9,13 +9,16 @@ import QQuickMaterialHelper.Style 1.12
 import QQuickMaterialHelper.Fonts 1.12
 import QtGraphicalEffects 1.0
 import FOYLIGHT.Icons 1.0 as Icons
+
 Item
 {
     id: control
     property bool pressed: mouseArea.pressed
-    property var red
-    property var  blue
-    property var green
+    property real red
+    property real  blue
+    property real green
+    signal changed ()
+
 
     function setColor(x,y)
     {
@@ -73,10 +76,9 @@ Item
         {
             green = 0
         }
+        changed()
+        //fixture.setRGB(red,green,blue)
 
-        //console.log(y/colorPicker.height*255)
-
-        led.setRGB(red,green,blue)
     }
 
 
