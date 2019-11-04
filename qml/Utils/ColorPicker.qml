@@ -44,12 +44,12 @@ Item
             red = 0
 
         }
-        if (y > colorPicker.height/3 )
+        if (y > colorPicker.height/6 )
         {
 
-            red = red + y/colorPicker.height*255
-            blue = blue +y/colorPicker.height*255
-            green = green + y/colorPicker.height*255
+            red = red + 3*y*colorPicker.height/255
+            blue = blue +3*y*colorPicker.height/255
+            green = green + 3*y*colorPicker.height/255
 
         }
         if (red > 255)

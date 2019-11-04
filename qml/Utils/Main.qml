@@ -14,8 +14,8 @@ import FOYLIGHT.Utils 1.0 as Utils
 ApplicationWindow
 {
     id: window
-    width: 720
-    height: 480
+    width: 1920
+    height: 1080
     visible: true
 	   title: "Foy & Light"
      property int availablePadSize : Math.floor(window.width/18) > 60 ? Math.floor(window.width/18) : 60
