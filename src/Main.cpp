@@ -49,7 +49,7 @@ int main(int argc, char *argv[])
 	FL::Sacn * Client = new FL::Sacn;
 	FL::ParLed * led1 = new FL::ParLed;
 	FL::ParLed * led2 = new FL::ParLed;
-	FL::Dune * Dune1 = new FL::Dune;
+	
 	/*declaration opf 2 entity*/
 	led1->setChannel (1);
 	led1->setUniverse(1);
@@ -63,17 +63,26 @@ int main(int argc, char *argv[])
 	led2->setDimmer(255);
 	led2->setRGB(255, 255, 255);
 	led2->setNumberChannel(10);
-	Dune1->setChannel(22);
-	Dune1->setUniverse(1);
-	Dune1->setName("test3");
-	Dune1->setDimmer(255);
-	Dune1->setRGB(255, 255, 255);
-	Dune1->setNumberChannel(4);
+
+
+
+	
+	
+	for (int i = 0; i < 14; i++) {
+		FL::Dune * Dune1 = new FL::Dune;
+		Dune1->setChannel(446+i*4);
+		Dune1->setUniverse(1);
+		Dune1->setName(QString(i));
+		Dune1->setDimmer(255);
+		Dune1->setRGB(255, 255, 255);
+		Dune1->setNumberChannel(4);
+		allD.insert(*Dune1);
+	}
 
 	
 	allP.insert(*led1);
 	allP.insert(*led2);
-	allD.insert(*Dune1);
+	
 	for (auto  it : allP) {
 		all.insert(*it);
 	}

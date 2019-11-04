@@ -15,13 +15,14 @@ void ParLed::setRGB(qint16 red, qint16 green, qint16 blue) {
 }
 
  void ParLed::sendData(uint8_t * data) {
-	 if (getDimmer() < 2) {
-		 data[0] = getRed()+1;
-		 data[1] = getGreen()+1;
-		 data[2] = getBlue()+1;
-		 data[3] = getWhite()+1;
-		 data[4] = getwarmWhite()+1;
-		 data[5] = getUV()+1;
+	 if (getDimmer() < 8) {
+		 data[0] = getRed()+15;
+		 data[1] = getGreen()+15;
+		 data[2] = getBlue()+15;
+		 data[3] = getWhite()+15;
+		 data[4] = getwarmWhite()+15;
+		 data[5] = getUV()+15;
+		 data[9] = 0x00;
 	 }
 	 else {
 		 data[0] = getRed();
@@ -30,14 +31,12 @@ void ParLed::setRGB(qint16 red, qint16 green, qint16 blue) {
 		 data[3] = getWhite();
 		 data[4] = getwarmWhite();
 		 data[5] = getUV();
+		 data[9] = getDimmer();
 	 }
 	data[6] = 0x00;
 	data[7] = getShutter();
 	data[8] = 0x00;
-	data[9] = getDimmer();
-	if (getDimmer() == 0) {
-		
-	}
+
 
 }
 

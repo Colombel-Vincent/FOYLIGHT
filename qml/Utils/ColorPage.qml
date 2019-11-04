@@ -30,7 +30,7 @@ Pane
 		Label
 		{
 			id: textcolor
-			text: red
+			text: "color picker"
 			Layout.fillWidth: true
 		}
 		ColorPicker
