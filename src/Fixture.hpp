@@ -44,13 +44,13 @@ protected:
 	QSM_WRITABLE_AUTO_PROPERTY_WDEFAULT(uint8_t, id, Id, 0);
 	QSM_WRITABLE_AUTO_PROPERTY_WDEFAULT(double, time, Time, 0);
 public :
-	Fixture(); 
+	Fixture();
 	Fixture(QString name,uint8_t universe, uint8_t channel, uint8_t NumberChannel);
 	~Fixture() {};
 	virtual void sendData(uint8_t * data) {};
 	virtual void setRGB(qint16 red, qint16 green, qint16 blue) {};
-	
-	
+
+
 
 
 
@@ -62,6 +62,7 @@ class  FixtureList : public Qqm::QQmlObjectListModel<Fixture>
 	Q_OBJECT
 	QSM_REGISTER_OBJ_TO_QML_NO_NAME(FixtureList);
 	QSM_WRITABLE_AUTO_PROPERTY_WDEFAULT(int, effectsChanged, EffectsChanged,1);
+	QSM_WRITABLE_AUTO_PROPERTY_WDEFAULT(uint8_t, speed, Speed, 30);
 
 private:
 
@@ -79,13 +80,14 @@ public:
 	Fixture* insert(Fixture &f);
 	bool removeFixture(const int id);
 	Q_INVOKABLE void slideDimmer(int value) ;
+	Q_INVOKABLE void slideSpeed(int value);
 	Q_INVOKABLE void setRGB(qint16 red, qint16 green, qint16 blue);
 	void sinusColor(Fixture * it, int speed);
 	void SinusColorDegrade(Fixture * it, int speed, colorD color);
-	void SinusDim(Fixture * it, int speed);
+	void SinusDim();
 	void SinusSmoothDim(Fixture * it, int speed);
-	void ChaseSmoothDim(Fixture * it, int speed);
-	void ChaseDim(Fixture * it, Fixture * itp1, Fixture * itp2, int speed,int count);
+	void ChaseSmoothDim(FixtureList & fe, FixtureList & f2);
+	void ChaseDim(FixtureList  &f , FixtureList  &f2);
 	Q_INVOKABLE void ListEffects( int a, int b, int c, int d, int g, int effects, int speed);
 	Q_INVOKABLE void GroupeEffects(int effects, int speed, int Gr, int EM);
 

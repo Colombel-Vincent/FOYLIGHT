@@ -21,8 +21,8 @@ if(${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
             RUN_PROGRAM "FOYLIGHT"
             VERSION ${FOYLIGHT_VERSION}
             PUBLISHER "Ereimul"
-            PRODUCT_URL "www.ereimul.com"
-            PACKAGE "org.ereimul.FOYLIGHT.${FOYLIGHT_CUSTOMER}"
+            PRODUCT_URL ""
+            PACKAGE "org.FOYLIGHT.${FOYLIGHT_CUSTOMER}"
             ICON ${CMAKE_CURRENT_SOURCE_DIR}/platform/windows/icon.ico
             ICON_RC ${CMAKE_CURRENT_SOURCE_DIR}/platform/windows/icon.rc
             QML_DIR ${QT_WINDOWS_QT_ROOT}/qml
@@ -47,26 +47,25 @@ endif() # ${CMAKE_SYSTEM_NAME} STREQUAL "Windows"
 if(${CMAKE_SYSTEM_NAME} STREQUAL "Android")
 
     # QtAndroidCMake
-#[[    FetchContent_Declare(
+    FetchContent_Declare(
         QtAndroidCMake
         GIT_REPOSITORY ${QTANDROIDCMAKE_REPOSITORY}
         GIT_TAG        ${QTANDROIDCMAKE_TAG}
     )
-    FetchContent_MakeAvailable(QtAndroidCMake)]]
+    FetchContent_MakeAvailable(QtAndroidCMake)
 
-    INCLUDE(${CMAKE_CURRENT_SOURCE_DIR}/cmake/BuildQtAndroidCMake.cmake)
     if(FOYLIGHT_ANDROID_KEYSTORE)
     set(KEYSTORE_SIGNATURE
         KEYSTORE ${FOYLIGHT_ANDROID_KEYSTORE} ${FOYLIGHT_ANDROID_KEYSTORE_ALIAS}
         KEYSTORE_PASSWORD ${FOYLIGHT_ANDROID_KEYSTORE_PASSWORD}
         )
-    endif() # FOYLIGHT_ANDROID_KEYSTORE
+    endif() # EREIMOTE_ANDROID_KEYSTORE
 
     add_qt_android_apk(${FOYLIGHT_TARGET}Apk ${FOYLIGHT_TARGET}
-        NAME "FOYLIGHT ${FOYLIGHT_CUSTOMER}"
+        NAME "Foylight"
         VERSION_NAME ${FOYLIGHT_VERSION}
         VERSION_CODE 1
-        PACKAGE_NAME "org.ereimul.FOYLIGHT.${FOYLIGHT_CUSTOMER}"
+        PACKAGE_NAME "com.foylight"
         PACKAGE_SOURCES  ${CMAKE_CURRENT_SOURCE_DIR}/platform/android/src
         ANDROID_MANIFEST_IN_PATH ${CMAKE_CURRENT_SOURCE_DIR}/platform/android/AndroidManifest.xml.in
         ${KEYSTORE_SIGNATURE}

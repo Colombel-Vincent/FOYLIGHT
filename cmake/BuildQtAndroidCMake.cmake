@@ -1,13 +1,13 @@
 #
 #	Download Script by Olivier Le Doeuff
 #
-## CMAKE INPUT	
-#	
+## CMAKE INPUT
+#
 #	-QTANDROIDCMAKE_REPOSITORY : QTANDROIDCMAKE repository url
 #	-QTANDROIDCMAKE_TAG : QTANDROIDCMAKE git tag
 #
 ## CMAKE OUTPUT
-# 
+#
 # 	See QTANDROIDCMAKE README
 #
 

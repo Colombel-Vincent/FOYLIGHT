@@ -13,9 +13,9 @@
 // Application Header
 #include "Sacn.hpp"
 #include <qdebug.h>
-#include <Windows.h>
+//#include <Windows.h>
 #include <stdint.h>
-#include <Winsock.h>
+//#include <Winsock.h>
 #include "Effects.hpp"
 
 
@@ -31,7 +31,7 @@ FOYLIGHT_USING_NAMESPACE;
 
 
 int Sacn::setPacketHeader(const uint16_t universe, const uint16_t num_channels) {
-	
+
 	// compute packet layer lengths
 	uint16_t prop_val_cnt = num_channels + 1;
 	uint16_t dmp_length = prop_val_cnt + 9 * sizeof(uint8_t);
@@ -88,8 +88,8 @@ int Sacn::setPacketHeader(const uint16_t universe, const uint16_t num_channels) 
 	raw[112] = _E131_FRAME_OPTIONS;
 
 	// frame universe
-	raw[113] = 0x00; 
-	raw[114] = 0x08; 
+	raw[113] = 0x00;
+	raw[114] = 0x08;
 
 
 	// set Device Management Protocol (DMP) Layer values
@@ -128,14 +128,20 @@ Sacn::Sacn(QObject *parent) :
 	// to bind to an address and port using bind()
 	// bool QAbstractSocket::bind(const QHostAddress & address,
 	//     quint16 port = 0, BindMode mode = DefaultForPlatform)
-	socket->bind(QHostAddress("2.0.0.2"), E131_DEFAULT_PORT_srv);
+	#ifdef ANDROID
+	 socket->bind(QHostAddress("172.24.1.1"), E131_DEFAULT_PORT_srv);
 
-	
+#else
+    socket->bind(QHostAddress("2.0.0.2"), E131_DEFAULT_PORT_srv);
+#endif
+
+
+
 }
 
 void Sacn::SendSacn(FixtureList *f)
 {
-	
+
 		setPacketHeader(1, 512);
 		//parLedGroupeEffects(f, Sin, 0,parUn,lineaire);
 		//parLedGroupeEffects(f, Raimbow, 0, tous, lineaire);
@@ -150,14 +156,14 @@ void Sacn::SendSacn(FixtureList *f)
 			}
 			free(fixture);
 		}
-		for (int i = 0; i < 512; i++) 
+		for (int i = 0; i < 512; i++)
 		{
 			if(v[i]==0)
 			raw[i+125] = 0x00;
 		}
-		
-	
-		
+
+
+
 		/*for (int i = 0; i < 638; i++) {
 			Data.append(raw[i]);
 		}*/
@@ -186,10 +192,10 @@ void Sacn::SendSacn(FixtureList *f)
 
 
 		raw[114] = 1;
-	
-	
 
-		
+
+
+
 	}
 
 

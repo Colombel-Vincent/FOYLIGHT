@@ -27,7 +27,7 @@
 #include "Sacn.hpp"
 #include "ParLed.hpp"
 #include "Dune.hpp"
-#include "Trad.hpp"
+#include "trad.hpp"
 #include "Fixture.hpp"
 
 // ─────────────────────────────────────────────────────────────
@@ -43,13 +43,13 @@ int main(int argc, char *argv[])
 	QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 	QGuiApplication app(argc, argv);
 	QQmlApplicationEngine engine;
-	FL::FixtureList   all = new FL::FixtureList;
-	FL::FixtureList   allP = new FL::FixtureList;
-	FL::FixtureList   allD = new FL::FixtureList;
+	FL::FixtureList all ;
+	FL::FixtureList allP ;
+	FL::FixtureList allD ;
 	FL::Sacn * Client = new FL::Sacn;
 	FL::ParLed * led1 = new FL::ParLed;
 	FL::ParLed * led2 = new FL::ParLed;
-	
+
 	/*declaration opf 2 entity*/
 	led1->setChannel (1);
 	led1->setUniverse(1);
@@ -66,11 +66,17 @@ int main(int argc, char *argv[])
 
 
 
-	
-	
+
+
 	for (int i = 0; i < 14; i++) {
 		FL::Dune * Dune1 = new FL::Dune;
-		Dune1->setChannel(446+i*4);
+		if (i == 10)
+		Dune1->setChannel(446 + (i-1) * 4);
+		else if (i == 9)
+		Dune1->setChannel(446 + (i+1) * 4);
+		else
+		Dune1->setChannel(446 + i * 4);
+
 		Dune1->setUniverse(1);
 		Dune1->setName(QString(i));
 		Dune1->setDimmer(255);
@@ -79,10 +85,10 @@ int main(int argc, char *argv[])
 		allD.insert(*Dune1);
 	}
 
-	
+
 	allP.insert(*led1);
 	allP.insert(*led2);
-	
+
 	for (auto  it : allP) {
 		all.insert(*it);
 	}
@@ -90,16 +96,16 @@ int main(int argc, char *argv[])
 		all.insert(*it);
 	}
 	//Client->SendSacn(all);
-	
+
 	//Client.HelloUDP();
-	
+
 	// ────────── REGISTER APPLICATION ──────────────────────────────────────
 
 	QGuiApplication::setOrganizationName("Vincent");
 	QGuiApplication::setApplicationName("FOY & Lumiere");
 	QGuiApplication::setOrganizationDomain("www.qquickhelpergallery.com");
 	QGuiApplication::setApplicationVersion("1");
-	
+
 
 
 	// ────────── COMMAND PARSER ──────────────────────────────────────
@@ -133,12 +139,12 @@ int main(int argc, char *argv[])
 	engine.rootContext()->setContextProperty("all", &all);
 	engine.rootContext()->setContextProperty("led", &allP);
 	engine.rootContext()->setContextProperty("dune", &allD);
-	
+
 	engine.load(QUrl("qrc:///FOYLIGHT/Utils/Main.qml"));
 	if (engine.rootObjects().isEmpty())
 		return -1;
-		
+
 	// ────────── START EVENT LOOP ──────────────────────────────────────
-	
+
 	return app.exec();
 }

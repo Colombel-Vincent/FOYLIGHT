@@ -13,7 +13,7 @@
 // Application Header
 #include "Fixture.hpp"
 #include <qdebug.h>
-#include <Windows.h>
+
 #include <stdint.h>
 
 
@@ -28,7 +28,7 @@ FOYLIGHT_USING_NAMESPACE;
 //					FUNCTIONS
 // ─────────────────────────────────────────────────────────────
 Fixture::Fixture(){
-	QObject(parent);
+	
 }
 
 Fixture::Fixture(QString name, uint8_t universe, uint8_t channel, uint8_t numberChannel) : Fixture()
@@ -76,6 +76,12 @@ void FixtureList::slideDimmer(int value)
 
 }
 
+Q_INVOKABLE void FixtureList::slideSpeed(int value)
+{
+		setSpeed(value*2.5);
+}
+
+
 Q_INVOKABLE void FixtureList::setRGB(qint16 red, qint16 green, qint16 blue)
 {
 	for (auto it : *this) {
@@ -85,9 +91,12 @@ Q_INVOKABLE void FixtureList::setRGB(qint16 red, qint16 green, qint16 blue)
 }
 
 
-void FixtureList::SinusDim(Fixture * it, int speed) {
-	it->setDimmer(abs(sin(it->getTime()) * 255));
-	it->setTime(it->getTime() + 0.05);
+void FixtureList::SinusDim() {
+	int i = 0;
+	for (auto it : *this) {
+		it->setDimmer(abs(sin(it->getTime())+ (i*count()+1)*M_PI/(count()*2)) * 255);
+		it->setTime(it->getTime() + 0.05);
+	}
 }
 void FixtureList::SinusSmoothDim(Fixture * it, int speed)
 {
@@ -97,15 +106,22 @@ void FixtureList::SinusSmoothDim(Fixture * it, int speed)
 	it->setDimmer(dim);
 	it->setTime(it->getTime() + 0.01);
 }
-void FixtureList::ChaseSmoothDim(Fixture * it, int speed)
+void FixtureList::ChaseSmoothDim(FixtureList & fe, FixtureList & f2)
 {
 
+	for (auto it : fe)
+		it->setDimmer(255);
+
+	for (auto it : f2)
+		it->setDimmer(85);
 }
-void FixtureList::ChaseDim(Fixture * itc, Fixture * itp1,Fixture * itp2, int speed,int count)
+void FixtureList::ChaseDim(FixtureList & fe, FixtureList & f2)
 {
-		itc->setDimmer(100);
-		itp1->setDimmer(0);
-		itp2->setDimmer(0);
+	for (auto it : fe) 
+		it->setDimmer(255);
+	
+		for (auto it : f2)
+		it->setDimmer(0);
 	
 }
 void FixtureList::sinusColor(Fixture * it, int speed)
@@ -147,7 +163,8 @@ void FixtureList :: ListEffects(int a, int b, int c, int d, int g, int effects, 
 	static Fixture * itp1 = new Fixture;
 	static Fixture * itp2= new Fixture;
 	Fixture * itp3 = new Fixture;
-
+	FixtureList   f;
+	FixtureList   f2;
 	for (auto it : *this) {
 		if (g)
 			a = it->getId();    // g is for all do the effects
@@ -155,24 +172,29 @@ void FixtureList :: ListEffects(int a, int b, int c, int d, int g, int effects, 
 		switch (effects) {
 		case 0:
 			if (it->getId() == a || it->getId() == b || it->getId() == c || it->getId() == d)
-				ChaseDim(it, itp1,itp2, speed,count());
+			f.append(it);
+			else
+			f2.append(it);
 			
 				break;
 		case 1:
 			if (it->getId() == a || it->getId() == b || it->getId() == c || it->getId() == d)
-				ChaseSmoothDim(it, speed);
-				break;
+				f.append(it);
+			else
+				f2.append(it);
+
+			break;
 		case 2:
 			if (it->getId() == a || it->getId() == b || it->getId() == c || it->getId() == d)
-				SinusDim(it, speed);
+				//SinusDim(it, speed);
 			break;
 		case  3:
 			if (it->getId() == a || it->getId() == b || it->getId() == c || it->getId() == d)
-				SinusSmoothDim(it, speed);
+				//SinusSmoothDim(it, speed);
 				break;
 		case 4:
 			if (it->getId() == a || it->getId() == b || it->getId() == c || it->getId() == d)
-				SinusColorDegrade(it, speed, Orange);
+				//SinusColorDegrade(it, speed, Orange);
 			break;
 		case 5:
 			if (it->getId() == a || it->getId() == b || it->getId() == c || it->getId() == d)
@@ -180,11 +202,11 @@ void FixtureList :: ListEffects(int a, int b, int c, int d, int g, int effects, 
 			break;
 		case 6:
 			if (it->getId() == a || it->getId() == b || it->getId() == c || it->getId() == d)
-				SinusColorDegrade(it, speed, Magenta);
+				//SinusColorDegrade(it, speed, Magenta);
 			break;
 		case  7:
 			if (it->getId() == a || it->getId() == b || it->getId() == c || it->getId() == d)
-				sinusColor(it, speed);
+				//sinusColor(it, speed);
 			break;
 		default:
 			break;
@@ -193,9 +215,10 @@ void FixtureList :: ListEffects(int a, int b, int c, int d, int g, int effects, 
 		itp2 = it;
 		if(it->getId() == a)
 		itp1 = it;
-		
-		
-		
+		SinusDim();
+		/*for (auto it : f) {
+			it->setRGB(0, 255, 255);
+		}*/
 	}
 
 }
@@ -225,25 +248,27 @@ void FixtureList::GroupeEffects( int effects, int speed, int Gr, int EM)
 		t = t >= 1 ? 0 : t + 0.1;
 		break;
 	case  1:
+
 		if (EM == lineaire || EM==0)
 		{
 			ListEffects( a, a + 1, a, a, 0, effects, speed);
 			a = a < count() ? t>1 ? a+2 :a  : 1;
-			t = t >= 1 ? 0 : t + 0.1;
+			t = t >= 1 ? 0 : t + 0.01;
 		}
-		else if (EM == saute || EM == 1)
+		else if (EM == saute || EM == 2)
 		{
-			a = b < count() ? t>1 ? a + 1:a : 0;
-			b = b < count() ? t>1 ? b + 1:b : count() / 2 + 1;
+			a = b == count() ?  1 : t>1 ? a + 1:a  ;
+			b = b == count() ? count() / 2 +1 : t>1 ? b + 1:b;
 			ListEffects( a, b, a, a, 0, effects, speed);
-			t = t >= 1 ? 0 : t + 0.1;
+			t = t >= 1 ? 0 : t + 0.01;
 		}
-		else if (EM == embrasse || EM == 2)
+		else if (EM == embrasse || EM == 1)
 		{
-			a = a == b - 1 ? 0 : t > 1 ? a + 1 :a;
-			b = a == b - 1 ? count() : t > 1 ? b - 1 : b;
+			a = a == b+1 ? 1 : t > 1 ? a + 1 :a;
+			qDebug() << "a:" << a << "b:" << b;
+			b = a == 1 ? count() : t > 1 ? b - 1 : b;
 			ListEffects( a, b, a, a, 0, effects, speed);
-			t = t >= 1 ? 0 : t + 0.1;
+			t = t >= 1 ? 0 : t + 0.01;
 		}
 		break;
 	case 2 :

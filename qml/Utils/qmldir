@@ -4,3 +4,8 @@ PadButton                1.0 PadButton.qml
 ColorPicker                1.0 ColorPicker.qml
 ColorPage                1.0 ColorPage.qml
 Fader					1.0 Fader.qml
+General					1.0 General.qml
+EffectPane					1.0 EffectPane.qml
+DunePane					1.0 DunePane.qml
+ParLedPane					1.0 ParLedPane.qml
+TradPane					1.0 TradPane.qml
