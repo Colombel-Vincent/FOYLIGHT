@@ -10,6 +10,6 @@ void Trad::sendData(uint8_t * data) {
 Trad::Trad() : Fixture()
 {
 	static int i =1;
-	setId(i);
+	setFid(i);
 	i++;
 }

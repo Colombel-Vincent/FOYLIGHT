@@ -11,7 +11,7 @@ void ParLed::setRGB(qint16 red, qint16 green, qint16 blue) {
 	setGreen((uint8_t)green);
 	setRed((uint8_t)red);
 	//qDebug() <<"red :"<<  red<<" ; blue :" << getBlue()<<"; green :"<< getGreen();
-	
+
 }
 
  void ParLed::sendData(uint8_t * data) {
@@ -45,9 +45,9 @@ void ParLed::setRGB(qint16 red, qint16 green, qint16 blue) {
 ParLed::ParLed() : Fixture()
 {
 	static int id = 1;
-	setId(id);
+	setFid(id);
 	id++;
-	
+
 }
 /*
 ParLed * ParLedList::getParLed(const int id) const

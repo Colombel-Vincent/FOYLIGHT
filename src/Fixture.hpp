@@ -41,7 +41,7 @@ protected:
 	QSM_WRITABLE_AUTO_PROPERTY(uint8_t, universe, Universe);
 	QSM_WRITABLE_AUTO_PROPERTY(QString, name, Name);
 	QSM_WRITABLE_AUTO_PROPERTY_WDEFAULT(uint8_t, dimmer, Dimmer, 100);
-	QSM_WRITABLE_AUTO_PROPERTY_WDEFAULT(uint8_t, id, Id, 0);
+	QSM_WRITABLE_AUTO_PROPERTY_WDEFAULT(uint8_t, fid, Fid, 0);
 	QSM_WRITABLE_AUTO_PROPERTY_WDEFAULT(double, time, Time, 0);
 public :
 	Fixture();

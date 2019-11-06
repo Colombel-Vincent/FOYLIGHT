@@ -4,7 +4,7 @@ FOYLIGHT_USING_NAMESPACE;
 
 Dune::Dune() : Fixture() {
 	static int i =1;
-	setId(i);
+	setFid(i);
 	i++;
 
 }
@@ -28,7 +28,7 @@ void Dune::setRGB(qint16 red, qint16 green, qint16 blue) {
 	setBlue((uint8_t)blue);
 	setGreen((uint8_t)green);
 	setRed((uint8_t)red);
-	
+
 	qDebug() <<"red :"<<  red<<" ; blue :" << getBlue()<<"; green :"<< getGreen();
 
 }

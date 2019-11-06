@@ -28,7 +28,7 @@ FOYLIGHT_USING_NAMESPACE;
 //					FUNCTIONS
 // ─────────────────────────────────────────────────────────────
 Fixture::Fixture(){
-	
+
 }
 
 Fixture::Fixture(QString name, uint8_t universe, uint8_t channel, uint8_t numberChannel) : Fixture()
@@ -42,7 +42,7 @@ Fixture::Fixture(QString name, uint8_t universe, uint8_t channel, uint8_t number
 Fixture * FixtureList::getFixture(const int id) const
 {
 	for (auto  it : *this ) {
-		if (it->getId() == id)
+		if (it->getFid() == id)
 			return it;
 	}
 	return nullptr;
@@ -51,14 +51,14 @@ Fixture * FixtureList::getFixture(const int id) const
 Fixture * FixtureList::insert(Fixture & f)
 {
 	this->append(&f);
-	
+
 	return &f;
 }
 
 bool FixtureList::removeFixture(const int id)
 {
 	for (auto it : *this) {
-		if (it->getId() == id) {
+		if (it->getFid() == id) {
 			delete it;
 			return true;
 		}
@@ -70,7 +70,7 @@ void FixtureList::slideDimmer(int value)
 {
 	for (auto it : *this) {
 		it->setDimmer(value*2.5);
-		
+
 	}
 
 
@@ -86,7 +86,7 @@ Q_INVOKABLE void FixtureList::setRGB(qint16 red, qint16 green, qint16 blue)
 {
 	for (auto it : *this) {
 		it->setRGB(red, green, blue);
-		
+
 	}
 }
 
@@ -117,12 +117,12 @@ void FixtureList::ChaseSmoothDim(FixtureList & fe, FixtureList & f2)
 }
 void FixtureList::ChaseDim(FixtureList & fe, FixtureList & f2)
 {
-	for (auto it : fe) 
+	for (auto it : fe)
 		it->setDimmer(255);
-	
+
 		for (auto it : f2)
 		it->setDimmer(0);
-	
+
 }
 void FixtureList::sinusColor(Fixture * it, int speed)
 {
@@ -167,53 +167,53 @@ void FixtureList :: ListEffects(int a, int b, int c, int d, int g, int effects, 
 	FixtureList   f2;
 	for (auto it : *this) {
 		if (g)
-			a = it->getId();    // g is for all do the effects
-		
+			a = it->getFid();    // g is for all do the effects
+
 		switch (effects) {
 		case 0:
-			if (it->getId() == a || it->getId() == b || it->getId() == c || it->getId() == d)
+			if (it->getFid() == a || it->getFid() == b || it->getFid() == c || it->getFid() == d)
 			f.append(it);
 			else
 			f2.append(it);
-			
+
 				break;
 		case 1:
-			if (it->getId() == a || it->getId() == b || it->getId() == c || it->getId() == d)
+			if (it->getFid() == a || it->getFid() == b || it->getFid() == c || it->getFid() == d)
 				f.append(it);
 			else
 				f2.append(it);
 
 			break;
 		case 2:
-			if (it->getId() == a || it->getId() == b || it->getId() == c || it->getId() == d)
+			if (it->getFid() == a || it->getFid() == b || it->getFid() == c || it->getFid() == d)
 				//SinusDim(it, speed);
 			break;
 		case  3:
-			if (it->getId() == a || it->getId() == b || it->getId() == c || it->getId() == d)
+			if (it->getFid() == a || it->getFid() == b || it->getFid() == c || it->getFid() == d)
 				//SinusSmoothDim(it, speed);
 				break;
 		case 4:
-			if (it->getId() == a || it->getId() == b || it->getId() == c || it->getId() == d)
+			if (it->getFid() == a || it->getFid() == b || it->getFid() == c || it->getFid() == d)
 				//SinusColorDegrade(it, speed, Orange);
 			break;
 		case 5:
-			if (it->getId() == a || it->getId() == b || it->getId() == c || it->getId() == d)
+			if (it->getFid() == a || it->getFid() == b || it->getFid() == c || it->getFid() == d)
 				SinusColorDegrade(it, speed, Cyan);
 			break;
 		case 6:
-			if (it->getId() == a || it->getId() == b || it->getId() == c || it->getId() == d)
+			if (it->getFid() == a || it->getFid() == b || it->getFid() == c || it->getFid() == d)
 				//SinusColorDegrade(it, speed, Magenta);
 			break;
 		case  7:
-			if (it->getId() == a || it->getId() == b || it->getId() == c || it->getId() == d)
+			if (it->getFid() == a || it->getFid() == b || it->getFid() == c || it->getFid() == d)
 				//sinusColor(it, speed);
 			break;
 		default:
 			break;
 		}
-		if(it->getId() == b)
+		if(it->getFid() == b)
 		itp2 = it;
-		if(it->getId() == a)
+		if(it->getFid() == a)
 		itp1 = it;
 		SinusDim();
 		/*for (auto it : f) {
@@ -225,11 +225,11 @@ void FixtureList :: ListEffects(int a, int b, int c, int d, int g, int effects, 
 
 void FixtureList::GroupeEffects( int effects, int speed, int Gr, int EM)
 {
-	
+
 	static int a = 1;
 	static int b = 1;
 	static double t = 0;
-	
+
 	if (getEffectsChanged()) {
 		a = 1;
 		if (EM == saute)
@@ -281,7 +281,7 @@ void FixtureList::GroupeEffects( int effects, int speed, int Gr, int EM)
 		break;
 	case 5:
 		ListEffects( a, a, a, a, 1, effects, speed);
-		
+
 		break;
 	default:
 		break;
