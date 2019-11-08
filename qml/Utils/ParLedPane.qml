@@ -28,7 +28,7 @@ import FOYLIGHT.Utils 1.0 as Utils
         id : _parLedPane
         contentHeight : 550
 
-        contentWidth : window.width/4
+        contentWidth : 200
         elevation : 10
         radius : 4
         Label{

@@ -16,8 +16,8 @@ Pane{
 
 
         id : _masterFaderPane
-        contentHeight : window.height/5
-        contentWidth : window.width/3
+        contentHeight : 200
+        contentWidth : 200
 
         elevation : 10
         radius : 4
@@ -61,7 +61,8 @@ Pane{
                         stepSize: 1
                         orientation: Qt.Vertical
                         faderWidth :  window.width / 128 < 10 ? 10 : 15
-                        onMoved : all.slideDimmer(_generalSlider.value)
+                        onMoved :{ all.slideDimmer(_generalSlider.value)
+                        }
 
                      } // fader
 
@@ -74,7 +75,10 @@ Pane{
                         stepSize: 1
                         orientation: Qt.Vertical
                         faderWidth : window.width / 128 < 10 ? 10 : 15
-                        onMoved : all.slideSpeed(_generalEffectSlider.value)
+                        onMoved : {
+                        	dune.slideSpeed(_generalEffectSlider.value)
+                        	led.slideSpeed(_generalEffectSlider.value)
+                        }
 
                      } // fader
 

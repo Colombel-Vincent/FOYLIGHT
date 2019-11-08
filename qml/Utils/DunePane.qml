@@ -12,54 +12,54 @@ import QQuickMaterialHelper.Fonts 1.12
 import FOYLIGHT.Icons 1.0 as Icons
 import FOYLIGHT.Utils 1.0 as Utils
  Pane{
-              Item {
+        Item {
         Timer {
         interval: 10; running: true; repeat: true
         onTriggered : {
-          _raimbowDune.enable ? dune.GroupeEffects(1,0,1,1) :0
-          _degradeODune.enable ?dune.GroupeEffects(1,0,1,0) :0
-          _degradeCDune.enable ?dune.GroupeEffects(1,0,1,2) :0
+          _raimbowDune.enable ? dune.GroupeEffects(0,0,1,1) :0
+          _degradeODune.enable ?dune.GroupeEffects(0,0,1,0) :0
+          _degradeCDune.enable ?dune.GroupeEffects(0,0,1,2) :0
           _degradeMDune.enable ?dune.GroupeEffects(6,0,0,0) :0
         }
            }
          }
-
-
         id : _dunePane
         contentHeight : 550
-
-        contentWidth : window.width/4
+        contentWidth : 200
         elevation : 10
         radius : 4
-        Label{
-            text : "Dune"
-            Layout.alignment: Qt.AlignHCenter
-            textType: MaterialStyle.TextType.Title
-        }
+          Label{
+          text : "Dune"
+          textType: MaterialStyle.TextType.Title
+          }
+
          contentItem : Flickable{
+
             id: _flickableD
             clip: true
-            contentWidth: width
+            contentWidth: 200
             contentHeight: _rowLayout.implicitHeight + 2 * MaterialStyle.card.verticalPadding
             interactive : contentHeight > height
             ScrollIndicator.vertical: ScrollIndicator {}
 
             property int availableWidth :  Math.floor((_genralDune.width + _duneSlider.width + _colorpicker2.width +20) /(_dunePane.width) )
+  Column{
 
+      spacing : 10
+      topPadding : 30
+         GridLayout{
+          Layout.alignment : Qt.AlignHCenter | Qt.AlignVCenter
 
-
-        GridLayout{
           id: _rowLayout
             columns : ( 3 - _flickableD.availableWidth)
             rows :1+ _flickableD.availableWidth
 
-
-
-           PadButton{
+                PadButton{
                         id : _genralDune
                         Layout.topMargin : 35
                         padIcon : Icons.Manager.power
                         padSize : window.availablePadSize +10
+                        Layout.alignment : Qt.AlignHCenter | Qt.AlignVCenter
                      } // pad button
 
                   Utils.Fader{
@@ -73,6 +73,7 @@ import FOYLIGHT.Utils 1.0 as Utils
                         orientation: Qt.Vertical
                         faderWidth :  window.width / 128 < 10 ? 10 : 15
                         onMoved : dune.slideDimmer(_duneSlider.value)
+                        Layout.alignment : Qt.AlignHCenter | Qt.AlignVCenter
 
                      } // fader
                        ColorPage{
@@ -84,31 +85,31 @@ import FOYLIGHT.Utils 1.0 as Utils
                         onPickerColorChanged:dune.setRGB(_colorpicker2.red,_colorpicker2.green,_colorpicker2.blue)
                      }
         }
-          GridLayout{
+           GridLayout{
 
                    PadButton{
                       id: _raimbowDune
-                        Layout.topMargin : 250
+
                         label : "Raimbow"
                         padSize : window.availablePadSize
                      } // pad button
                        PadButton{
                         id: _degradeODune
-                        Layout.topMargin : 250
+
                         padSize : window.availablePadSize
 
                         label : "Degrade Orange"
                      } // pad button
                        PadButton{
                         id: _degradeCDune
-                        Layout.topMargin : 250
+
                         padSize : window.availablePadSize
 
                         label : "Degrade Cyan"
                      } // pad button
                        PadButton{
                         id: _degradeMDune
-                        Layout.topMargin : 250
+
                         label : "Degrade Magenta"
                         padSize : window.availablePadSize
                      } // pad button
@@ -116,5 +117,6 @@ import FOYLIGHT.Utils 1.0 as Utils
 
 
             }
+          }
         } // pane
         }

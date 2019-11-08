@@ -91,24 +91,23 @@ Q_INVOKABLE void FixtureList::setRGB(qint16 red, qint16 green, qint16 blue)
 }
 
 
-void FixtureList::SinusDim() {
+void FixtureList::SinusDim(FixtureList &fe) {
 	int i = 0;
 	for (auto it : *this) {
-		it->setDimmer(abs(sin(it->getTime())+ (i*count()+1)*M_PI/(count()*2)) * 255);
+		it->setDimmer(abs(sin(it->getTime())+(i*count()+1)*M_PI/(count()*2)) * 255);
 		it->setTime(it->getTime() + 0.05);
 	}
 }
-void FixtureList::SinusSmoothDim(Fixture * it, int speed)
+void FixtureList::SinusSmoothDim(FixtureList &fe)
 {
-	double dim = abs(sin(it->getTime()) * 255) < 30 ? 60 : abs(sin(it->getTime()) * 255);
-	if (dim > 200)
-		dim = 200;
-	it->setDimmer(dim);
-	it->setTime(it->getTime() + 0.01);
+	int i = 0;
+	for (auto it : *this) {
+		it->setDimmer(abs(sin(it->getTime()) + (i*count() + 1)*M_PI / (count() * 2)) * 255);
+		it->setTime(it->getTime() + 0.05);
+	}
 }
 void FixtureList::ChaseSmoothDim(FixtureList & fe, FixtureList & f2)
 {
-
 	for (auto it : fe)
 		it->setDimmer(255);
 
@@ -122,7 +121,6 @@ void FixtureList::ChaseDim(FixtureList & fe, FixtureList & f2)
 
 		for (auto it : f2)
 		it->setDimmer(0);
-
 }
 void FixtureList::sinusColor(Fixture * it, int speed)
 {
@@ -131,7 +129,6 @@ void FixtureList::sinusColor(Fixture * it, int speed)
 	qint16 green = sin(it->getTime() + 11 * M_PI / 6) * 255 < 0 ? 0 : sin(it->getTime() + 11 * M_PI / 6) * 255;
 	it->setRGB(red, green, blue);
 	it->setTime(it->getTime() + 0.05);
-
 }
 
 void FixtureList::SinusColorDegrade(Fixture * it, int speed, colorD color)
@@ -168,60 +165,45 @@ void FixtureList :: ListEffects(int a, int b, int c, int d, int g, int effects, 
 	for (auto it : *this) {
 		if (g)
 			a = it->getFid();    // g is for all do the effects
-
+		if (it->getFid() == a || it->getFid() == b || it->getFid() == c || it->getFid() == d)
+			f.append(it);
+		else
+			f2.append(it);
+	}
 		switch (effects) {
 		case 0:
-			if (it->getFid() == a || it->getFid() == b || it->getFid() == c || it->getFid() == d)
-			f.append(it);
-			else
-			f2.append(it);
-
+			ChaseDim(f, f2);
 				break;
 		case 1:
-			if (it->getFid() == a || it->getFid() == b || it->getFid() == c || it->getFid() == d)
-				f.append(it);
-			else
-				f2.append(it);
-
+			ChaseSmoothDim(f, f2);
 			break;
 		case 2:
-			if (it->getFid() == a || it->getFid() == b || it->getFid() == c || it->getFid() == d)
-				//SinusDim(it, speed);
+			SinusDim(f);
 			break;
-		case  3:
-			if (it->getFid() == a || it->getFid() == b || it->getFid() == c || it->getFid() == d)
-				//SinusSmoothDim(it, speed);
-				break;
+		case 3:
+			SinusSmoothDim(f);
+			break;
 		case 4:
-			if (it->getFid() == a || it->getFid() == b || it->getFid() == c || it->getFid() == d)
-				//SinusColorDegrade(it, speed, Orange);
+			
 			break;
 		case 5:
-			if (it->getFid() == a || it->getFid() == b || it->getFid() == c || it->getFid() == d)
-				SinusColorDegrade(it, speed, Cyan);
+			//SinusColorDegrade(it, speed, Cyan);
 			break;
 		case 6:
-			if (it->getFid() == a || it->getFid() == b || it->getFid() == c || it->getFid() == d)
-				//SinusColorDegrade(it, speed, Magenta);
+			//SinusColorDegrade(it, speed, Magenta);
 			break;
-		case  7:
-			if (it->getFid() == a || it->getFid() == b || it->getFid() == c || it->getFid() == d)
-				//sinusColor(it, speed);
+		case 7:
+			//sinusColor(it, speed);
 			break;
 		default:
 			break;
 		}
-		if(it->getFid() == b)
-		itp2 = it;
-		if(it->getFid() == a)
-		itp1 = it;
-		SinusDim();
 		/*for (auto it : f) {
 			it->setRGB(0, 255, 255);
 		}*/
 	}
 
-}
+
 
 void FixtureList::GroupeEffects( int effects, int speed, int Gr, int EM)
 {
@@ -229,7 +211,7 @@ void FixtureList::GroupeEffects( int effects, int speed, int Gr, int EM)
 	static int a = 1;
 	static int b = 1;
 	static double t = 0;
-
+	qDebug() << getSpeed();
 	if (getEffectsChanged()) {
 		a = 1;
 		if (EM == saute)
@@ -253,22 +235,22 @@ void FixtureList::GroupeEffects( int effects, int speed, int Gr, int EM)
 		{
 			ListEffects( a, a + 1, a, a, 0, effects, speed);
 			a = a < count() ? t>1 ? a+2 :a  : 1;
-			t = t >= 1 ? 0 : t + 0.01;
+			t = t >= 1 ? 0 : t + 0.01*(getSpeed()*0.5);
 		}
 		else if (EM == saute || EM == 2)
 		{
 			a = b == count() ?  1 : t>1 ? a + 1:a  ;
 			b = b == count() ? count() / 2 +1 : t>1 ? b + 1:b;
 			ListEffects( a, b, a, a, 0, effects, speed);
-			t = t >= 1 ? 0 : t + 0.01;
+			t = t >= 1 ? 0 : t + 0.01*(getSpeed()*0.5);
 		}
 		else if (EM == embrasse || EM == 1)
 		{
 			a = a == b+1 ? 1 : t > 1 ? a + 1 :a;
-			qDebug() << "a:" << a << "b:" << b;
 			b = a == 1 ? count() : t > 1 ? b - 1 : b;
 			ListEffects( a, b, a, a, 0, effects, speed);
-			t = t >= 1 ? 0 : t + 0.01;
+			t = t >= 1 ? 0 : t + 0.01*(getSpeed()*0.5);
+			
 		}
 		break;
 	case 2 :

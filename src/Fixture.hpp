@@ -84,8 +84,8 @@ public:
 	Q_INVOKABLE void setRGB(qint16 red, qint16 green, qint16 blue);
 	void sinusColor(Fixture * it, int speed);
 	void SinusColorDegrade(Fixture * it, int speed, colorD color);
-	void SinusDim();
-	void SinusSmoothDim(Fixture * it, int speed);
+	void SinusDim(FixtureList &fe);
+	void SinusSmoothDim(FixtureList & fe);
 	void ChaseSmoothDim(FixtureList & fe, FixtureList & f2);
 	void ChaseDim(FixtureList  &f , FixtureList  &f2);
 	Q_INVOKABLE void ListEffects( int a, int b, int c, int d, int g, int effects, int speed);

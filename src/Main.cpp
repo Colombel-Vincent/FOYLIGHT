@@ -71,10 +71,10 @@ int main(int argc, char *argv[])
 	for (int i = 0; i < 14; i++) {
 		FL::Dune * Dune1 = new FL::Dune;
 		if (i == 10)
-		Dune1->setChannel(446 + (i-1) * 4);
-		else if (i == 9)
-		Dune1->setChannel(446 + (i+1) * 4);
-		else
+		Dune1->setChannel(482);
+		if (i == 9)
+		Dune1->setChannel(486);
+		if (i != 9 && i != 10)
 		Dune1->setChannel(446 + i * 4);
 
 		Dune1->setUniverse(1);
@@ -84,7 +84,7 @@ int main(int argc, char *argv[])
 		Dune1->setNumberChannel(4);
 		allD.insert(*Dune1);
 	}
-
+	
 
 	allP.insert(*led1);
 	allP.insert(*led2);
@@ -139,6 +139,12 @@ int main(int argc, char *argv[])
 	engine.rootContext()->setContextProperty("all", &all);
 	engine.rootContext()->setContextProperty("led", &allP);
 	engine.rootContext()->setContextProperty("dune", &allD);
+#ifdef ANDROID
+	engine.rootContext()->setContextProperty("android", 1);
+
+#else
+	engine.rootContext()->setContextProperty("android", 0);
+#endif
 
 	engine.load(QUrl("qrc:///FOYLIGHT/Utils/Main.qml"));
 	if (engine.rootObjects().isEmpty())
