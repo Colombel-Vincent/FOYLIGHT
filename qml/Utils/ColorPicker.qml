@@ -9,10 +9,80 @@ import QQuickMaterialHelper.Style 1.12
 import QQuickMaterialHelper.Fonts 1.12
 import QtGraphicalEffects 1.0
 import FOYLIGHT.Icons 1.0 as Icons
+
 Item
 {
     id: control
     property bool pressed: mouseArea.pressed
+    property real red
+    property real  blue
+    property real green
+    signal changed ()
+
+
+    function setColor(x,y)
+    {
+
+        if (x < colorPicker.width/3)
+        {
+            red = x *-255/(colorPicker.width/3) + 255
+            green = x*255/(colorPicker.width/3)
+            blue = 0
+        }
+        else if(x > (2*colorPicker.width/3))
+        {
+            x = x - (2*colorPicker.width/3)
+            red = x*255/(colorPicker.width/3)
+            blue = x *-255/(colorPicker.width/3) + 255
+            green = 0
+        }
+        else if(x >= (colorPicker.width/3) && x<= 2*colorPicker.width/3)
+        {
+            x = x - colorPicker.width/3
+            blue = x*255/(colorPicker.width/3)
+            green = x *-255/(colorPicker.width/3) + 255
+            red = 0
+
+        }
+        if (y > colorPicker.height/6 )
+        {
+
+            red = red + 3*y*colorPicker.height/255
+            blue = blue +3*y*colorPicker.height/255
+            green = green + 3*y*colorPicker.height/255
+
+        }
+        if (red > 255)
+        {
+            red =255
+        }
+        if (red < 0)
+        {
+            red =0
+        }
+        if (blue > 255)
+        {
+            blue = 255
+        }
+        if (blue < 0)
+        {
+            blue =0
+        }
+        if (green >255)
+        {
+            green = 255
+        }
+        if (green < 0)
+        {
+            green = 0
+        }
+        changed()
+        //fixture.setRGB(red,green,blue)
+
+    }
+
+
+
     //implicitWidth: colorPicker.width
     implicitHeight: colorPicker.height
     Image
@@ -29,6 +99,8 @@ Item
             {
                 cursor.x = mouse.x - 20
                 cursor.y = mouse.y - 20
+                red  : mouse.x < colorPicker.width/6 ? ((mouse.x+20) *(-255/(colorPicker.width/6) +255) ): (mouse.x+20) < 5*colorPicker.width/6? mouse.x : 0
+                setColor(mouse.x,mouse.y)
 
             }
             onPositionChanged:
@@ -37,6 +109,8 @@ Item
                 var clampY = (mouse.y > 0 && mouse.y < colorPicker.height) ? mouse.y : (mouse.y > 0) ? colorPicker.height : 0;
                 cursor.x = clampX - 20;
                 cursor.y = clampY - 20;
+
+               setColor(mouse.x,mouse.y)
 
             }
             Image

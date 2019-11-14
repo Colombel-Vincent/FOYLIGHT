@@ -7,6 +7,13 @@
     <file>Utils/Fader.qml</file>
     <file>Utils/ColorPicker.qml</file>
     <file>Utils/ColorPage.qml</file>
+    <file>Utils/General.qml</file>
+    <file>Utils/EffectPane.qml</file>
+    <file>Utils/DunePane.qml</file>
+    <file>Utils/TradPane.qml</file>
+    <file>Utils/ParLedPane.qml</file>
+    <file>Utils/WindowsPage.qml</file>
+    <file>Utils/AndroidPage.qml</file>
     <file>Utils/qmldir</file>
 
 

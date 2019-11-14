@@ -1,7 +1,4 @@
-/**
- * Copyright (C) Olivier Le Doeuff 2019
- * Contact: olivier.ldff@gmail.com
- */
+
 
  // Qt
 import QtQuick 2.12
@@ -26,11 +23,8 @@ T.Button
     implicitHeight: padHeight + topPadding + bottomPadding
     baselineOffset: contentItem.y + contentItem.baselineOffset
 
-    property bool empty: false
-    property bool recording: false
-    property bool pause: false
-    property bool playback: false
-
+    property bool enable: false
+    onPressed : enable = ! enable
     padding: 4
     spacing: 4
     property double elevation: (control.down ? 8 : 2)
@@ -63,9 +57,7 @@ T.Button
         Image
         {
             id: handle
-            source: (control.empty || (!control.recording && !control.playback && !control.pause)) ? Pads.Manager.padGrey :
-            control.recording ? Pads.Manager.padPink : ( control.pause ? Pads.Manager.padOrange : Pads.Manager.padGreen);
-
+            source: control.enable? Pads.Manager.padGreen  :Pads.Manager.padGrey
             width: parent.width
             height: parent.height
         }

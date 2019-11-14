@@ -5,11 +5,12 @@ import QtQuick.Controls.Universal 2.12
 
 import QQuickMaterialHelper.Style 1.12
 import QQuickMaterialHelper.Core 1.12
+import QQuickMaterialHelper.Fonts 1.12
 
 T.Slider {
     id: control
 
-
+    property var texte
     property bool osc : false // to create an osc fader, same witdh for the handle and for the fader
 
     property bool highlighted  : true // for highlited the fader
@@ -23,7 +24,7 @@ T.Slider {
 }
     property bool circle : false
 
-    property int handleWidth : circle ? faderWidth * 2 :(faderWidth*0.6 +2)*4
+    property int handleWidth : circle ? faderWidth * 2 :(faderWidth*0.6 +2)*3.5
     property int faderWidth : 2
     property color faderColor : MaterialStyle.amber
     readonly property int rawRippleColor: enabled ? MaterialStyle.RippleBackground.Accent : MaterialStyle.RippleBackground.Primary
@@ -82,7 +83,7 @@ T.Slider {
 
 
     background: Item {
-        implicitWidth: control.horizontal ? 200 : 18
+        implicitWidth: control.horizontal ? 300 : 100
         implicitHeight: control.horizontal ? 18 : 200
 
         x: control.leftPadding + (control.horizontal ? 0 : (control.availableWidth - width) / 2)
@@ -91,7 +92,11 @@ T.Slider {
         height: control.horizontal ? implicitHeight : control.availableHeight
 
         scale: control.horizontal && control.mirrored ? -1 : 1
+        Label{
+            text: control.texte ? control.texte : ""
+            color: "white"
 
+        }
         Rectangle {
             x: control.horizontal ? 0 : (parent.width - width) / 2
             y: control.horizontal ? (parent.height - height) / 2 : 0
@@ -110,5 +115,6 @@ T.Slider {
 
             color: control.enabled ? osc ? Qt.lighter(faderColor,1.12) : faderColor  : MaterialStyle.buttonDisabledColor
     }
+
 }
 }
