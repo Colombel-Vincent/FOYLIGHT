@@ -49,17 +49,39 @@ import FOYLIGHT.Utils 1.0 as Utils
                         Layout.topMargin : 30
                         padSize : window.availablePadSize
                         label : "Pinte anniverssaire"
+                        onClicked : {
+                            _anniverssaire.enable ? _parLedPane.raimbowled = true : _parLedPane.raimbowled = false
+                            _anniverssaire.enable ? _dunePane.raimbowDune = true : _dunePane.raimbowDune = false
+                            _anniverssaire.enable ? _tradPane.chasetrad = true : _tradPane.chasetrad = false
+
+
+                        }
                      } // pad button
 
            PadButton{
+                        id : _chill
                         Layout.topMargin : 30
                         padSize : window.availablePadSize
                         label : "chill"
-                     } // pad button
-             PadButton{
+                        onClicked : {
+                        _chill.enable ? _parLedPane.degradeOled = true : _parLedPane.degradeOled = false
+                        _chill.enable ? _dunePane.degradeODune = true : _dunePane.degradeODune = false
+                        _chill.enable ? _tradPane.chaseDtrad = true : _tradPane.chaseDtrad = false
+                        }
+
+                    } // pad button
+            PadButton{
+                        id : _turn
                         Layout.topMargin : 30
                         padSize : window.availablePadSize
                         label : "turn up"
+                         onClicked : {
+                        _turn.enable ? _parLedPane.raimbowled = true : _parLedPane.raimbowled = false
+                        _turn.enable ? _parLedPane.chase4led = true : _parLedPane.chase4led = false
+                            _turn.enable ? _dunePane.raimbowDune = true : _dunePane.raimbowDune = false
+                            _turn.enable ? _dunePane.chase4Dune = true : _dunePane.chase4Dune = false
+                            _turn.enable ? _tradPane.chasetrad = true : _tradPane.chasetrad = false
+                            }
                      } // pad button
           PadButton{
                         Layout.topMargin : 30
@@ -69,41 +91,8 @@ import FOYLIGHT.Utils 1.0 as Utils
                       PadButton{
                         Layout.topMargin : 30
 
-                        label : "Chase Fort"
-                        padSize : window.availablePadSize
-                     } // pad button
-                       PadButton{
-                        Layout.topMargin : 30
-
-                        label : "Chase Doux"
-                        padSize : window.availablePadSize
-                     } // pad button
-                       PadButton{
-                        Layout.topMargin : 30
-
-                        label : "Sinus"
-                        padSize : window.availablePadSize
-                     } // pad button
-                       PadButton{
-                        Layout.topMargin : 30
-
-                        label : "Symétrie"
-                        padSize : window.availablePadSize
-                     } // pad button
-                       PadButton{
-                        Layout.topMargin : 30
-
-                        label : "Rectangle"
-                        padSize : window.availablePadSize
-                     } // pad button
-                       PadButton{
-                        Layout.topMargin : 30
-
-                        label : "Scène"
-                        padSize : window.availablePadSize
-                     } // pad button
-
         }
         }
     }
+}
         // pane

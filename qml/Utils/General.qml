@@ -16,8 +16,8 @@ Pane{
 
 
         id : _masterFaderPane
-        contentHeight : 200
-        contentWidth : 200
+        contentHeight : window.height/2 -75
+        contentWidth : window.width -75
 
         elevation : 10
         radius : 4
@@ -37,7 +37,7 @@ Pane{
             interactive : contentHeight > height
             ScrollIndicator.vertical: ScrollIndicator {}
 
-            property int availableWidth :  Math.floor((_padButtonGeneral.width + _generalSlider.width + _colorpicker.width +20) /(window.width/3) )
+            property int availableWidth :  Math.floor((_padButtonGeneral.width + _generalSlider.width + _colorpicker.width +20) /(window.width -75) )
 
         GridLayout{
             id: _generalLayout
@@ -53,6 +53,7 @@ Pane{
 
 
                   Utils.Fader{
+                  		texte : "Dimmer"
                         Layout.leftMargin : 15
                         id:_generalSlider
                         from : 0
@@ -60,13 +61,14 @@ Pane{
                         value: MaterialStyle.rawButton.cornerRadius
                         stepSize: 1
                         orientation: Qt.Vertical
-                        faderWidth :  window.width / 128 < 10 ? 10 : 15
+                        faderWidth :  window.width / 128 < 10 ? 15 : 20
                         onMoved :{ all.slideDimmer(_generalSlider.value)
                         }
 
                      } // fader
 
                      Utils.Fader{
+                     	texte : "Vitesse effet"
                         Layout.leftMargin : 30
                         id:_generalEffectSlider
                         from : 0
@@ -74,10 +76,11 @@ Pane{
                         value: MaterialStyle.rawButton.cornerRadius
                         stepSize: 1
                         orientation: Qt.Vertical
-                        faderWidth : window.width / 128 < 10 ? 10 : 15
+                        faderWidth : window.width / 128 < 10 ? 15 : 20
                         onMoved : {
                         	dune.slideSpeed(_generalEffectSlider.value)
                         	led.slideSpeed(_generalEffectSlider.value)
+
                         }
 
                      } // fader

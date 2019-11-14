@@ -82,8 +82,8 @@ public:
 	Q_INVOKABLE void slideDimmer(int value) ;
 	Q_INVOKABLE void slideSpeed(int value);
 	Q_INVOKABLE void setRGB(qint16 red, qint16 green, qint16 blue);
-	void sinusColor(Fixture * it, int speed);
-	void SinusColorDegrade(Fixture * it, int speed, colorD color);
+	void sinusColor( int speed);
+	void SinusColorDegrade( int speed, colorD color);
 	void SinusDim(FixtureList &fe);
 	void SinusSmoothDim(FixtureList & fe);
 	void ChaseSmoothDim(FixtureList & fe, FixtureList & f2);

@@ -11,59 +11,100 @@ import QQuickMaterialHelper.Fonts 1.12
 import FOYLIGHT.Icons 1.0 as Icons
 import FOYLIGHT.Utils 1.0 as Utils
 
+Page{
+	header : ToolBar{
+    id : _topbanner
+    width : parent.width
+    height : window.height/18 > 40 ? 60 : 30
+    Label{
+    text : "FOYLIGHT"
+    textType: MaterialStyle.TextType.Title
+    anchors.centerIn: parent
+}
+}
  Flickable{
 	property int availablesize : Math.floor((_dunePane.width*3.5) /window.width)
             id: _flickableE
             clip: true
             width: window.width
             height : window.height
-            contentHeight:  _layoutPane.implicitHeight
+            contentHeight:  _view.height
             interactive : contentHeight > height
             ScrollIndicator.vertical: ScrollIndicator {}
 
+SwipeView{
 
-
-RowLayout
-{
-    id : _generalRow
+	id : _view
+	currentIndex : tabBar.currentIndex
+	anchors.fill : parent
+	Item{
+		id : _general
+	ColumnLayout{
+	spacing : 10
     Utils.General{
-    Layout.alignment: Qt.AlignRight
+
     id:_generalPane
-    Layout.topMargin : 100
-    Layout.leftMargin : 15
-    }
 
-    Utils.EffectPane{
-      Layout.leftMargin : 15
-      Layout.topMargin : 100
-      Layout.alignment: Qt.AlignRight
+    contentWidth: window.width -75
+    contentHeight : window.height/2.5
+    }
+  	 Utils.EffectPane{
+
       id : _effectPane
+      contentWidth: window.width-75
+      contentHeight : window.height/2
+    }
+}
+}
+
+   Item{
+ 	id : _dune
+        Utils.DunePane{
+
+
+        id : _dunePane
+        contentWidth: window.width-75
+        contentHeight : window.height
+        }
     }
 
-}
-    GridLayout{
-      columns : 3 - availablesize
-      rows : availablesize
-      id : _layoutPane
-        Utils.DunePane{
-        Layout.leftMargin : 25
-        Layout.topMargin : _generalPane.height+ _topbanner.height*2
-        id : _dunePane
-        }
-
+Item{
+	id : _parled
         Utils.ParLedPane{
-       Layout.leftMargin : 25
+
         id : _parLedPane
-        Layout.topMargin : _generalPane.height+ _topbanner.height*2
-}
 
+
+        contentWidth: window.width-75
+        contentHeight : window.height
+}
+}
+Item{
+	id : _trad
         Utils.TradPane{
-        Layout.leftMargin : 25
+
         id : _tradPane
-        Layout.topMargin : _generalPane.height+ _topbanner.height*2
-
+        contentWidth: window.width -75
+        contentHeight : window.height
+}
 }
 
 
 }
+}
+
+footer: FixedTabBar
+    {
+        id: tabBar
+        elevation: 20
+        currentIndex:  _view.currentIndex
+
+        model: ListModel
+        {
+            ListElement{ text: "General" }
+            ListElement{ text: "Dune" }
+            ListElement{ text: "Par led" }
+            ListElement{ text: "Trad" }
+        }
+    }
 }

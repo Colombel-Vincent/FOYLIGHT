@@ -12,15 +12,29 @@ import QQuickMaterialHelper.Fonts 1.12
 import FOYLIGHT.Icons 1.0 as Icons
 import FOYLIGHT.Utils 1.0 as Utils
  Pane{
+
+  property bool raimbowled : _raimbowled.enable
+  property bool degradeOled : _degradeOled.enable
+  property bool degradeMled : _degradeMled.enable
+  property bool chaseled : _chaseled.enable
+  property bool chaseDled : _chaseDled.enable
+  property bool chase4led : _chase4led.enable
       Item {
         Timer {
         interval: 10; running: true; repeat: true
         onTriggered : {
           _raimbowled.enable ? led.GroupeEffects(7,0,5,0) : 0
-          _degradeOled.enable ?led.GroupeEffects(4,0,5,0) :0
           _degradeCled.enable ?led.GroupeEffects(5,0,5,0) :0
           _degradeMled.enable ?led.GroupeEffects(6,0,5,0) :0
+          _chaseled.enable ? led.GroupeEffects(0,0,0,0) : 0
+          _chaseDled.enable ?led.GroupeEffects(1,0,0,0) :0
+          _Chase4led.enable ?led.GroupeEffects(0,0,1,2) :0
 
+          raimbowled ?_raimbowled.enable = 1 :_raimbowled.enable = 0
+          degradeOled ? _degradeOled.enable = 1 :_degradeOled.enable =  0
+          degradeMled ?_degradeMled.enable = 1 : _degradeMled.enable =0
+          chaseled ?_chaseled.enable = 1 :_chaseled.enable =  0
+          chase4led ?_chase4led.enable = 1 : _chase4led.enable = 0
         }
            }
          }
@@ -68,7 +82,8 @@ import FOYLIGHT.Utils 1.0 as Utils
                  }
 
             GridLayout{
-
+              id : _grid1
+              property int test :5
 
                 PadButton{
                       id: _chaseled
@@ -79,6 +94,20 @@ import FOYLIGHT.Utils 1.0 as Utils
 
 
                      } // pad button
+                      PadButton{
+                        id: _chaseDled
+                        Layout.topMargin : 250
+
+                        label : "Chase doux"
+                        padSize : window.availablePadSize
+                     } // pad button
+                      PadButton{
+                        id: _Chase4led
+                        Layout.topMargin : 250
+
+                        label : "Chase 4"
+                        padSize : window.availablePadSize
+                     } // pad button
 
                     PadButton{
                       id: _raimbowled
@@ -86,6 +115,8 @@ import FOYLIGHT.Utils 1.0 as Utils
                         label : "Raimbow"
                         padSize : window.availablePadSize
                      } // pad button
+
+
                        PadButton{
                         id: _degradeOled
                         Layout.topMargin : 250

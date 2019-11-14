@@ -14,6 +14,25 @@ import FOYLIGHT.Utils 1.0 as Utils
 Pane{
 
 
+  property bool chasetrad : _chasetrad.enable
+  property bool chaseDtrad : _chaseDtrad.enable
+  property bool chase4trad : _chase4trad.enable
+      Item {
+        Timer {
+        interval: 10; running: true; repeat: true
+        onTriggered : {
+          _chasetrad.enable ? trad.GroupeEffects(0,0,0,1) : 0
+          _chaseDtrad.enable ?trad.GroupeEffects(1,0,0,0) : 0
+          _chase4trad.enable ?trad.GroupeEffects(0,0,1,2) : 0
+
+
+         chasetrad ?_chasetrad.enable = 1 : _chasetrad.enable=0
+          chaseDtrad ?_chaseDtrad.enable = 1 : _chaseDtrad.enable =0
+          chase4trad ? _chase4trad.enable = 1 :_chase4trad =0
+        }
+           }
+         }
+
         id : _tradPane
         contentHeight : 550
         contentWidth : window.width/4
@@ -44,7 +63,7 @@ Pane{
                         stepSize: 1
                         orientation: Qt.Vertical
                         faderWidth :  window.width / 128 < 10 ? 10 : 15
-
+                        onMoved :trad.slideDimmer(_tradSlider.value)
 
                      } // fader
 
@@ -56,40 +75,24 @@ Pane{
 
             columns : 4
             rows : 2
-              PadButton{
+               PadButton{
+                      id: _chasetrad
+                        Layout.topMargin : 250
+                        label : "Chase"
+                        padSize : window.availablePadSize
+                     } // pad button
+                      PadButton{
+                        id: _chaseDtrad
                         Layout.topMargin : 250
 
-                        label : "Chase Fort"
+                        label : "Chase doux"
                         padSize : window.availablePadSize
                      } // pad button
-                       PadButton{
+                      PadButton{
+                        id: _chase4trad
                         Layout.topMargin : 250
 
-                        label : "Chase Doux"
-                        padSize : window.availablePadSize
-                     } // pad button
-                       PadButton{
-                        Layout.topMargin : 250
-
-                        label : "Sinus"
-                        padSize : window.availablePadSize
-                     } // pad button
-                       PadButton{
-                        Layout.topMargin : 250
-
-                        label : "Symétrie"
-                        padSize : window.availablePadSize
-                     } // pad button
-                       PadButton{
-                        Layout.topMargin : 15
-
-                        label : "Rectangle"
-                        padSize : window.availablePadSize
-                     } // pad button
-                       PadButton{
-                        Layout.topMargin : 15
-
-                        label : "Scène"
+                        label : "Chase 4"
                         padSize : window.availablePadSize
                      } // pad button
 

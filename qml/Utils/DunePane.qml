@@ -12,14 +12,29 @@ import QQuickMaterialHelper.Fonts 1.12
 import FOYLIGHT.Icons 1.0 as Icons
 import FOYLIGHT.Utils 1.0 as Utils
  Pane{
+  property bool raimbowDune : _raimbowDune.enable
+  property bool degradeODune : _degradeODune.enable
+  property bool degradeMDune : _degradeMDune.enable
+  property bool chaseDune : _chaseDune.enable
+  property bool chaseDDune : _chaseDDune.enable
+  property bool chase4Dune : _Chase4Dune.enable
         Item {
         Timer {
         interval: 10; running: true; repeat: true
         onTriggered : {
-          _raimbowDune.enable ? dune.GroupeEffects(0,0,1,1) :0
-          _degradeODune.enable ?dune.GroupeEffects(0,0,1,0) :0
-          _degradeCDune.enable ?dune.GroupeEffects(0,0,1,2) :0
-          _degradeMDune.enable ?dune.GroupeEffects(6,0,0,0) :0
+          _raimbowDune.enable ? dune.GroupeEffects(7,0,5,0) :0
+          _degradeODune.enable ?dune.GroupeEffects(5,0,5,0) :0
+          _degradeCDune.enable ?dune.GroupeEffects(6,0,5,0) :0
+          _degradeMDune.enable ?dune.GroupeEffects(4,0,5,0) :0
+          _chaseDune.enable ? dune.GroupeEffects(0,0,0,0) : 0
+          _chaseDDune.enable ?dune.GroupeEffects(1,0,0,0) :0
+          _Chase4Dune.enable ?dune.GroupeEffects(0,0,1,2) :0
+
+          raimbowDune ?_raimbowDune.enable = 1 : _raimbowDune.enable =0
+          degradeODune ?_degradeODune.enable = 1 :_degradeODune.enable= 0
+          degradeMDune ?_degradeMDune.enable = 1 :_degradeMDune.enable = 0
+          chaseDune ?_chaseDune.enable = 1 : _chaseDune.enable = 0
+          chase4Dune ?_Chase4Dune.enable = 1 :_Chase4Dune.enable = 0
         }
            }
          }
@@ -87,11 +102,36 @@ import FOYLIGHT.Utils 1.0 as Utils
         }
            GridLayout{
 
+                PadButton{
+                      id: _chaseDune
+                        Layout.topMargin : 250
+
+                        label : "Chase"
+                        padSize : window.availablePadSize
+
+
+                     } // pad button
+                      PadButton{
+                        id: _chaseDDune
+                        Layout.topMargin : 250
+
+                        label : "Chase doux"
+                        padSize : window.availablePadSize
+                     } // pad button
+                      PadButton{
+                        id: _Chase4Dune
+                        Layout.topMargin : 250
+
+                        label : "Chase 4"
+                        padSize : window.availablePadSize
+                     } // pad button
+
                    PadButton{
                       id: _raimbowDune
 
                         label : "Raimbow"
                         padSize : window.availablePadSize
+
                      } // pad button
                        PadButton{
                         id: _degradeODune

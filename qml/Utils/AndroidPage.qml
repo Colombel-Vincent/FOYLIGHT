@@ -13,6 +13,14 @@ import QQuickMaterialHelper.Containers 1.12
 import FOYLIGHT.Icons 1.0 as Icons
 import FOYLIGHT.Utils 1.0 as Utils
 Page{
+	Item {
+        Timer {
+        interval: 10; running: true; repeat: true
+        onTriggered : {
+        _parLedPane._degradeMled.enable = 1
+        }
+           }
+         }
 
 	header : ToolBar{
     id : _topbanner
@@ -97,13 +105,14 @@ Item{
 }
 
 
+
 }
 }
  footer: FixedTabBar
     {
         id: tabBar
         elevation: 20
-        currentIndex:  tabBar.currentIndex
+        currentIndex:  _view.currentIndex
 
         model: ListModel
         {

@@ -32,7 +32,7 @@ ApplicationWindow
 
 Loader{
   id :_loader
-  source : "AndroidPage.qml"
+  source : "WindowsPage.qml"
   anchors.fill: parent
   anchors.centerIn :parent
 }
