@@ -92,11 +92,7 @@ T.Slider {
         height: control.horizontal ? implicitHeight : control.availableHeight
 
         scale: control.horizontal && control.mirrored ? -1 : 1
-        Label{
-            text: control.texte ? control.texte : ""
-            color: "white"
 
-        }
         Rectangle {
             x: control.horizontal ? 0 : (parent.width - width) / 2
             y: control.horizontal ? (parent.height - height) / 2 : 0
@@ -115,6 +111,39 @@ T.Slider {
 
             color: control.enabled ? osc ? Qt.lighter(faderColor,1.12) : faderColor  : MaterialStyle.buttonDisabledColor
     }
+     Rectangle {
+            id: _borderRectangle
+            x: control.horizontal ? -5 : (parent.width - width) / 2
+            y: control.horizontal ? (parent.height - height) / 2 : -5
+            width: control.horizontal ?  parent.width +20 : faderWidth +30 // SliderTrackThemeHeight
+            height: !control.horizontal ? parent.height  +20 : faderWidth + 30 // SliderTrackThemeHeight
+            border.width : 0.5
+            border.color : "white"
+            color : "transparent"
+            radius : 5
+    }
+    Rectangle {
+            x: control.horizontal ? 125 : 15
+            y: control.horizontal ? 15 : 125
+            width: _text_side.width +10
+            height: _text_side.height
+            color :!control.texte ? "transparent" : MaterialStyle.backgroundColorDark
+            transform : Rotation {origin.x : 0 ; origin.y : 0 ; angle :-90}
+             Label{
+                x: 5
+                 id : _text_side
+                  text: control.texte ? control.texte : ""
+                    color: "white"
+                    font.bold : true
+                    font .letterSpacing : 2
+
+
+             }
+
+    }
+
+
+
 
 }
 }

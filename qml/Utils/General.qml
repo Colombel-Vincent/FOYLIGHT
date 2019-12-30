@@ -38,7 +38,7 @@ Pane{
             ScrollIndicator.vertical: ScrollIndicator {}
 
             property int availableWidth :  Math.floor((_padButtonGeneral.width + _generalSlider.width + _colorpicker.width +20) /(window.width -75) )
-
+            Column {
         GridLayout{
             id: _generalLayout
             columns : (4 - _flickableG.availableWidth)
@@ -101,5 +101,60 @@ Pane{
 
         } // grid layout
 
+         GridLayout{
+          id: _effectLayout
+            columns : (8 - _flickableE.availableWidth)
+            rows :1+ _flickableE.availableWidth
+
+           PadButton{
+                        id : _anniverssaire
+                        Layout.topMargin : 30
+                        padSize : window.availablePadSize
+                        label : "Pinte anniverssaire"
+                        onClicked : {
+                            _anniverssaire.enable ? _parLedPane.raimbowled = true : _parLedPane.raimbowled = false
+                            _anniverssaire.enable ? _dunePane.raimbowDune = true : _dunePane.raimbowDune = false
+                            _anniverssaire.enable ? _tradPane.chasetrad = true : _tradPane.chasetrad = false
+
+
+                        }
+                     } // pad button
+
+           PadButton{
+                        id : _chill
+                        Layout.topMargin : 30
+                        padSize : window.availablePadSize
+                        label : "chill"
+                        onClicked : {
+                        _chill.enable ? _parLedPane.degradeOled = true : _parLedPane.degradeOled = false
+                        _chill.enable ? _dunePane.degradeODune = true : _dunePane.degradeODune = false
+                        _chill.enable ? _tradPane.chaseDtrad = true : _tradPane.chaseDtrad = false
+                        }
+
+                    } // pad button
+            PadButton{
+                        id : _turn
+                        Layout.topMargin : 30
+                        padSize : window.availablePadSize
+                        label : "turn up"
+                         onClicked : {
+                        _turn.enable ? _parLedPane.raimbowled = true : _parLedPane.raimbowled = false
+                        _turn.enable ? _parLedPane.chase4led = true : _parLedPane.chase4led = false
+                            _turn.enable ? _dunePane.raimbowDune = true : _dunePane.raimbowDune = false
+                            _turn.enable ? _dunePane.chase4Dune = true : _dunePane.chase4Dune = false
+                            _turn.enable ? _tradPane.chasetrad = true : _tradPane.chasetrad = false
+                            }
+                     } // pad button
+          PadButton{
+                        Layout.topMargin : 30
+                        padSize : window.availablePadSize
+                        label : "film"
+                     } // pad button
+                      PadButton{
+                        Layout.topMargin : 30
+
+        }
+        }
+}
 }//flickable
     } // pane

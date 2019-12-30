@@ -39,22 +39,16 @@ SwipeView{
 	anchors.fill : parent
 	Item{
 		id : _general
-	ColumnLayout{
-	spacing : 10
+
     Utils.General{
 
     id:_generalPane
 
-    contentWidth: window.width -75
-    contentHeight : window.height/2.5
+    contentWidth: window.width
+    contentHeight : window.height
     }
-  	 Utils.EffectPane{
 
-      id : _effectPane
-      contentWidth: window.width-75
-      contentHeight : window.height/2
-    }
-}
+
 }
 
    Item{
@@ -63,7 +57,7 @@ SwipeView{
 
 
         id : _dunePane
-        contentWidth: window.width-75
+        contentWidth: window.width
         contentHeight : window.height
         }
     }
@@ -75,7 +69,7 @@ Item{
         id : _parLedPane
 
 
-        contentWidth: window.width-75
+        contentWidth: window.width
         contentHeight : window.height
 }
 }
@@ -84,7 +78,7 @@ Item{
         Utils.TradPane{
 
         id : _tradPane
-        contentWidth: window.width -75
+        contentWidth: window.width
         contentHeight : window.height
 }
 }
