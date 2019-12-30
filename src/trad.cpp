@@ -3,7 +3,7 @@
 FOYLIGHT_USING_NAMESPACE;
 
 void Trad::sendData(uint8_t * data) {
-	data[0] = getDimmer();
+	data[0] = dimmer();
 }
 
 

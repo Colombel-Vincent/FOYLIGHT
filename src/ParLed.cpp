@@ -15,26 +15,26 @@ void ParLed::setRGB(qint16 red, qint16 green, qint16 blue) {
 }
 
  void ParLed::sendData(uint8_t * data) {
-	 if (getDimmer() < 15) {
-		 data[0] = getRed()+70;
-		 data[1] = getGreen()+70;
-		 data[2] = getBlue()+70;
-		 data[3] = getWhite()+70;
-		 data[4] = getwarmWhite()+70;
-		 data[5] = getUV()+70;
+	 if (dimmer() < 15) {
+		 data[0] = red()+70;
+		 data[1] = green()+70;
+		 data[2] = blue()+70;
+		 data[3] = white()+70;
+		 data[4] = warmWhite()+70;
+		 data[5] = uv()+70;
 		 data[9] = 0x00;
 	 }
 	 else {
-		 data[0] = getRed();
-		 data[1] = getGreen();
-		 data[2] = getBlue();
-		 data[3] = getWhite();
-		 data[4] = getwarmWhite();
-		 data[5] = getUV();
-		 data[9] = getDimmer();
+		 data[0] = red();
+		 data[1] = green();
+		 data[2] = blue();
+		 data[3] = white();
+		 data[4] = warmWhite();
+		 data[5] = uv();
+		 data[9] = dimmer();
 	 }
 	data[6] = 0x00;
-	data[7] = getShutter();
+	data[7] = shutter();
 	data[8] = 0x00;
 
 

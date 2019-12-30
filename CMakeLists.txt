@@ -39,7 +39,7 @@ set(QBC_TAG "master" CACHE STRING "Git Tag of Qbc")
 set(QTANDROIDCMAKE_REPOSITORY "https://github.com/OlivierLDff/QtAndroidCMake.git" CACHE STRING "Repository of QtAndroidCMake")
 set(QTANDROIDCMAKE_TAG "master" CACHE STRING "Git Tag of QtAndroidCMake")
 
-set(QTWINDOWSCMAKE_REPOSITORY "https://github.com/OlivierLDff/QtWindowsCMake" CACHE STRING "Repository of QtAndroidCMake")
+set(QTWINDOWSCMAKE_REPOSITORY "https://github.com/Colombel-Vincent/QtWindowsCMake.git" CACHE STRING "Repository of QtAndroidCMake")
 set(QTWINDOWSCMAKE_TAG "master" CACHE STRING "Git Tag of QtAndroidCMake")
 
 set(QQUICKMATERIALHELPER_REPOSITORY "https://github.com/OlivierLDff/QQuickMaterialHelper.git" CACHE STRING "Repository of QQuickMaterialHelper")

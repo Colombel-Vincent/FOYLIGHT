@@ -42,7 +42,7 @@ Fixture::Fixture(QString name, uint8_t universe, uint8_t channel, uint8_t number
 Fixture * FixtureList::getFixture(const int id) const
 {
 	for (auto  it : *this ) {
-		if (it->getFid() == id)
+		if (it->fid() == id)
 			return it;
 	}
 	return nullptr;
@@ -58,7 +58,7 @@ Fixture * FixtureList::insert(Fixture & f)
 bool FixtureList::removeFixture(const int id)
 {
 	for (auto it : *this) {
-		if (it->getFid() == id) {
+		if (it->fid() == id) {
 			delete it;
 			return true;
 		}
@@ -94,16 +94,16 @@ Q_INVOKABLE void FixtureList::setRGB(qint16 red, qint16 green, qint16 blue)
 void FixtureList::SinusDim(FixtureList &fe) {
 	int i = 0;
 	for (auto it : *this) {
-		it->setDimmer(abs(sin(it->getTime())+(i*count()+1)*M_PI/(count()*2)) * 255);
-		it->setTime(it->getTime() + 0.05);
+		it->setDimmer(abs(sin(it->time())+(i*count()+1)*M_PI/(count()*2)) * 255);
+		it->setTime(it->time() + 0.05);
 	}
 }
 void FixtureList::SinusSmoothDim(FixtureList &fe)
 {
 	int i = 0;
 	for (auto it : *this) {
-		it->setDimmer(abs(sin(it->getTime()) + (i*count() + 1)*M_PI / (count() * 2)) * 255);
-		it->setTime(it->getTime() + 0.05);
+		it->setDimmer(abs(sin(it->time()) + (i*count() + 1)*M_PI / (count() * 2)) * 255);
+		it->setTime(it->time() + 0.05);
 	}
 }
 void FixtureList::ChaseSmoothDim(FixtureList & fe, FixtureList & f2)
@@ -122,24 +122,24 @@ void FixtureList::ChaseDim(FixtureList & fe, FixtureList & f2)
 		for (auto it : f2)
 		it->setDimmer(0);
 }
-void FixtureList::sinusColor(int speed)
+void FixtureList::sinusColor(int Speed)
 {
 	for (auto it : *this) 
 	{
-		qint16 red = sin(it->getTime() + M_PI / 2) * 255 < 0 ? 0 : sin(it->getTime() + M_PI / 2) * 255;
-		qint16 blue = sin(it->getTime() + 7 * M_PI / 6) * 255 < 0 ? 0 : sin(it->getTime() + 7 * M_PI / 6) * 255;
-		qint16 green = sin(it->getTime() + 11 * M_PI / 6) * 255 < 0 ? 0 : sin(it->getTime() + 11 * M_PI / 6) * 255;
+		qint16 red = sin(it->time() + M_PI / 2) * 255 < 0 ? 0 : sin(it->time() + M_PI / 2) * 255;
+		qint16 blue = sin(it->time() + 7 * M_PI / 6) * 255 < 0 ? 0 : sin(it->time() + 7 * M_PI / 6) * 255;
+		qint16 green = sin(it->time() + 11 * M_PI / 6) * 255 < 0 ? 0 : sin(it->time() + 11 * M_PI / 6) * 255;
 		it->setRGB(red, green, blue);
-		it->setTime(it->getTime() + 0.05 * getSpeed()*0.05);
+		it->setTime(it->time() + 0.05 * speed()*0.05);
 	}
 }
 
-void FixtureList::SinusColorDegrade( int speed, colorD color)
+void FixtureList::SinusColorDegrade( int Speed, colorD color)
 {
 	static double t = 0;
 	for (auto it : *this) {
-		qint16 color1 = abs(sin(it->getTime()) * 255);
-		qint16 color2 = abs(sin(it->getTime() + M_PI / 2) * 255);
+		qint16 color1 = abs(sin(it->time()) * 255);
+		qint16 color2 = abs(sin(it->time() + M_PI / 2) * 255);
 		switch (color) {
 		case 0:
 			it->setRGB(color1, color2, 0);
@@ -154,7 +154,7 @@ void FixtureList::SinusColorDegrade( int speed, colorD color)
 		default:
 			break;
 		}
-		it->setTime(it->getTime() + 0.01 * getSpeed()*0.05);
+		it->setTime(it->time() + 0.01 * speed()*0.05);
 	}
 }
 
@@ -169,8 +169,8 @@ void FixtureList :: ListEffects(int a, int b, int c, int d, int g, int effects, 
 	FixtureList   f2;
 	for (auto it : *this) {
 		if (g)
-			a = it->getFid();    // g is for all do the effects
-		if (it->getFid() == a || it->getFid() == b || it->getFid() == c || it->getFid() == d)
+			a = it->fid();    // g is for all do the effects
+		if (it->fid() == a || it->fid() == b || it->fid() == c || it->fid() == d)
 			f.append(it);
 		else
 			f2.append(it);
@@ -210,14 +210,14 @@ void FixtureList :: ListEffects(int a, int b, int c, int d, int g, int effects, 
 
 
 
-void FixtureList::GroupeEffects( int effects, int speed, int Gr, int EM)
+void FixtureList::GroupeEffects( int effects, int Speed, int Gr, int EM)
 {
 
 	static int a = 1;
 	static int b = 1;
 	static double t = 0;
-	qDebug() << getSpeed();
-	if (getEffectsChanged()) {
+	qDebug() << speed();
+	if (effectsChanged()) {
 		a = 1;
 		if (EM == saute)
 			b = count() / 2 + 1;
@@ -230,44 +230,44 @@ void FixtureList::GroupeEffects( int effects, int speed, int Gr, int EM)
 	switch (Gr)
 	{
 	case 0:
-		ListEffects( a, a, a, a, 0, effects, speed);
+		ListEffects( a, a, a, a, 0, effects, Speed);
 		a = a < count() ? t>1? a + 1 : a: 1;
-		t = t >= 1 ? 0 : t + 0.01*(getSpeed()*0.2);
+		t = t >= 1 ? 0 : t + 0.01*(speed()*0.2);
 		break;
 	case  1:
 
 		if (EM == lineaire || EM==0)
 		{
-			ListEffects( a, a + 1, a, a, 0, effects, speed);
+			ListEffects( a, a + 1, a, a, 0, effects, Speed);
 			a = a < count() ? t>1 ? a+2 :a  : 1;
-			t = t >= 1 ? 0 : t + 0.01*(getSpeed()*0.2);
+			t = t >= 1 ? 0 : t + 0.01*(speed()*0.2);
 		}
 		else if (EM == saute || EM == 2)
 		{
 			a = b == count() ?  1 : t>1 ? a + 1:a  ;
 			b = b == count() ? count() / 2 +1 : t>1 ? b + 1:b;
-			ListEffects( a, b, a, a, 0, effects, speed);
-			t = t >= 1 ? 0 : t + 0.01*(getSpeed()*0.2);
+			ListEffects( a, b, a, a, 0, effects, Speed);
+			t = t >= 1 ? 0 : t + 0.01*(speed()*0.2);
 		}
 		else if (EM == embrasse || EM == 1)
 		{
 			a = a == b+1 ? 1 : t > 1 ? a + 1 :a;
 			b = a == 1 ? count() : t > 1 ? b - 1 : b;
-			ListEffects( a, b, a, a, 0, effects, speed);
-			t = t >= 1 ? 0 : t + 0.01*(getSpeed()*0.2);
+			ListEffects( a, b, a, a, 0, effects, Speed);
+			t = t >= 1 ? 0 : t + 0.01*(speed()*0.2);
 			
 		}
 		break;
 	case 2 :
-		ListEffects( a, a + 1, a + 2, a, 0, effects, speed);
+		ListEffects( a, a + 1, a + 2, a, 0, effects, Speed);
 		a = a < count() ? a + 3 : 1;
 		break;
 	case  3:
-		ListEffects( a, a + 1, a + 2, a + 3, 0, effects, speed);
+		ListEffects( a, a + 1, a + 2, a + 3, 0, effects, Speed);
 		a = a < count() ? a + 4 : 1;
 		break;
 	case 5:
-		ListEffects( a, a, a, a, 1, effects, speed);
+		ListEffects( a, a, a, a, 1, effects, Speed);
 
 		break;
 	default:

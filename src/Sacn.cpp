@@ -148,10 +148,10 @@ void Sacn::SendSacn(FixtureList *f)
 		int v[512] = { 0 };
 
 		for (auto it : *f) {
-			uint8_t * fixture = (uint8_t*)malloc(sizeof(uint8_t)*it->getNumberChannel());
+			uint8_t * fixture = (uint8_t*)malloc(sizeof(uint8_t)*it->numberChannel());
 			it->sendData(fixture);
-			for (int i = 125 + it->getChannel(); i < 125 + it->getChannel()+ it->getNumberChannel()+1 && i<638; i++) {
-				raw[i] = fixture[i - (125 + it->getChannel())];
+			for (int i = 125 + it->channel(); i < 125 + it->channel()+ it->numberChannel()+1 && i<638; i++) {
+				raw[i] = fixture[i - (125 + it->channel())];
 				v[i- 125] = 1;
 			}
 			free(fixture);
