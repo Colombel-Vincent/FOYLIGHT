@@ -18,7 +18,7 @@ ApplicationWindow
     height: 720
     visible: true
 	   title: "Foy & Light"
-     property int availablePadSize : Math.floor(window.width/18) > 60 ? Math.floor(window.width/18) : 70
+     property int availablePadSize : Math.floor(window.width/18) > 60 ? Math.floor(window.width/18) : 96
 
 
   Item {

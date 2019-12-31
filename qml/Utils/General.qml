@@ -22,139 +22,153 @@ Pane{
         elevation : 10
         radius : 4
 
-        Label{
-            text : "General"
+        Label
+        {
+            text : _flickableG.availableWidthButton
+            Layout.alignment: Qt.AlignHCenter
+            textType: MaterialStyle.TextType.Title
+            id :_text
+        }
+         Label
+        {
+            anchors.top: _text.bottom
+            text : _effectLayout.columns
             Layout.alignment: Qt.AlignHCenter
             textType: MaterialStyle.TextType.Title
 
         }
 
-        contentItem : Flickable{
+        contentItem : Flickable
+        {
             id: _flickableG
-             clip: true
+            clip: true
             contentWidth: width
-            contentHeight: _generalLayout.implicitHeight + 2 * MaterialStyle.card.verticalPadding
+            contentHeight: _content.implicitHeight + 2 * MaterialStyle.card.verticalPadding
             interactive : contentHeight > height
             ScrollIndicator.vertical: ScrollIndicator {}
 
-            property int availableWidth :  Math.floor((_padButtonGeneral.width + _generalSlider.width + _colorpicker.width +20) /(window.width -75) )
-            Column {
-        GridLayout{
-            id: _generalLayout
-            columns : (4 - _flickableG.availableWidth)
-            rows :1+ _flickableG.availableWidth
-                   PadButton{
-                        Layout.topMargin : 15
-                        id : _padButtonGeneral
-                        padIcon : Icons.Manager.power
-                        padSize : window.availablePadSize
-
-                     } // pad button
+            property int availableWidthFader :  Math.floor (-(_padButtonGeneral.width + _generalSlider.width +20 -window.width ))
+            property int availableWidthButton : Math.floor(window.width - _chill.width * _effectLayout.columns  )
 
 
-                  Utils.Fader{
-                  		texte : "Dimmer"
-                        Layout.leftMargin : 15
-                        id:_generalSlider
-                        from : 0
-                        to: MaterialStyle.rawButton.minHeight/2
-                        value: MaterialStyle.rawButton.cornerRadius
-                        stepSize: 1
-                        orientation: Qt.Vertical
-                        faderWidth :  window.width / 128 < 10 ? 15 : 20
-                        onMoved :{ all.slideDimmer(_generalSlider.value)
-                        }
+            Item {
+                id : _content
+                Row{
+                    spacing: _flickableG.availableWidthFader < 450 ? _flickableG.availableWidthFader /4 : 20
+                    id: _generalLayout
+                       PadButton
+                       {
+                            y : 50
+                            id : _padButtonGeneral
+                            padIcon : Icons.Manager.power
+                            padSize : window.availablePadSize +20
 
-                     } // fader
-
-                     Utils.Fader{
-                     	texte : "Vitesse effet"
-                        Layout.leftMargin : 30
-                        id:_generalEffectSlider
-                        from : 0
-                        to: MaterialStyle.rawButton.minHeight/2
-                        value: MaterialStyle.rawButton.cornerRadius
-                        stepSize: 1
-                        orientation: Qt.Vertical
-                        faderWidth : window.width / 128 < 10 ? 15 : 20
-                        onMoved : {
-                        	dune.slideSpeed(_generalEffectSlider.value)
-                        	led.slideSpeed(_generalEffectSlider.value)
-
-                        }
-
-                     } // fader
+                        } // pad button
 
 
-                     ColorPage{
-                        Layout.leftMargin : 15
-                        id : _colorpicker
-                        Layout.fillHeight:true
-                        Layout.preferredWidth : window.width / 4.5 < 150 ? 150 : window.width / 4.5
-                        Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-                        onPickerColorChanged:all.setRGB(_colorpicker.red,_colorpicker.green,_colorpicker.blue)
+                        Utils.Fader
+                        {
+                      		texte : "Dimmer"
+                           // Layout.leftMargin : 1
+                            id:_generalSlider
+                            from : 0
+                            to: MaterialStyle.rawButton.minHeight/2
+                            value: MaterialStyle.rawButton.cornerRadius
+                            stepSize: 1
+                            orientation: Qt.Vertical
+                            faderWidth :  window.width / 128 < 10 ? 15 : 20
+                            onMoved :{ all.slideDimmer(_generalSlider.value)}
 
-                     }
+                         } // fader
 
+                         Utils.Fader
+                         {
+                         	texte : "Vitesse effet"
+                           // Layout.leftMargin : _flickableG.availableWidthFader < 250 ?  window.width*0.05 - 15 :15
+                            id:_generalEffectSlider
+                            from : 0
+                            to: MaterialStyle.rawButton.minHeight/2
+                            value: MaterialStyle.rawButton.cornerRadius
+                            stepSize: 1
+                            orientation: Qt.Vertical
+                            faderWidth : window.width / 128 < 10 ? 15 : 20
+                                onMoved :
+                                {
+                                	dune.slideSpeed(_generalEffectSlider.value)
+                                	led.slideSpeed(_generalEffectSlider.value)
 
+                                }//moved
+                            } // fader
+                         } // row
 
+                    ColorPage
+                    {
+                            anchors.top  : _flickableG.availableWidthFader < 450 ? _generalLayout.bottom : _generalLayout.top
+                            anchors.left : _flickableG.availableWidthFader < 450 ?  _generalLayout.left : _generalLayout.right
+                            anchors.topMargin : _flickableG.availableWidthFader < 450 ? 20 : 0
+                            id : _colorpicker
+                            contentHeight :  _generalLayout.height
+                            contentWidth : _flickableG.availableWidthFader < 450 ?  window.width -100  :  _flickableG.availableWidthFader - 250
+                            onPickerColorChanged:all.setRGB(_colorpicker.red,_colorpicker.green,_colorpicker.blue)
 
-        } // grid layout
+                    }
 
-         GridLayout{
-          id: _effectLayout
-            columns : (8 - _flickableE.availableWidth)
-            rows :1+ _flickableE.availableWidth
+                    GridLayout
+                    {
+                        anchors.top : _colorpicker.bottom
+                        id: _effectLayout
+                        columns : _flickableG.availableWidthButton < 50 ? columns-1 : _flickableG.availableWidthButton < (_flickableG.availableWidthButton + _chill.width)  ? _flickableG.availableWidthButton > 250 ? 5 : columns :  5
+                        rows :6
 
-           PadButton{
-                        id : _anniverssaire
-                        Layout.topMargin : 30
-                        padSize : window.availablePadSize
-                        label : "Pinte anniverssaire"
-                        onClicked : {
-                            _anniverssaire.enable ? _parLedPane.raimbowled = true : _parLedPane.raimbowled = false
-                            _anniverssaire.enable ? _dunePane.raimbowDune = true : _dunePane.raimbowDune = false
-                            _anniverssaire.enable ? _tradPane.chasetrad = true : _tradPane.chasetrad = false
-
-
-                        }
-                     } // pad button
-
-           PadButton{
-                        id : _chill
-                        Layout.topMargin : 30
-                        padSize : window.availablePadSize
-                        label : "chill"
-                        onClicked : {
-                        _chill.enable ? _parLedPane.degradeOled = true : _parLedPane.degradeOled = false
-                        _chill.enable ? _dunePane.degradeODune = true : _dunePane.degradeODune = false
-                        _chill.enable ? _tradPane.chaseDtrad = true : _tradPane.chaseDtrad = false
-                        }
-
-                    } // pad button
-            PadButton{
-                        id : _turn
-                        Layout.topMargin : 30
-                        padSize : window.availablePadSize
-                        label : "turn up"
-                         onClicked : {
-                        _turn.enable ? _parLedPane.raimbowled = true : _parLedPane.raimbowled = false
-                        _turn.enable ? _parLedPane.chase4led = true : _parLedPane.chase4led = false
-                            _turn.enable ? _dunePane.raimbowDune = true : _dunePane.raimbowDune = false
-                            _turn.enable ? _dunePane.chase4Dune = true : _dunePane.chase4Dune = false
-                            _turn.enable ? _tradPane.chasetrad = true : _tradPane.chasetrad = false
+                        PadButton
+                        {
+                            id : _anniverssaire
+                            Layout.topMargin : 30
+                            padSize : window.availablePadSize
+                            label : "Pinte anniverssaire"
+                            onClicked :
+                            {
+                                _anniverssaire.enable ? _parLedPane.raimbowled = true : _parLedPane.raimbowled = false
+                                _anniverssaire.enable ? _dunePane.raimbowDune = true : _dunePane.raimbowDune = false
+                                _anniverssaire.enable ? _tradPane.chasetrad = true : _tradPane.chasetrad = false
                             }
-                     } // pad button
-          PadButton{
-                        Layout.topMargin : 30
-                        padSize : window.availablePadSize
-                        label : "film"
-                     } // pad button
-                      PadButton{
-                        Layout.topMargin : 30
+                                } // pad button
 
-        }
-        }
-}
-}//flickable
-    } // pane
+                          PadButton{
+                                id : _chill
+                                Layout.topMargin : 30
+                                padSize : window.availablePadSize
+                                label : "chill"
+                                onClicked : {
+                                _chill.enable ? _parLedPane.degradeOled = true : _parLedPane.degradeOled = false
+                                _chill.enable ? _dunePane.degradeODune = true : _dunePane.degradeODune = false
+                                _chill.enable ? _tradPane.chaseDtrad = true : _tradPane.chaseDtrad = false
+                                }
+
+                            } // pad button
+                    PadButton{
+                                id : _turn
+                                Layout.topMargin : 30
+                                padSize : window.availablePadSize
+                                label : "turn up"
+                                 onClicked : {
+                                _turn.enable ? _parLedPane.raimbowled = true : _parLedPane.raimbowled = false
+                                _turn.enable ? _parLedPane.chase4led = true : _parLedPane.chase4led = false
+                                    _turn.enable ? _dunePane.raimbowDune = true : _dunePane.raimbowDune = false
+                                    _turn.enable ? _dunePane.chase4Dune = true : _dunePane.chase4Dune = false
+                                    _turn.enable ? _tradPane.chasetrad = true : _tradPane.chasetrad = false
+                                    }
+                             } // pad button
+                  PadButton{
+                                Layout.topMargin : 30
+                                padSize : window.availablePadSize
+                                label : "film"
+                             } // pad button
+                              PadButton{
+                                Layout.topMargin : 30
+
+                }
+            }
+        }//grid Layout
+    }//flickable
+} // pane
