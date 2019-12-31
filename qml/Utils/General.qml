@@ -24,27 +24,19 @@ Pane{
 
         Label
         {
-            text : _flickableG.availableWidthButton
+            text : "Général"
             Layout.alignment: Qt.AlignHCenter
             textType: MaterialStyle.TextType.Title
             id :_text
-        }
-         Label
-        {
-            anchors.top: _text.bottom
-            text : _effectLayout.columns
-            Layout.alignment: Qt.AlignHCenter
-            textType: MaterialStyle.TextType.Title
-
         }
 
         contentItem : Flickable
         {
             id: _flickableG
             clip: true
-            contentWidth: width
-            contentHeight: _content.implicitHeight + 2 * MaterialStyle.card.verticalPadding
-            interactive : contentHeight > height
+            contentWidth: window.width
+            contentHeight: _generalLayout.height + _colorpicker.height +_effectLayout.height +200
+            interactive : contentHeight > window.height
             ScrollIndicator.vertical: ScrollIndicator {}
 
             property int availableWidthFader :  Math.floor (-(_padButtonGeneral.width + _generalSlider.width +20 -window.width ))
