@@ -36,10 +36,5 @@ Loader{
   anchors.fill: parent
   anchors.centerIn :parent
 }
-
-
-
-
-
 }
 

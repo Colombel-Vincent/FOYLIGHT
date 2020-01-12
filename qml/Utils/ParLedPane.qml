@@ -75,10 +75,11 @@ Pane
         spacing: _flickableL.availableWidthFader < 450 ? _flickableL.availableWidthFader /4 : 20
         PadButton
         {
-            id : _generalLed
-            padIcon : Icons.Manager.power
-            padSize : window.availablePadSize
-         } // pad button
+          y:50
+          id : _generalLed
+          padIcon : Icons.Manager.power
+          padSize : window.availablePadSize
+        } // pad button
 
         Utils.Fader
         {

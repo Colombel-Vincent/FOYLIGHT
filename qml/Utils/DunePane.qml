@@ -11,152 +11,156 @@ import QQuickMaterialHelper.Fonts 1.12
 
 import FOYLIGHT.Icons 1.0 as Icons
 import FOYLIGHT.Utils 1.0 as Utils
- Pane{
+ Pane
+ {
   property bool raimbowDune : _raimbowDune.enable
   property bool degradeODune : _degradeODune.enable
   property bool degradeMDune : _degradeMDune.enable
   property bool chaseDune : _chaseDune.enable
   property bool chaseDDune : _chaseDDune.enable
   property bool chase4Dune : _Chase4Dune.enable
-        Item {
-        Timer {
-        interval: 10; running: true; repeat: true
-        onTriggered : {
-          _raimbowDune.enable ? dune.GroupeEffects(7,0,5,0) :0
-          _degradeODune.enable ?dune.GroupeEffects(5,0,5,0) :0
-          _degradeCDune.enable ?dune.GroupeEffects(6,0,5,0) :0
-          _degradeMDune.enable ?dune.GroupeEffects(4,0,5,0) :0
-          _chaseDune.enable ? dune.GroupeEffects(0,0,0,0) : 0
-          _chaseDDune.enable ?dune.GroupeEffects(1,0,0,0) :0
-          _Chase4Dune.enable ?dune.GroupeEffects(0,0,1,2) :0
+  Item
+  {
+    Timer
+    {
+      interval: 10; running: true; repeat: true
+      onTriggered :
+      {
+        _raimbowDune.enable ? dune.GroupeEffects(7,0,5,0) :0
+        _degradeODune.enable ?dune.GroupeEffects(5,0,5,0) :0
+        _degradeCDune.enable ?dune.GroupeEffects(6,0,5,0) :0
+        _degradeMDune.enable ?dune.GroupeEffects(4,0,5,0) :0
+        _chaseDune.enable ? dune.GroupeEffects(0,0,0,0) : 0
+        _chaseDDune.enable ?dune.GroupeEffects(1,0,0,0) :0
+        _Chase4Dune.enable ?dune.GroupeEffects(0,0,1,2) :0
+        raimbowDune ?_raimbowDune.enable = 1 : _raimbowDune.enable =0
+        degradeODune ?_degradeODune.enable = 1 :_degradeODune.enable= 0
+        degradeMDune ?_degradeMDune.enable = 1 :_degradeMDune.enable = 0
+        chaseDune ?_chaseDune.enable = 1 : _chaseDune.enable = 0
+        chase4Dune ?_Chase4Dune.enable = 1 :_Chase4Dune.enable = 0
+      } // on trigerred
+    }//timer
+  }//item
 
-          raimbowDune ?_raimbowDune.enable = 1 : _raimbowDune.enable =0
-          degradeODune ?_degradeODune.enable = 1 :_degradeODune.enable= 0
-          degradeMDune ?_degradeMDune.enable = 1 :_degradeMDune.enable = 0
-          chaseDune ?_chaseDune.enable = 1 : _chaseDune.enable = 0
-          chase4Dune ?_Chase4Dune.enable = 1 :_Chase4Dune.enable = 0
-        }
-           }
-         }
-        id : _dunePane
-        contentHeight : 550
-        contentWidth : 200
-        elevation : 10
-        radius : 4
-          Label{
-          text : "Dune"
-          textType: MaterialStyle.TextType.Title
-          }
+  id : _dunePane
+  contentHeight : window.height/2 -75
+  contentWidth : window.width -75
+  Label
+  {
+    text : "Dune"
+    textType: MaterialStyle.TextType.Title
+    Layout.alignment: Qt.AlignHCenter
+  }//label
 
-         contentItem : Flickable{
+  contentItem : Flickable
+  {
+    id: _flickableD
+    clip: true
+    contentWidth: window.width
+    contentHeight: _rowDune.height + _colorpicker3.height +_grid2.height +200
+    interactive : contentHeight > window.height
+    ScrollIndicator.vertical: ScrollIndicator {}
 
-            id: _flickableD
-            clip: true
-            contentWidth: 200
-            contentHeight: _rowLayout.implicitHeight + 2 * MaterialStyle.card.verticalPadding
-            interactive : contentHeight > height
-            ScrollIndicator.vertical: ScrollIndicator {}
+    property int availableWidthFader :  Math.floor (-(_genralDune.width + _duneSlider.width +20 -window.width ))
+    property int availableWidthButton : Math.floor(window.width - _chaseDune.width * _grid2.columns  )
+    Item
+    {
+      id : _content
+      Row
+      {
+        spacing: _flickableL.availableWidthFader < 450 ? _flickableL.availableWidthFader /4 : 20
+        id : _rowDune
 
-            property int availableWidth :  Math.floor((_genralDune.width + _duneSlider.width + _colorpicker2.width +20) /(_dunePane.width) )
-  Column{
+        PadButton
+        {
+          y: 50
+          id : _genralDune
+          padIcon : Icons.Manager.power
+          padSize : window.availablePadSize +10
+        } // pad button
 
-      spacing : 10
-      topPadding : 30
-         GridLayout{
+        Utils.Fader
+        {
+          texte : "dimmer"
+          id:_duneSlider
+          from : 0
+          to: 100
+          value: 50
+          stepSize: 1
+          orientation: Qt.Vertical
+          faderWidth :  window.width / 128 < 10 ? 10 : 15
+          onMoved : dune.slideDimmer(_duneSlider.value)
           Layout.alignment : Qt.AlignHCenter | Qt.AlignVCenter
+        } // fader
+      } // Row
 
-          id: _rowLayout
-            columns : ( 3 - _flickableD.availableWidth)
-            rows :1+ _flickableD.availableWidth
+      ColorPage
+      {
+        id : _colorpicker2
+        anchors.top  : _flickableD.availableWidthFader < 450 ? _rowDune.bottom : _rowDune.top
+        anchors.left : _flickableD.availableWidthFader < 450 ?  _rowDune.left : _rowDune.right
+        anchors.topMargin : _flickableD.availableWidthFader < 450 ? 20 : 0
+        contentHeight :  _rowDune.height
+        contentWidth : _flickableD.availableWidthFader < 450 ?  window.width -100  :  _flickableD.availableWidthFader - 250
+        onPickerColorChanged:dune.setRGB(_colorpicker2.red,_colorpicker2.green,_colorpicker2.blue)
+      } // clor page
 
-                PadButton{
-                        id : _genralDune
-                        Layout.topMargin : 35
-                        padIcon : Icons.Manager.power
-                        padSize : window.availablePadSize +10
-                        Layout.alignment : Qt.AlignHCenter | Qt.AlignVCenter
-                     } // pad button
-
-                  Utils.Fader{
-                        Layout.topMargin : 15
-                        Layout.leftMargin : 15
-                        id:_duneSlider
-                        from : 0
-                        to: 100
-                        value: 50
-                        stepSize: 1
-                        orientation: Qt.Vertical
-                        faderWidth :  window.width / 128 < 10 ? 10 : 15
-                        onMoved : dune.slideDimmer(_duneSlider.value)
-                        Layout.alignment : Qt.AlignHCenter | Qt.AlignVCenter
-
-                     } // fader
-                       ColorPage{
-                        Layout.leftMargin : 15
-                        id : _colorpicker2
-                        Layout.fillHeight:true
-                        Layout.preferredWidth : window.width / 6 < 150 ? 150 : window.width / 6
-                        Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-                        onPickerColorChanged:dune.setRGB(_colorpicker2.red,_colorpicker2.green,_colorpicker2.blue)
-                     }
-        }
-           GridLayout{
-
-                PadButton{
-                      id: _chaseDune
-                        Layout.topMargin : 250
-
-                        label : "Chase"
-                        padSize : window.availablePadSize
-
-
-                     } // pad button
-                      PadButton{
-                        id: _chaseDDune
-                        Layout.topMargin : 250
-
-                        label : "Chase doux"
-                        padSize : window.availablePadSize
-                     } // pad button
-                      PadButton{
-                        id: _Chase4Dune
-                        Layout.topMargin : 250
-
-                        label : "Chase 4"
-                        padSize : window.availablePadSize
-                     } // pad button
-
-                   PadButton{
-                      id: _raimbowDune
-
-                        label : "Raimbow"
-                        padSize : window.availablePadSize
-
-                     } // pad button
-                       PadButton{
-                        id: _degradeODune
-
-                        padSize : window.availablePadSize
-
-                        label : "Degrade Orange"
-                     } // pad button
-                       PadButton{
-                        id: _degradeCDune
-
-                        padSize : window.availablePadSize
-
-                        label : "Degrade Cyan"
-                     } // pad button
-                       PadButton{
-                        id: _degradeMDune
-
-                        label : "Degrade Magenta"
-                        padSize : window.availablePadSize
-                     } // pad button
-
-
-
-            }
-          }
-        } // pane
-        }
+      GridLayout
+      {
+        id : _grid2
+        anchors.top : _colorpicker2.bottom
+        columns : _flickableD.availableWidthButton < 50 ? columns-1 : _flickableD.availableWidthButton < (_flickableD.availableWidthButton + _chaseDune.width)  ? _flickableD.availableWidthButton > 250 ? 5 : columns :  5
+          rows :6
+        PadButton
+        {
+          id: _chaseDune
+          Layout.topMargin : 30
+          label : "Chase"
+          padSize : window.availablePadSize
+        } // pad button
+        PadButton
+        {
+          id: _chaseDDune
+          Layout.topMargin : 30
+          label : "Chase doux"
+          padSize : window.availablePadSize
+        } // pad button
+        PadButton
+        {
+          id: _Chase4Dune
+          Layout.topMargin : 30
+          label : "Chase 4"
+          padSize : window.availablePadSize
+        } // pad button
+        PadButton
+        {
+          id: _raimbowDune
+          Layout.topMargin : 30
+          label : "Raimbow"
+          padSize : window.availablePadSize
+        } // pad button
+        PadButton
+        {
+          id: _degradeODune
+          Layout.topMargin : 30
+          padSize : window.availablePadSize
+          label : "Degrade Orange"
+        } // pad button
+        PadButton
+        {
+          id: _degradeCDune
+          Layout.topMargin : 30
+          padSize : window.availablePadSize
+          label : "Degrade Cyan"
+        } // pad button
+        PadButton
+        {
+          id: _degradeMDune
+          Layout.topMargin : 30
+          label : "Degrade Magenta"
+          padSize : window.availablePadSize
+        } // pad button
+      }// grid layout
+    }//item
+  } //glickable
+}//pane
