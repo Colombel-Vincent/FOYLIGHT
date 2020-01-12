@@ -40,11 +40,26 @@ import FOYLIGHT.Utils 1.0 as Utils
          }
 
         id : _parLedPane
-        contentHeight : 550
+         contentHeight : window.height/2 -75
+        contentWidth : window.width -75
 
-        contentWidth : 200
-        elevation : 10
-        radius : 4
+        contentItem : Flickable
+        {
+            id: _flickableG
+            clip: true
+            contentWidth: window.width
+            contentHeight: _generalLayout.height + _colorpicker.height +_effectLayout.height +200
+            interactive : contentHeight > window.height
+            ScrollIndicator.vertical: ScrollIndicator {}
+
+            property int availableWidthFader :  Math.floor (-(_padButtonGeneral.width + _generalSlider.width +20 -window.width ))
+            property int availableWidthButton : Math.floor(window.width - _chill.width * _effectLayout.columns  )
+
+
+              Item{
+                  id : _content
+
+
         Label{
             text : "Par led"
             Layout.alignment: Qt.AlignHCenter
@@ -142,5 +157,5 @@ import FOYLIGHT.Utils 1.0 as Utils
 
             }
 
-
+}
         } // pane
