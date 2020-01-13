@@ -1,6 +1,7 @@
 #include "ParLed.hpp"
 #include <qdebug.h>
 #include <qstring.h>
+#include <time.h>
 
 
 FOYLIGHT_USING_NAMESPACE;
@@ -16,12 +17,14 @@ void ParLed::setRGB(qint16 red, qint16 green, qint16 blue) {
 
  void ParLed::sendData(uint8_t * data) {
 	 if (dimmer() < 15) {
-		 data[0] = red()+70;
-		 data[1] = green()+70;
-		 data[2] = blue()+70;
-		 data[3] = white()+70;
-		 data[4] = warmWhite()+70;
-		 data[5] = uv()+70;
+	 	srand(time());
+	 	int nombre_aleatoire = rand();
+		 data[0] = red()+nombre_aleatoire;
+		 data[1] = green()+nombre_aleatoire;
+		 data[2] = blue()+nombre_aleatoire;
+		 data[3] = white()+nombre_aleatoire;
+		 data[4] = warmWhite()+nombre_aleatoire;
+		 data[5] = uv()+nombre_aleatoire;
 		 data[9] = 0x00;
 	 }
 	 else {

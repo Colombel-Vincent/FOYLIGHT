@@ -91,7 +91,7 @@ int main(int argc, char *argv[])
 
 		Dune1->setUniverse(1);
 		Dune1->setName(QString(i));
-		Dune1->setDimmer(255);
+		Dune1->setDimmer(0);
 		Dune1->setRGB(255, 255, 255);
 		Dune1->setNumberChannel(4);
 		allD.insert(*Dune1);

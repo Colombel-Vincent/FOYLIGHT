@@ -57,7 +57,7 @@ import FOYLIGHT.Utils 1.0 as Utils
     id: _flickableD
     clip: true
     contentWidth: window.width
-    contentHeight: _rowDune.height + _colorpicker3.height +_grid2.height +200
+    contentHeight: _rowDune.height + _colorpicker2.height +_grid2.height +200
     interactive : contentHeight > window.height
     ScrollIndicator.vertical: ScrollIndicator {}
 
@@ -68,7 +68,7 @@ import FOYLIGHT.Utils 1.0 as Utils
       id : _content
       Row
       {
-        spacing: _flickableL.availableWidthFader < 450 ? _flickableL.availableWidthFader /4 : 20
+        spacing: _flickableD.availableWidthFader < 450 ? _flickableD.availableWidthFader /4 : 20
         id : _rowDune
 
         PadButton

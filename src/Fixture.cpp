@@ -94,22 +94,26 @@ Q_INVOKABLE void FixtureList::setRGB(qint16 red, qint16 green, qint16 blue)
 void FixtureList::SinusDim(FixtureList &fe) {
 	int i = 0;
 	for (auto it : *this) {
-		it->setDimmer(abs(sin(it->time())+(i*count()+1)*M_PI/(count()*2)) * 255);
+
+		it->setDimmer(sin(it->time() + (i*count() + 1)*M_PI / (count() * 2)) * 255);
 		it->setTime(it->time() + 0.05);
+		i++;
 	}
 }
 void FixtureList::SinusSmoothDim(FixtureList &fe)
 {
 	int i = 0;
 	for (auto it : *this) {
-		it->setDimmer(abs(sin(it->time()) + (i*count() + 1)*M_PI / (count() * 2)) * 255);
+		it->setDimmer(sin(it->time() + (i*count() + 1)*M_PI / (count() * 2)) * 255);
 		it->setTime(it->time() + 0.05);
+		i++;
+		//qDebug() << "Dimmer :" << it->dimmer()<< endl;
 	}
 }
 void FixtureList::ChaseSmoothDim(FixtureList & fe, FixtureList & f2)
 {
 	for (auto it : fe)
-		it->setDimmer(255);
+		it->setDimmer(200);
 
 	for (auto it : f2)
 		it->setDimmer(85);
@@ -124,7 +128,7 @@ void FixtureList::ChaseDim(FixtureList & fe, FixtureList & f2)
 }
 void FixtureList::sinusColor(int Speed)
 {
-	for (auto it : *this) 
+	for (auto it : *this)
 	{
 		qint16 red = sin(it->time() + M_PI / 2) * 255 < 0 ? 0 : sin(it->time() + M_PI / 2) * 255;
 		qint16 blue = sin(it->time() + 7 * M_PI / 6) * 255 < 0 ? 0 : sin(it->time() + 7 * M_PI / 6) * 255;
@@ -178,7 +182,7 @@ void FixtureList :: ListEffects(int a, int b, int c, int d, int g, int effects, 
 		switch (effects) {
 		case 0:
 			ChaseDim(f, f2);
-				break;
+			break;
 		case 1:
 			ChaseSmoothDim(f, f2);
 			break;
@@ -203,9 +207,7 @@ void FixtureList :: ListEffects(int a, int b, int c, int d, int g, int effects, 
 		default:
 			break;
 		}
-		/*for (auto it : f) {
-			it->setRGB(0, 255, 255);
-		}*/
+
 	}
 
 
@@ -255,18 +257,18 @@ void FixtureList::GroupeEffects( int effects, int Speed, int Gr, int EM)
 			b = a == 1 ? count() : t > 1 ? b - 1 : b;
 			ListEffects( a, b, a, a, 0, effects, Speed);
 			t = t >= 1 ? 0 : t + 0.01*(speed()*0.2);
-			
+
 		}
 		break;
 	case 2 :
 		ListEffects( a, a + 1, a + 2, a, 0, effects, Speed);
 		a = a < count() ? a + 3 : 1;
 		break;
-	case  3:
+	case 3:
 		ListEffects( a, a + 1, a + 2, a + 3, 0, effects, Speed);
 		a = a < count() ? a + 4 : 1;
 		break;
-	case 5:
+	case 5: // tous
 		ListEffects( a, a, a, a, 1, effects, Speed);
 
 		break;

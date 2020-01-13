@@ -31,9 +31,9 @@ Pane
         _raimbowled.enable ? led.GroupeEffects(7,0,5,0) : 0
         _degradeCled.enable ?led.GroupeEffects(5,0,5,0) :0
         _degradeMled.enable ?led.GroupeEffects(6,0,5,0) :0
-        _chaseled.enable ? led.GroupeEffects(0,0,0,0) : 0
+        _chaseled.enable ? led.GroupeEffects(3,0,1,0) : 0
         _chaseDled.enable ?led.GroupeEffects(1,0,0,0) :0
-        _Chase4led.enable ?led.GroupeEffects(0,0,1,2) :0
+        _chase4led.enable ?led.GroupeEffects(0,0,1,2) :0
         raimbowled ?_raimbowled.enable = 1 :_raimbowled.enable = 0
         degradeOled ? _degradeOled.enable = 1 :_degradeOled.enable =  0
         degradeMled ?_degradeMled.enable = 1 : _degradeMled.enable =0
@@ -128,7 +128,7 @@ Pane
          } // pad button
         PadButton
         {
-          id: _Chase4led
+          id: _chase4led
           Layout.topMargin : 30
           label : "Chase 4"
           padSize : window.availablePadSize

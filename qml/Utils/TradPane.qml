@@ -28,7 +28,7 @@ Pane
         _chase4trad.enable ?trad.GroupeEffects(0,0,1,2) : 0
         chasetrad ?_chasetrad.enable = 1 : _chasetrad.enable=0
         chaseDtrad ?_chaseDtrad.enable = 1 : _chaseDtrad.enable =0
-        chase4trad ? _chase4trad.enable = 1 :_chase4trad =0
+        //chase4trad ? _chase4trad.enable = 1 :_chase4trad =0
       }//on trigerred
     }//timer
   }//item
