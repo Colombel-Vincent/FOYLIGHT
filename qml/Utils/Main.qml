@@ -25,7 +25,6 @@ ApplicationWindow
     Timer {
         interval: 10; running: true; repeat: true
         onTriggered: client.SendSacn(all)
-
     }
   }
 

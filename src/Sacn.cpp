@@ -36,7 +36,7 @@ int Sacn::setPacketHeader(const uint16_t universe, const uint16_t num_channels) 
 	uint16_t prop_val_cnt = num_channels + 1;
 	uint16_t dmp_length = prop_val_cnt + 9 * sizeof(uint8_t);
 	uint16_t frame_length = 7 * sizeof(uint16_t) + dmp_length;
-	uint16_t root_length = 22 * sizeof (uint8_t) + frame_length;
+	uint16_t root_length = 22 * sizeof(uint8_t) + frame_length;
 
 	// set Root Layer values
 	//preamble_size
@@ -53,8 +53,8 @@ int Sacn::setPacketHeader(const uint16_t universe, const uint16_t num_channels) 
 
 	//root.flength
 
-	raw[16] = (0x70 | ((root_length) & 0xFF));
-	raw[17] = (root_length) >> 8;
+	raw[16] = 0x72;
+	raw[17] = 0x6e;
 	//E131_ROOT_VECTOR
 	for (int i = 0; i < 4; i++)
 		raw[i + 18] = _E131_ROOT_VECTOR[i];
@@ -64,8 +64,8 @@ int Sacn::setPacketHeader(const uint16_t universe, const uint16_t num_channels) 
 
 	// set Framing Layer values
 	//frame.flength
-	raw[38] = (0x70 | ((frame_length) & 0xFF));
-	raw[39] = (frame_length) >> 8;
+	raw[38] = 0x72;
+	raw[39] = 0x58;
 
 	//frame.vector
 	for (int i = 0; i < 4; i++)
@@ -89,7 +89,7 @@ int Sacn::setPacketHeader(const uint16_t universe, const uint16_t num_channels) 
 
 	// frame universe
 	raw[113] = 0x00;
-	raw[114] = 0x08;
+	raw[114] = 0x00;
 
 
 	// set Device Management Protocol (DMP) Layer values
@@ -128,12 +128,9 @@ Sacn::Sacn(QObject *parent) :
 	// to bind to an address and port using bind()
 	// bool QAbstractSocket::bind(const QHostAddress & address,
 	//     quint16 port = 0, BindMode mode = DefaultForPlatform)
-	#ifdef ANDROID
-	 socket->bind(QHostAddress("172.24.1.1"), E131_DEFAULT_PORT_srv);
 
-#else
-    socket->bind(QHostAddress("2.0.0.2"), E131_DEFAULT_PORT_srv);
-#endif
+	socket->bind(QHostAddress("2.0.0.2"), E131_DEFAULT_PORT_srv);
+
 
 
 
@@ -141,61 +138,59 @@ Sacn::Sacn(QObject *parent) :
 
 void Sacn::SendSacn(FixtureList *f)
 {
+	static uint8_t sequence = 0x00;
+	setPacketHeader(1, 512);
+	//parLedGroupeEffects(f, Sin, 0,parUn,lineaire);
+	//parLedGroupeEffects(f, Raimbow, 0, tous, lineaire);
+	int v[512] = { 0 };
 
-		setPacketHeader(1, 512);
-		//parLedGroupeEffects(f, Sin, 0,parUn,lineaire);
-		//parLedGroupeEffects(f, Raimbow, 0, tous, lineaire);
-		int v[512] = { 0 };
-
-		for (auto it : *f) {
-			uint8_t * fixture = (uint8_t*)malloc(sizeof(uint8_t)*it->numberChannel());
-			it->sendData(fixture);
-			for (int i = 125 + it->channel(); i < 125 + it->channel()+ it->numberChannel()+1 && i<638; i++) {
-				raw[i] = fixture[i - (125 + it->channel())];
-				v[i- 125] = 1;
-			}
-			free(fixture);
+	for (auto it : *f) {
+		uint8_t * fixture = (uint8_t*)malloc(sizeof(uint8_t)*it->numberChannel());
+		it->sendData(fixture);
+		for (int i = 125 + it->channel(); i < 125 + it->channel() + it->numberChannel() + 1 && i < 638; i++) {
+			raw[i] = fixture[i - (125 + it->channel())];
+			v[i - 125] = 1;
 		}
-		for (int i = 0; i < 512; i++)
-		{
-			if(v[i]==0)
-			raw[i+125] = 0x00;
-		}
-
-
-
-		/*for (int i = 0; i < 638; i++) {
-			Data.append(raw[i]);
-		}*/
-		int g = 1;
-
-
-		// Sends the datagram datagram
-		// to the host address and at port.
-		// qint64 QUdpSocket::writeDatagram(const QByteArray & datagram,
-		//                      const QHostAddress & host, quint16 port)
-		raw[114] = 1;
-		for (int i = 0; i < 638; i++) {
-			Data.append(raw[i]);
-		}
-		socket->writeDatagram(Data, QHostAddress("239.255.0.1"), E131_DEFAULT_PORT_srv);
-		raw[114]++;
-		g++;
-		Data.clear();
-		for (int i = 0; i < 638; i++) {
-			Data.append(raw[i]);
-		}
-		socket->writeDatagram(Data, QHostAddress("239.255.0.2"), E131_DEFAULT_PORT_srv);
-		raw[114]++;
-		g++;
-		Data.clear();
-
-
-		raw[114] = 1;
-
-
-
-
+		free(fixture);
 	}
+	for (int i = 0; i < 512; i++)
+	{
+		if (v[i] == 0)
+			raw[i + 125] = 0x00;
+	}
+	raw[637] = 0x00;
 
 
+	/*for (int i = 0; i < 638; i++) {
+		Data.append(raw[i]);
+	}*/
+	int g = 1;
+	raw[111] = sequence;
+
+	// Sends the datagram datagram
+	// to the host address and at port.
+	// qint64 QUdpSocket::writeDatagram(const QByteArray & datagram,
+	//                      const QHostAddress & host, quint16 port)
+	raw[114] = 1;
+	for (int i = 0; i < 638; i++) {
+		Data.append(raw[i]);
+	}
+	socket->writeDatagram(Data, QHostAddress("239.255.0.1"), E131_DEFAULT_PORT_srv);
+	raw[114]++;
+	g++;
+	Data.clear();
+	for (int i = 0; i < 638; i++) {
+		Data.append(raw[i]);
+	}
+	socket->writeDatagram(Data, QHostAddress("239.255.0.2"), E131_DEFAULT_PORT_srv);
+	raw[114]++;
+	g++;
+	Data.clear();
+
+	sequence++;
+	raw[114] = 1;
+
+
+
+
+}

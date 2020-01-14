@@ -43,9 +43,9 @@ int main(int argc, char *argv[])
 	QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 	QGuiApplication app(argc, argv);
 	QQmlApplicationEngine engine;
-	FL::FixtureList all ;
-	FL::FixtureList allP ;
-	FL::FixtureList allD ;
+	FL::FixtureList all;
+	FL::FixtureList allP;
+	FL::FixtureList allD;
 	FL::FixtureList allT;
 	FL::Sacn * Client = new FL::Sacn;
 	FL::ParLed * led1 = new FL::ParLed;
@@ -53,7 +53,7 @@ int main(int argc, char *argv[])
 	FL::ParLed * led3 = new FL::ParLed;
 
 	/*declaration opf 2 entity*/
-	led1->setChannel (231);
+	led1->setChannel(231);
 	led1->setUniverse(1);
 	led1->setName("test");
 	led1->setDimmer(255);
@@ -71,38 +71,38 @@ int main(int argc, char *argv[])
 	led3->setDimmer(255);
 	led3->setRGB(255, 255, 255);
 	led3->setNumberChannel(10);
-
-	for (int i = 0; i < 8; i++) {
-		FL::Trad * Dune1 = new FL::Trad;
-		Dune1->setChannel(i);
+/*
+	for (int i = 1; i < 8; i++) {
+		FL::Trad * trad = new FL::Trad;
+		trad->setChannel(i);
 		Dune1->setUniverse(1);
 		Dune1->setName(QString(i));
 		Dune1->setDimmer(255);
 		Dune1->setNumberChannel(1);
 		allT.insert(*Dune1);
 	}
-
+	*/
 
 
 	for (int i = 0; i < 14; i++) {
 		FL::Dune * Dune1 = new FL::Dune;
-		
+
 		Dune1->setChannel(446 + i * 4);
 
 		Dune1->setUniverse(1);
 		Dune1->setName(QString(i));
-		Dune1->setDimmer(0);
-		Dune1->setRGB(255, 255, 255);
+		Dune1->setDimmer(100);
+		Dune1->setRGB(255, 255, 45);
 		Dune1->setNumberChannel(4);
 		allD.insert(*Dune1);
 	}
-	
+
 
 	allP.insert(*led1);
 	allP.insert(*led2);
 	allP.insert(*led3);
 
-	for (auto  it : allP) {
+	for (auto it : allP) {
 		all.insert(*it);
 	}
 	for (auto it : allD) {
@@ -111,7 +111,10 @@ int main(int argc, char *argv[])
 	for (auto it : allT) {
 		all.insert(*it);
 	}
-	//Client->SendSacn(all);
+
+	
+		//Client->SendSacn(&all);
+		
 
 	//Client.HelloUDP();
 
